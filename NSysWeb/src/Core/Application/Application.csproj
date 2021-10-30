@@ -4,4 +4,24 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.4" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Features\EstadoCivil\Commands\UpdateEstadoCivilCommand\" />
+    <Folder Include="Features\EstadoCivil\Commands\DeleteEstadoCivilCommand\" />
+    <Folder Include="Features\EstadoCivil\Queries\GetAll_EstadoCivil\" />
+    <Folder Include="Features\EstadoCivil\Queries\GetById_EstadoCivil\" />
+    <Folder Include="Features\EstadoCivil\Queries\GetByCodigo_EstadoCivil\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Mappings\" />
+  </ItemGroup>
+
 </Project>
