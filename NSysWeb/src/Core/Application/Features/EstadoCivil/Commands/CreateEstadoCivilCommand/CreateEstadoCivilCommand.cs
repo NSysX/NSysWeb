@@ -23,5 +23,4 @@ namespace Application.Features.EstadoCivil.Commands.CreateEstadoCivilCommand
             throw new System.NotImplementedException();
         }
     }
-: 
 }

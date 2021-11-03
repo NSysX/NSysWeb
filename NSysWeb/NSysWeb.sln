@@ -13,13 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Core\Application\Application.csproj", "{C4A6D5BE-475C-44B5-8D39-775DDF7A574F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Core\Domain\Domain.csproj", "{F41A0C8B-47BB-403A-BBD6-ECE947D4E022}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Core\Domain\Domain.csproj", "{F41A0C8B-47BB-403A-BBD6-ECE947D4E022}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "src\Infraestructure\Persistence\Persistence.csproj", "{A07CB7A7-2C81-4FE4-9E17-9D85EBA9BEE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "src\Infraestructure\Persistence\Persistence.csproj", "{A07CB7A7-2C81-4FE4-9E17-9D85EBA9BEE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Infraestructure\Shared\Shared.csproj", "{9C8C7CB9-9608-485F-8268-369EA6408D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "src\Infraestructure\Shared\Shared.csproj", "{9C8C7CB9-9608-485F-8268-369EA6408D03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "src\Presentation\WebAPI\WebAPI.csproj", "{4334B967-381F-46B6-92B7-04F56A3C5617}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\Presentation\WebAPI\WebAPI.csproj", "{4334B967-381F-46B6-92B7-04F56A3C5617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParaElContexto", "ParaElContexto\ParaElContexto.csproj", "{B6E574E1-E87C-4D52-9B8C-43DE992B6986}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{4334B967-381F-46B6-92B7-04F56A3C5617}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4334B967-381F-46B6-92B7-04F56A3C5617}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4334B967-381F-46B6-92B7-04F56A3C5617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E574E1-E87C-4D52-9B8C-43DE992B6986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E574E1-E87C-4D52-9B8C-43DE992B6986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E574E1-E87C-4D52-9B8C-43DE992B6986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E574E1-E87C-4D52-9B8C-43DE992B6986}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

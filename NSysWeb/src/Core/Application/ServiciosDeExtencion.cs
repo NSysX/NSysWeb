@@ -9,7 +9,7 @@ namespace Application
     {
         // Agrupar las matriculas de los servicios
 
-        public static void AgregaCapaDeAplicacion(this IServiceCollection serviciosColeccion)
+        public static void AgregaCoreDeAplicacion(this IServiceCollection serviciosColeccion)
         {
            // voy a matricular 3 servicios
            /* esto es lo que se hace en el startup.cs de la aplicacion 

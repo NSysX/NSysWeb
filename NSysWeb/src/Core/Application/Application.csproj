@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.Specification" Version="5.2.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="FluentValidation" Version="10.3.4" />
@@ -20,7 +21,6 @@
     <Folder Include="Features\EstadoCivil\Queries\GetById_EstadoCivil\" />
     <Folder Include="Features\EstadoCivil\Queries\GetByCodigo_EstadoCivil\" />
     <Folder Include="Filters\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

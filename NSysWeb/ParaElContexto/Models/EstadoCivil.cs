@@ -1,17 +1,11 @@
-﻿using Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities
-{
-    //public class EstadoCivil : EntidadBaseAuditable
-    //{
-    //    //public override int Id { get => base.Id; set => base.Id = value; }
-    //    public int Codigo { get; set; }
-    //    public string Descripcion { get; set; }
-    //}
+#nullable disable
 
-    public partial class EstadoCivil : EntidadBaseAuditable
+namespace ParaElContexto.Models
+{
+    public partial class EstadoCivil
     {
         public EstadoCivil()
         {
@@ -25,6 +19,7 @@ namespace Domain.Entities
         public string UsuarioMod { get; set; }
         public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
+        public int Codigo { get; set; }
         public string Descripcion { get; set; }
 
         public virtual ICollection<Persona> Personas { get; set; }
