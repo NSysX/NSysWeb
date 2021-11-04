@@ -17,8 +17,13 @@ namespace Persistence
         public static void AgregaInfraestructuraDePersistencia(this IServiceCollection services, IConfiguration configuration)
         {
             // i se configura la migracion
-            services.AddDbContext<NSysWebDbContexto>(options => options.UseSqlServer(
-                configuration.GetConnectionString("NSysWeb"), b => b.MigrationsAssembly(typeof(NSysWebDbContexto).Assembly.FullName)));
+            services.AddDbContext<NSysWebDbContexto>(options => options.UseSqlServer(configuration.GetConnectionString("NSysWeb")
+           , r => { 
+                    r.MigrationsAssembly(typeof(NSysWebDbContexto).Assembly.FullName);
+                    r.UseNetTopologySuite();
+                  }));
+            
+              //  ,b => b.;
 
             // matriculamos 
             #region Repositories

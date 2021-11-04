@@ -19,11 +19,6 @@ namespace Domain.Entities
         }
 
         public int IdEstadoCivil { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public DateTime FechaMod { get; set; }
-        public string UsuarioMod { get; set; }
-        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
         public string Descripcion { get; set; }
 
