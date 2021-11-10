@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.Common;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public partial class Persona
+    public partial class Persona : EntidadBaseAuditable
     {
         public Persona()
         {
@@ -11,16 +12,11 @@ namespace Domain.Entities
         }
 
         public int IdPersona { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public DateTime FechaMod { get; set; }
-        public string UsuarioMod { get; set; }
-        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
-        public string ApellidoPaterno { get; set; }
-        public string ApellidoMaterno { get; set; }
+        public string Apellido_Paterno { get; set; }
+        public string Apellido_Materno { get; set; }
         public string Nombres { get; set; }
-        public DateTime FechaNacimiento { get; set; }
+        public DateTime Fecha_Nacimiento { get; set; }
         public string Sexo { get; set; }
         public string Foto { get; set; }
         public int IdNacionalidad { get; set; }

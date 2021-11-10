@@ -18,20 +18,20 @@ namespace Persistence.Configuration
 
             builder.HasIndex(e => e.IdNacionalidad, "IXFK_Persona_Nacionalidad");
 
-            builder.HasIndex(e => new { e.ApellidoPaterno, e.ApellidoMaterno, e.Nombres }, "IX_NoDuplicado")
+            builder.HasIndex(e => new { e.Apellido_Paterno, e.Apellido_Materno, e.Nombres }, "IX_NoDuplicado")
                 .IsUnique();
 
             builder.Property(e => e.IdPersona)
                 .HasColumnName("idPersona")
                 .HasComment("id consecutivo de la tabla personas");
 
-            builder.Property(e => e.ApellidoMaterno)
+            builder.Property(e => e.Apellido_Materno)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Apellido materno de la persona");
 
-            builder.Property(e => e.ApellidoPaterno)
+            builder.Property(e => e.Apellido_Paterno)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -43,7 +43,7 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Clave Unica de Resgitro de Poblacion contiene 18 caracteres");
 
-            builder.Property(e => e.EsHabilitado)
+            builder.Property(e => e.Es_Habilitado)
                 .HasColumnName("Es_Habilitado")
                 .HasComment("Si el registro esta habilitado ");
 
@@ -54,17 +54,17 @@ namespace Persistence.Configuration
                 .IsFixedLength(true)
                 .HasComment("Estatus de la Persona ");
 
-            builder.Property(e => e.FechaCreacion)
+            builder.Property(e => e.Fecha_Creacion)
                 .HasColumnType("datetime")
                 .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de la Creacion del registro");
 
-            builder.Property(e => e.FechaMod)
+            builder.Property(e => e.Fecha_Modificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Mod")
+                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la ultima modificacion ");
 
-            builder.Property(e => e.FechaNacimiento)
+            builder.Property(e => e.Fecha_Nacimiento)
                 .HasColumnType("date")
                 .HasComment("Fecha de nacimiento de la persona");
 
@@ -101,18 +101,18 @@ namespace Persistence.Configuration
                 .IsFixedLength(true)
                 .HasComment("M = Masculino , F = Femenino");
 
-            builder.Property(e => e.UsuarioCreacion)
+            builder.Property(e => e.Usuario_Creacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el registro");
 
-            builder.Property(e => e.UsuarioMod)
+            builder.Property(e => e.Usuario_Modificacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Mod")
+                .HasColumnName("Usuario_Modificacion")
                 .HasComment("Ultimo usuario que modifico ");
 
             builder.HasOne(d => d.IdEstadoCivilNavigation)

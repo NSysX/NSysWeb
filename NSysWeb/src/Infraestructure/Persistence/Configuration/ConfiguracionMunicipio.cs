@@ -30,18 +30,18 @@ namespace Persistence.Configuration
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            builder.Property(e => e.EsHabilitado)
+            builder.Property(e => e.Es_Habilitado)
                 .HasColumnName("Es_Habilitado")
                 .HasComment("Si el registro esta disponible");
 
-            builder.Property(e => e.FechaCreacion)
+            builder.Property(e => e.Fecha_Creacion)
                 .HasColumnType("datetime")
                 .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de Creacion del registro");
 
-            builder.Property(e => e.FechaMod)
+            builder.Property(e => e.Fecha_Modificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Mod")
+                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la utlima modificacion");
 
             builder.Property(e => e.IdEstado)
@@ -54,18 +54,18 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Nombre del Municipio");
 
-            builder.Property(e => e.UsuarioCreacion)
+            builder.Property(e => e.Usuario_Creacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el Registro");
 
-            builder.Property(e => e.UsuarioMod)
+            builder.Property(e => e.Usuario_Modificacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Mod")
+                .HasColumnName("Usuario_Modificacion")
                 .HasComment("Ultimo usuario que modifico el registro");
 
             builder.HasOne(d => d.IdEstadoNavigation)

@@ -9,6 +9,6 @@ namespace Shared.Services
 {
     public class FechaHoraServicio : IFechaHoraServicio
     {
-        public DateTime NowUtc => DateTime.UtcNow;
+        public DateTime Now => DateTime.Now;
     }
 }

@@ -21,25 +21,39 @@ namespace Persistence.Configuration
             builder.HasIndex(e => new { e.IdMunicipio, e.IdTipoAsentamiento, e.Nombre }, "IX_NoDuplicado")
                 .IsUnique();
 
-            builder.Property(e => e.IdAsentamiento)
-                .HasColumnName("idAsentamiento")
-                .HasComment("Consecutivo de Asentamiento");
-
-            builder.Property(e => e.CodigoPostal).HasComment("Codigo Postal");
-
-            builder.Property(e => e.EsHabilitado)
-                .HasColumnName("Es_Habilitado")
-                .HasComment("Si el registro esta habilitado ");
-
-            builder.Property(e => e.FechaCreacion)
+            builder.Property(e => e.Fecha_Creacion)
                 .HasColumnType("datetime")
                 .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de Creacion del Registro");
 
-            builder.Property(e => e.FechaMod)
+            builder.Property(e => e.Fecha_Modificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Mod")
+                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la Ultima Modificacion");
+
+            builder.Property(e => e.Usuario_Creacion)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Usuario_Creacion")
+                .HasComment("Usuario de Creacion del registro");
+
+            builder.Property(e => e.Usuario_Modificacion)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Usuario_Modificacion")
+                .HasComment("Ultimo usuario que modifico el registro");
+            
+            builder.Property(e => e.Es_Habilitado)
+              .HasColumnName("Es_Habilitado")
+              .HasComment("Si el registro esta habilitado ");
+
+            builder.Property(e => e.IdAsentamiento)
+                .HasColumnName("idAsentamiento")
+                .HasComment("Consecutivo de Asentamiento");
+
+            builder.Property(e => e.Codigo_Postal).HasComment("Codigo Postal");
 
             builder.Property(e => e.IdMunicipio)
                 .HasColumnName("idMunicipio")
@@ -54,20 +68,6 @@ namespace Persistence.Configuration
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasComment("Nombre del asentamiento");
-
-            builder.Property(e => e.UsuarioCreacion)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("Usuario_Creacion")
-                .HasComment("Usuario de Creacion del registro");
-
-            builder.Property(e => e.UsuarioMod)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("Usuario_Mod")
-                .HasComment("Ultimo usuario que modifico el registro");
 
             builder.HasOne(d => d.IdMunicipioNavigation)
                 .WithMany(p => p.Asentamientos)

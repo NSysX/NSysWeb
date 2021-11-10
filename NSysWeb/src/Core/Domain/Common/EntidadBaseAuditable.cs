@@ -8,10 +8,9 @@ namespace Domain.Common
 {
     public abstract class EntidadBaseAuditable
     {
-        public virtual int Id { get; set; }
-        public DateTime Fecha_Creacion { get; set; }
+        public DateTime? Fecha_Creacion { get; set; }
         public string Usuario_Creacion { get; set; }
-        public DateTime Fecha_Modificacion { get; set; }
+        public DateTime? Fecha_Modificacion { get; set; }
         public string Usuario_Modificacion { get; set; }
         public bool Es_Habilitado { get; set; }
     }

@@ -1,37 +1,36 @@
 ﻿using FluentValidation;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Behaviours
 {
     /*
-     * esta clase recibe 2 tipos unos de peticion y otro de respuesta
-     * y se le implementa un interfaz de mediatr donde Tpeticion es una implementacion de IRequest 
+     * esta clase recibe 2 tipos unos de request y otro de respuesta
+     * y se le implementa un interfaz de mediatr donde TRequest es una implementacion de IRequest 
      */
-    public class ValidacionComportamiento<TPeticion, TRespuesta> : IPipelineBehavior<TPeticion, TRespuesta> where TPeticion : IRequest<TPeticion> /* alomejor debe ser TResponse */
+    // PIPELINE
+    public class ValidacionComportamiento<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TRequest> /* alomejor debe ser TResponse */
     {
         // validamos antes de que llegue al manejador principal
-        private readonly IEnumerable<IValidator<TPeticion>> _validador;
+        private readonly IEnumerable<IValidator<TRequest>> _validador;
 
-        public ValidacionComportamiento(IEnumerable<IValidator<TPeticion>> validador)
+        public ValidacionComportamiento(IEnumerable<IValidator<TRequest>> validador)
         {
             _validador = validador;
         }
 
         //es propia del system threading
         // la implementaciond e la interfaz de IPipelinebehaviour
-        public async Task<TRespuesta> Handle(TPeticion peticion, CancellationToken cancellationToken, RequestHandlerDelegate<TRespuesta> next)
+        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             // si hay un validador implementado a traves del la tuberia, algun comando que son los que tienen reglas de  negocio
             if(_validador.Any())
             {
-                // se crea un objeto para que agarre el TPeticion o la peticion , que esta entrando
-                var contexto = new FluentValidation.ValidationContext<TPeticion>(peticion);
+                // se crea un objeto para que agarre el TRequest o la request , que esta entrando
+                var contexto = new ValidationContext<TRequest>(request);
                 var validacionResultado = await Task.WhenAll(_validador.Select(v => v.ValidateAsync(contexto, cancellationToken)));
                 // recolectar los errores puede que no cumpla con las reglas de negocio
                 var fallos = validacionResultado.SelectMany(r => r.Errors).Where(f => f != null).ToList();
@@ -44,7 +43,7 @@ namespace Application.Behaviours
                 }
             }
 
-            // sigua la peticion
+            // sigua la request
             return await next();
         }
     }

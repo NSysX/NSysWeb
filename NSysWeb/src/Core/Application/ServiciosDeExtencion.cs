@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Behaviours;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -28,6 +29,11 @@ namespace Application
 
             // matriulamos el servicio MediaTr implementa el patron mediador
             serviciosColeccion.AddMediatR(Assembly.GetExecutingAssembly());
+
+            // No funcionaba el validator por que faltaba agregarlo a la tuberia 
+            // Registrar el behaivor la parte donde valida y controla los datos de los campos
+            // ahora si me debe tomar en cuenta las reglas de validacion
+            serviciosColeccion.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             // Para poder registrarlos en startup.cs se hace una referencia de WebAPI --> Application
         }

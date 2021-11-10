@@ -10,6 +10,6 @@ namespace Application.Interfaces
     // entre las entidades
     public interface IFechaHoraServicio
     {
-        DateTime NowUtc { get; }
+        DateTime Now { get; }
     }
 }

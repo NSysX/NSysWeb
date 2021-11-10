@@ -11,8 +11,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(NSysWebDbContexto))]
-    [Migration("20211103225801_MiPrimerMigracion")]
-    partial class MiPrimerMigracion
+    [Migration("20211104035005_CreacionDB")]
+    partial class CreacionDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,26 +31,23 @@ namespace Persistence.Migrations
                         .HasComment("Consecutivo de Asentamiento")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Codigo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CodigoPostal")
+                    b.Property<int>("Codigo_Postal")
                         .HasColumnType("int")
                         .HasComment("Codigo Postal");
 
-                    b.Property<bool>("EsHabilitado")
+                    b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
                         .HasColumnName("Es_Habilitado")
                         .HasComment("Si el registro esta habilitado ");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha de Creacion del Registro");
 
-                    b.Property<DateTime>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasColumnType("datetime")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("Fecha de la Ultima Modificacion");
 
                     b.Property<int>("IdMunicipio")
@@ -70,7 +67,7 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(100)")
                         .HasComment("Nombre del asentamiento");
 
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -78,12 +75,12 @@ namespace Persistence.Migrations
                         .HasColumnName("Usuario_Creacion")
                         .HasComment("Usuario de Creacion del registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
+                        .HasColumnName("Usuario_Modificacion")
                         .HasComment("Ultimo usuario que modifico el registro");
 
                     b.HasKey("IdAsentamiento");
@@ -115,16 +112,16 @@ namespace Persistence.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(150)");
 
-                    b.Property<Geometry>("CoordenadasGeo")
+                    b.Property<Geometry>("Coordenadas_Geo")
                         .IsRequired()
                         .HasColumnType("geography")
                         .HasComment("Coordenadas geograficas ");
 
-                    b.Property<bool>("EsFiscal")
+                    b.Property<bool>("Es_Fiscal")
                         .HasColumnType("bit")
                         .HasComment("Si la direccion es fiscal para la emision de facturas");
 
-                    b.Property<bool>("EsHabilitado")
+                    b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
                         .HasColumnName("Es_Habilitado")
                         .HasComment("Si esta disponible el registro");
@@ -137,14 +134,14 @@ namespace Persistence.Migrations
                         .IsFixedLength(true)
                         .HasComment("Estatus de la direccion");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha de creacion del registro");
 
-                    b.Property<DateTime>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasColumnType("datetime")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("Fecha de la Ultima Modificacion");
 
                     b.Property<string>("Foto")
@@ -159,13 +156,13 @@ namespace Persistence.Migrations
                         .HasColumnName("idAsentamiento")
                         .HasComment("el id de la tabla Asentamiento");
 
-                    b.Property<string>("NumeroExterior")
+                    b.Property<string>("Numero_Exterior")
                         .IsRequired()
                         .HasMaxLength(10)
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)");
 
-                    b.Property<string>("NumeroInterior")
+                    b.Property<string>("Numero_Interior")
                         .IsRequired()
                         .HasMaxLength(10)
                         .IsUnicode(false)
@@ -178,7 +175,7 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(250)")
                         .HasComment("Referencias para identificar la direccion");
 
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -186,19 +183,19 @@ namespace Persistence.Migrations
                         .HasColumnName("Usuario_Creacion")
                         .HasComment("Usuario que creo el registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
+                        .HasColumnName("Usuario_Modificacion")
                         .HasComment("Usuario que hizo la ultima modificacion");
 
                     b.HasKey("IdDireccion");
 
                     b.HasIndex(new[] { "IdAsentamiento" }, "IXFK_Direccion_Asentamiento");
 
-                    b.HasIndex(new[] { "Calle", "NumeroExterior", "NumeroInterior", "IdAsentamiento" }, "IX_NoDuplicados")
+                    b.HasIndex(new[] { "Calle", "Numero_Exterior", "Numero_Interior", "IdAsentamiento" }, "IX_NoDuplicados")
                         .IsUnique();
 
                     b.ToTable("Direccion");
@@ -223,19 +220,19 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(3)")
                         .HasComment("Abreviatura de nombre del estado de la republica");
 
-                    b.Property<bool>("EsHabilitado")
+                    b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
                         .HasColumnName("Es_Habilitado")
                         .HasComment("si esta disponible el registro");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha de creacion del registro");
 
-                    b.Property<DateTime>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasColumnType("datetime")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("Fecha de la ultima modificacion");
 
                     b.Property<string>("Nombre")
@@ -245,7 +242,7 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(20)")
                         .HasComment("Nombre del estado del pais");
 
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -253,12 +250,12 @@ namespace Persistence.Migrations
                         .HasColumnName("Usuario_Creacion")
                         .HasComment("Usuario que creo el registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
+                        .HasColumnName("Usuario_Modificacion")
                         .HasComment("Usuario de la ultima modificacion");
 
                     b.HasKey("IdEstado");
@@ -290,14 +287,10 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(50)")
                         .HasComment("Descripcion del estado civil");
 
-                    b.Property<bool>("EsHabilitado")
-                        .HasColumnType("bit")
-                        .HasColumnName("Es_Habilitado")
-                        .HasComment("Si el registro esta habilitado");
-
                     b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
-                        .HasColumnName("Es_Habilitado1");
+                        .HasColumnName("Es_Habilitado")
+                        .HasComment("si esta disponible el registro");
 
                     b.Property<string>("Estatus")
                         .IsRequired()
@@ -307,48 +300,31 @@ namespace Persistence.Migrations
                         .IsFixedLength(true)
                         .HasComment("Estatus del estado civil");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha de creacion del registro");
 
-                    b.Property<DateTime>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasColumnType("datetime")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("Fecha de la ultima modificacion");
 
-                    b.Property<DateTime>("Fecha_Creacion")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Fecha_Creacion1");
-
-                    b.Property<DateTime>("Fecha_Modificacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Usuario_Creacion")
-                        .HasComment("El usuario que creo el registro");
+                        .HasComment("Usuario que creo el registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
-                        .HasComment("Ultimo usuario que modifico el registro");
-
-                    b.Property<string>("Usuario_Creacion")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Usuario_Creacion1");
-
-                    b.Property<string>("Usuario_Modificacion")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("Usuario_Modificacion")
+                        .HasComment("Usuario de la ultima modificacion");
 
                     b.HasKey("IdEstadoCivil");
 
@@ -376,22 +352,19 @@ namespace Persistence.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)");
 
-                    b.Property<int>("Codigo")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("EsHabilitado")
+                    b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
                         .HasColumnName("Es_Habilitado")
                         .HasComment("Si el registro esta disponible");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha de Creacion del registro");
 
-                    b.Property<DateTime>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasColumnType("datetime")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("Fecha de la utlima modificacion");
 
                     b.Property<int>("IdEstado")
@@ -406,7 +379,7 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(50)")
                         .HasComment("Nombre del Municipio");
 
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -414,12 +387,12 @@ namespace Persistence.Migrations
                         .HasColumnName("Usuario_Creacion")
                         .HasComment("Usuario que creo el Registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
+                        .HasColumnName("Usuario_Modificacion")
                         .HasComment("Ultimo usuario que modifico el registro");
 
                     b.HasKey("IdMunicipio");
@@ -447,10 +420,7 @@ namespace Persistence.Migrations
                         .HasComment("Id unico para el registro")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Codigo")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("EsHabilitado")
+                    b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
                         .HasColumnName("Es_Habilitado")
                         .HasComment("si esta disponible el registro ");
@@ -463,25 +433,25 @@ namespace Persistence.Migrations
                         .IsFixedLength(true)
                         .HasComment("El Estatus del Registro");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha en que se creo el registro");
 
-                    b.Property<DateTime>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasColumnType("datetime")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("fecha de la ultima modificacion");
 
-                    b.Property<string>("Nacionalidad1")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Nacionalidad")
-                        .HasComment("concepto de nacionalidad de la persona");
+                        .HasColumnName("Nombre")
+                        .HasComment("Nombre de nacionalidad de la persona");
 
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -489,12 +459,12 @@ namespace Persistence.Migrations
                         .HasColumnName("Usuario_Creacion")
                         .HasComment("Usuario que creo el registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
+                        .HasColumnName("Usuario_Modificacion")
                         .HasComment("El ultimo Usuario que modifico el registro");
 
                     b.HasKey("IdNacionalidad");
@@ -514,14 +484,14 @@ namespace Persistence.Migrations
                         .HasComment("id consecutivo de la tabla personas")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApellidoMaterno")
+                    b.Property<string>("Apellido_Materno")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
                         .HasComment("Apellido materno de la persona");
 
-                    b.Property<string>("ApellidoPaterno")
+                    b.Property<string>("Apellido_Paterno")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -535,7 +505,7 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(18)")
                         .HasComment("Clave Unica de Resgitro de Poblacion contiene 18 caracteres");
 
-                    b.Property<bool>("EsHabilitado")
+                    b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
                         .HasColumnName("Es_Habilitado")
                         .HasComment("Si el registro esta habilitado ");
@@ -548,17 +518,17 @@ namespace Persistence.Migrations
                         .IsFixedLength(true)
                         .HasComment("Estatus de la Persona ");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha de la Creacion del registro");
 
-                    b.Property<DateTime>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasColumnType("datetime")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("Fecha de la ultima modificacion ");
 
-                    b.Property<DateTime>("FechaNacimiento")
+                    b.Property<DateTime>("Fecha_Nacimiento")
                         .HasColumnType("date")
                         .HasComment("Fecha de nacimiento de la persona");
 
@@ -601,7 +571,7 @@ namespace Persistence.Migrations
                         .IsFixedLength(true)
                         .HasComment("M = Masculino , F = Femenino");
 
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -609,12 +579,12 @@ namespace Persistence.Migrations
                         .HasColumnName("Usuario_Creacion")
                         .HasComment("Usuario que creo el registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
+                        .HasColumnName("Usuario_Modificacion")
                         .HasComment("Ultimo usuario que modifico ");
 
                     b.HasKey("IdPersona");
@@ -623,7 +593,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "IdNacionalidad" }, "IXFK_Persona_Nacionalidad");
 
-                    b.HasIndex(new[] { "ApellidoPaterno", "ApellidoMaterno", "Nombres" }, "IX_NoDuplicado")
+                    b.HasIndex(new[] { "Apellido_Paterno", "Apellido_Materno", "Nombres" }, "IX_NoDuplicado")
                         .IsUnique()
                         .HasDatabaseName("IX_NoDuplicado2");
 
@@ -680,24 +650,21 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(50)")
                         .HasComment("Abreviatura de la descripcion de tipo de asentamiento");
 
-                    b.Property<int>("Codigo")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("EsHabilitado")
+                    b.Property<bool>("Es_Habilitado")
                         .HasColumnType("bit")
                         .HasColumnName("Es_Habilitado")
                         .HasComment("Si esta disponible el registro ");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("datetime")
                         .HasColumnName("Fecha_Creacion")
                         .HasComment("Fecha de Creacion del registro");
 
-                    b.Property<string>("FechaMod")
+                    b.Property<DateTime>("Fecha_Modificacion")
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("Fecha_Mod")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Fecha_Modificacion")
                         .HasComment("Ultima Fecha de Modificacion");
 
                     b.Property<string>("Nombre")
@@ -707,7 +674,7 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(50)")
                         .HasComment("Nombre del tipo de Asentamiento ");
 
-                    b.Property<string>("UsuarioCreacion")
+                    b.Property<string>("Usuario_Creacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
@@ -715,12 +682,12 @@ namespace Persistence.Migrations
                         .HasColumnName("Usuario_Creacion")
                         .HasComment("Usuario que creo el registro");
 
-                    b.Property<string>("UsuarioMod")
+                    b.Property<string>("Usuario_Modificacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("Usuario_Mod")
+                        .HasColumnName("Usuario_Modificacion")
                         .HasComment("Ultimo usuario que modifico el registro");
 
                     b.HasKey("IdTipoAsentamiento");

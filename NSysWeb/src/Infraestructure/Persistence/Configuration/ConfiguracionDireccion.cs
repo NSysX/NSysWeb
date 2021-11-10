@@ -16,7 +16,7 @@ namespace Persistence.Configuration
 
             builder.HasIndex(e => e.IdAsentamiento, "IXFK_Direccion_Asentamiento");
 
-            builder.HasIndex(e => new { e.Calle, e.NumeroExterior, e.NumeroInterior, e.IdAsentamiento }, "IX_NoDuplicados")
+            builder.HasIndex(e => new { e.Calle, e.Numero_Exterior, e.Numero_Interior, e.IdAsentamiento }, "IX_NoDuplicados")
                 .IsUnique();
 
             builder.Property(e => e.IdDireccion).HasComment("Id Numerico Consecutivo de direcciones");
@@ -26,13 +26,13 @@ namespace Persistence.Configuration
                 .HasMaxLength(150)
                 .IsUnicode(false);
 
-            builder.Property(e => e.CoordenadasGeo)
+            builder.Property(e => e.Coordenadas_Geo)
                 .IsRequired()
                 .HasComment("Coordenadas geograficas ");
 
-            builder.Property(e => e.EsFiscal).HasComment("Si la direccion es fiscal para la emision de facturas");
+            builder.Property(e => e.Es_Fiscal).HasComment("Si la direccion es fiscal para la emision de facturas");
 
-            builder.Property(e => e.EsHabilitado)
+            builder.Property(e => e.Es_Habilitado)
                 .HasColumnName("Es_Habilitado")
                 .HasComment("Si esta disponible el registro");
 
@@ -43,14 +43,14 @@ namespace Persistence.Configuration
                 .IsFixedLength(true)
                 .HasComment("Estatus de la direccion");
 
-            builder.Property(e => e.FechaCreacion)
+            builder.Property(e => e.Fecha_Creacion)
                 .HasColumnType("datetime")
                 .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de creacion del registro");
 
-            builder.Property(e => e.FechaMod)
+            builder.Property(e => e.Fecha_Modificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Mod")
+                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la Ultima Modificacion");
 
             builder.Property(e => e.Foto)
@@ -63,12 +63,12 @@ namespace Persistence.Configuration
                 .HasColumnName("idAsentamiento")
                 .HasComment("el id de la tabla Asentamiento");
 
-            builder.Property(e => e.NumeroExterior)
+            builder.Property(e => e.Numero_Exterior)
                 .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            builder.Property(e => e.NumeroInterior)
+            builder.Property(e => e.Numero_Interior)
                 .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false);
@@ -79,18 +79,18 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Referencias para identificar la direccion");
 
-            builder.Property(e => e.UsuarioCreacion)
+            builder.Property(e => e.Usuario_Creacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el registro");
 
-            builder.Property(e => e.UsuarioMod)
+            builder.Property(e => e.Usuario_Modificacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Mod")
+                .HasColumnName("Usuario_Modificacion")
                 .HasComment("Usuario que hizo la ultima modificacion");
 
             builder.HasOne(d => d.IdAsentamientoNavigation)

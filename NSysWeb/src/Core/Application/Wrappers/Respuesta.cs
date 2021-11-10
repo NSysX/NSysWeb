@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace Application.Wrappers
 {
     // clase generica que de un formato bonito a lo que son las respuestas JSon
+    // para responder igual todas las respuestas de una manera estandar
     public class Respuesta<T>
     {
         public bool Succeeded { get; set; }

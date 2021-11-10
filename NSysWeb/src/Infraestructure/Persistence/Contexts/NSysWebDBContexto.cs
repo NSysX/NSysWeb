@@ -46,10 +46,11 @@ namespace Persistence.Contexts
                 switch (entry.State)
                 {
                     case EntityState.Modified:
-                        entry.Entity.Fecha_Modificacion = _fechaHoraServicio.NowUtc;
+                        entry.Entity.Fecha_Modificacion = _fechaHoraServicio.Now;
                         break;
                     case EntityState.Added:
-                        entry.Entity.Fecha_Creacion = _fechaHoraServicio.NowUtc;
+                        entry.Entity.Fecha_Creacion = _fechaHoraServicio.Now;
+                        entry.Entity.Es_Habilitado = true;
                         break;
 
                     // Falta llenar en usuario creacion y usuario modificacion

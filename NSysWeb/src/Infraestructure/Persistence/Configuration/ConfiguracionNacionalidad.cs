@@ -16,7 +16,7 @@ namespace Persistence.Configuration
 
             builder.Property(e => e.IdNacionalidad).HasComment("Id unico para el registro");
 
-            builder.Property(e => e.EsHabilitado)
+            builder.Property(e => e.Es_Habilitado)
                 .HasColumnName("Es_Habilitado")
                 .HasComment("si esta disponible el registro ");
 
@@ -27,35 +27,35 @@ namespace Persistence.Configuration
                 .IsFixedLength(true)
                 .HasComment("El Estatus del Registro");
 
-            builder.Property(e => e.FechaCreacion)
+            builder.Property(e => e.Fecha_Creacion)
                 .HasColumnType("datetime")
                 .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha en que se creo el registro");
 
-            builder.Property(e => e.FechaMod)
+            builder.Property(e => e.Fecha_Modificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Mod")
+                .HasColumnName("Fecha_Modificacion")
                 .HasComment("fecha de la ultima modificacion");
 
-            builder.Property(e => e.Nacionalidad1)
+            builder.Property(e => e.Nombre)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Nacionalidad")
-                .HasComment("concepto de nacionalidad de la persona");
+                .HasColumnName("Nombre")
+                .HasComment("Nombre de nacionalidad de la persona");
 
-            builder.Property(e => e.UsuarioCreacion)
+            builder.Property(e => e.Usuario_Creacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el registro");
 
-            builder.Property(e => e.UsuarioMod)
+            builder.Property(e => e.Usuario_Modificacion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Mod")
+                .HasColumnName("Usuario_Modificacion")
                 .HasComment("El ultimo Usuario que modifico el registro");
         }
     }

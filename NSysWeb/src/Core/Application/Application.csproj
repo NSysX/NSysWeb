@@ -15,13 +15,15 @@
 
   <ItemGroup>
     <Folder Include="DTOs\" />
-    <Folder Include="Features\EstadoCivil\Commands\UpdateEstadoCivilCommand\" />
-    <Folder Include="Features\EstadoCivil\Commands\DeleteEstadoCivilCommand\" />
-    <Folder Include="Features\EstadoCivil\Queries\GetAll_EstadoCivil\" />
-    <Folder Include="Features\EstadoCivil\Queries\GetById_EstadoCivil\" />
-    <Folder Include="Features\EstadoCivil\Queries\GetByCodigo_EstadoCivil\" />
+    <Folder Include="Features\EstadosCiviles\Commands\ActualizarEstadosCivilesCommand\" />
+    <Folder Include="Features\EstadosCiviles\Commands\EliminarEstadosCivilesCommand\" />
+    <Folder Include="Features\EstadosCiviles\Queries\ListarEstadosCivilesQuery\" />
+    <Folder Include="Features\EstadosCiviles\Queries\ObtenerXIdEstadoCivilQuery\" />
     <Folder Include="Filters\" />
-    <Folder Include="Mappings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

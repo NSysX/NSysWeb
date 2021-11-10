@@ -4,7 +4,7 @@ using NetTopologySuite.Geometries;
 
 namespace Persistence.Migrations
 {
-    public partial class MiPrimerMigracion : Migration
+    public partial class CreacionDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,13 +14,13 @@ namespace Persistence.Migrations
                 {
                     idEstado = table.Column<int>(type: "int", nullable: false, comment: "id del estado")
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false, comment: "Nombre del estado del pais"),
+                    Abreviatura = table.Column<string>(type: "varchar(3)", unicode: false, maxLength: 3, nullable: false, comment: "Abreviatura de nombre del estado de la republica"),
                     Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de creacion del registro"),
                     Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
-                    Fecha_Mod = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la ultima modificacion"),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario de la ultima modificacion"),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "si esta disponible el registro"),
-                    Nombre = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false, comment: "Nombre del estado del pais"),
-                    Abreviatura = table.Column<string>(type: "varchar(3)", unicode: false, maxLength: 3, nullable: false, comment: "Abreviatura de nombre del estado de la republica")
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la ultima modificacion"),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario de la ultima modificacion"),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "si esta disponible el registro")
                 },
                 constraints: table =>
                 {
@@ -34,19 +34,13 @@ namespace Persistence.Migrations
                 {
                     IdEstadoCivil = table.Column<int>(type: "int", nullable: false, comment: "Id consecutivo")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de creacion del registro"),
-                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "El usuario que creo el registro"),
-                    Fecha_Mod = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la ultima modificacion"),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico el registro"),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si el registro esta habilitado"),
                     Estatus = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false, comment: "Estatus del estado civil"),
                     Descripcion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Descripcion del estado civil"),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Fecha_Creacion1 = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Usuario_Creacion1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Usuario_Modificacion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Es_Habilitado1 = table.Column<bool>(type: "bit", nullable: false)
+                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de creacion del registro"),
+                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la ultima modificacion"),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario de la ultima modificacion"),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "si esta disponible el registro")
                 },
                 constraints: table =>
                 {
@@ -60,14 +54,13 @@ namespace Persistence.Migrations
                 {
                     IdNacionalidad = table.Column<int>(type: "int", nullable: false, comment: "Id unico para el registro")
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Estatus = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false, comment: "El Estatus del Registro"),
+                    Nombre = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Nombre de nacionalidad de la persona"),
                     Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha en que se creo el registro"),
                     Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
-                    Fecha_Mod = table.Column<DateTime>(type: "datetime", nullable: false, comment: "fecha de la ultima modificacion"),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "El ultimo Usuario que modifico el registro"),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "si esta disponible el registro "),
-                    Estatus = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false, comment: "El Estatus del Registro"),
-                    Codigo = table.Column<int>(type: "int", nullable: false),
-                    Nacionalidad = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "concepto de nacionalidad de la persona")
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "fecha de la ultima modificacion"),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "El ultimo Usuario que modifico el registro"),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "si esta disponible el registro ")
                 },
                 constraints: table =>
                 {
@@ -81,14 +74,13 @@ namespace Persistence.Migrations
                 {
                     idTipoAsentamiento = table.Column<int>(type: "int", nullable: false, comment: "Id Consecutivo")
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Nombre del tipo de Asentamiento "),
+                    Abreviatura = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true, comment: "Abreviatura de la descripcion de tipo de asentamiento"),
                     Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de Creacion del registro"),
                     Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
-                    Fecha_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true, comment: "Ultima Fecha de Modificacion"),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico el registro"),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si esta disponible el registro "),
-                    Codigo = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Nombre del tipo de Asentamiento "),
-                    Abreviatura = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true, comment: "Abreviatura de la descripcion de tipo de asentamiento")
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime2", unicode: false, maxLength: 50, nullable: false, comment: "Ultima Fecha de Modificacion"),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico el registro"),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si esta disponible el registro ")
                 },
                 constraints: table =>
                 {
@@ -102,15 +94,14 @@ namespace Persistence.Migrations
                 {
                     idMunicipio = table.Column<int>(type: "int", nullable: false, comment: "id consecutivo de municipio")
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    idEstado = table.Column<int>(type: "int", nullable: false, comment: "id que pertenece al estado"),
+                    Nombre = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Nombre del Municipio"),
+                    Abreviatura = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: true),
                     Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de Creacion del registro"),
                     Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el Registro"),
-                    Fecha_Mod = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la utlima modificacion"),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico el registro"),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si el registro esta disponible"),
-                    idEstado = table.Column<int>(type: "int", nullable: false, comment: "id que pertenece al estado"),
-                    Codigo = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Nombre del Municipio"),
-                    Abreviatura = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: true)
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la utlima modificacion"),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico el registro"),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si el registro esta disponible")
                 },
                 constraints: table =>
                 {
@@ -130,22 +121,22 @@ namespace Persistence.Migrations
                 {
                     idPersona = table.Column<int>(type: "int", nullable: false, comment: "id consecutivo de la tabla personas")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la Creacion del registro"),
-                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
-                    Fecha_Mod = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la ultima modificacion "),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico "),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si el registro esta habilitado "),
                     Estatus = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false, comment: "Estatus de la Persona "),
-                    ApellidoPaterno = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Apellido paterno de la persona"),
-                    ApellidoMaterno = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Apellido materno de la persona"),
+                    Apellido_Paterno = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Apellido paterno de la persona"),
+                    Apellido_Materno = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Apellido materno de la persona"),
                     Nombres = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Nombre o Nombres de la persona"),
-                    FechaNacimiento = table.Column<DateTime>(type: "date", nullable: false, comment: "Fecha de nacimiento de la persona"),
+                    Fecha_Nacimiento = table.Column<DateTime>(type: "date", nullable: false, comment: "Fecha de nacimiento de la persona"),
                     Sexo = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false, comment: "M = Masculino , F = Femenino"),
                     Foto = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false, comment: "El path de la foto de la persona"),
                     idNacionalidad = table.Column<int>(type: "int", nullable: false, comment: "id Nacionalidad de la persona"),
                     Curp = table.Column<string>(type: "varchar(18)", unicode: false, maxLength: 18, nullable: false, comment: "Clave Unica de Resgitro de Poblacion contiene 18 caracteres"),
                     Nss = table.Column<string>(type: "varchar(11)", unicode: false, maxLength: 11, nullable: false, comment: "Numero de Seguro Social tiene 11 caracteres"),
-                    idEstadoCivil = table.Column<int>(type: "int", nullable: true, comment: "El estado civil de la persona Casado, Divorciado, Soltero, union libre")
+                    idEstadoCivil = table.Column<int>(type: "int", nullable: true, comment: "El estado civil de la persona Casado, Divorciado, Soltero, union libre"),
+                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la Creacion del registro"),
+                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la ultima modificacion "),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico "),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si el registro esta habilitado ")
                 },
                 constraints: table =>
                 {
@@ -171,16 +162,15 @@ namespace Persistence.Migrations
                 {
                     idAsentamiento = table.Column<int>(type: "int", nullable: false, comment: "Consecutivo de Asentamiento")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de Creacion del Registro"),
-                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario de Creacion del registro"),
-                    Fecha_Mod = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la Ultima Modificacion"),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico el registro"),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si el registro esta habilitado "),
-                    Codigo = table.Column<int>(type: "int", nullable: false),
                     idTipoAsentamiento = table.Column<int>(type: "int", nullable: false, comment: "El id de la tabla TipoAsentamiento "),
                     idMunicipio = table.Column<int>(type: "int", nullable: false, comment: "id del municipio al que pertenece"),
                     Nombre = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false, comment: "Nombre del asentamiento"),
-                    CodigoPostal = table.Column<int>(type: "int", nullable: false, comment: "Codigo Postal")
+                    Codigo_Postal = table.Column<int>(type: "int", nullable: false, comment: "Codigo Postal"),
+                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de Creacion del Registro"),
+                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario de Creacion del registro"),
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la Ultima Modificacion"),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Ultimo usuario que modifico el registro"),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si el registro esta habilitado ")
                 },
                 constraints: table =>
                 {
@@ -206,20 +196,20 @@ namespace Persistence.Migrations
                 {
                     IdDireccion = table.Column<int>(type: "int", nullable: false, comment: "Id Numerico Consecutivo de direcciones")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de creacion del registro"),
-                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
-                    Fecha_Mod = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la Ultima Modificacion"),
-                    Usuario_Mod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que hizo la ultima modificacion"),
-                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si esta disponible el registro"),
                     Estatus = table.Column<string>(type: "char(1)", unicode: false, fixedLength: true, maxLength: 1, nullable: false, comment: "Estatus de la direccion"),
                     Calle = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
-                    NumeroExterior = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
-                    NumeroInterior = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
+                    Numero_Exterior = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
+                    Numero_Interior = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
                     idAsentamiento = table.Column<int>(type: "int", nullable: false, comment: "el id de la tabla Asentamiento"),
-                    CoordenadasGeo = table.Column<Geometry>(type: "geography", nullable: false, comment: "Coordenadas geograficas "),
+                    Coordenadas_Geo = table.Column<Geometry>(type: "geography", nullable: false, comment: "Coordenadas geograficas "),
                     Referencia = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: false, comment: "Referencias para identificar la direccion"),
                     Foto = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false, comment: "Foto de la ubicacion"),
-                    EsFiscal = table.Column<bool>(type: "bit", nullable: false, comment: "Si la direccion es fiscal para la emision de facturas")
+                    Es_Fiscal = table.Column<bool>(type: "bit", nullable: false, comment: "Si la direccion es fiscal para la emision de facturas"),
+                    Fecha_Creacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de creacion del registro"),
+                    Usuario_Creacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que creo el registro"),
+                    Fecha_Modificacion = table.Column<DateTime>(type: "datetime", nullable: false, comment: "Fecha de la Ultima Modificacion"),
+                    Usuario_Modificacion = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, comment: "Usuario que hizo la ultima modificacion"),
+                    Es_Habilitado = table.Column<bool>(type: "bit", nullable: false, comment: "Si esta disponible el registro")
                 },
                 constraints: table =>
                 {
@@ -279,7 +269,7 @@ namespace Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_NoDuplicados",
                 table: "Direccion",
-                columns: new[] { "Calle", "NumeroExterior", "NumeroInterior", "idAsentamiento" },
+                columns: new[] { "Calle", "Numero_Exterior", "Numero_Interior", "idAsentamiento" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -326,7 +316,7 @@ namespace Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_NoDuplicado2",
                 table: "Persona",
-                columns: new[] { "ApellidoPaterno", "ApellidoMaterno", "Nombres" },
+                columns: new[] { "Apellido_Paterno", "Apellido_Materno", "Nombres" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
