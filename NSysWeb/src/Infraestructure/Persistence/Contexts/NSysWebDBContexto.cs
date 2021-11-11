@@ -50,6 +50,9 @@ namespace Persistence.Contexts
                         break;
                     case EntityState.Added:
                         entry.Entity.Fecha_Creacion = _fechaHoraServicio.Now;
+                        entry.Entity.Usuario_Creacion = "";
+                        entry.Entity.Usuario_Modificacion = "";
+                        entry.Entity.Fecha_Modificacion = new System.DateTime(1900, 1, 1, 00, 00, 00, 000);
                         entry.Entity.Es_Habilitado = true;
                         break;
 
