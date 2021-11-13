@@ -47,6 +47,7 @@ namespace Persistence.Contexts
                 {
                     case EntityState.Modified:
                         entry.Entity.Fecha_Modificacion = _fechaHoraServicio.Now;
+                        entry.Entity.Usuario_Modificacion = "";
                         break;
                     case EntityState.Added:
                         entry.Entity.Fecha_Creacion = _fechaHoraServicio.Now;

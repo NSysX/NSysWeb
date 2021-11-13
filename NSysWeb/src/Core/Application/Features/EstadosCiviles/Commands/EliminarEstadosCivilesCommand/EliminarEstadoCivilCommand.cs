@@ -13,7 +13,7 @@ namespace Application.Features.EstadosCiviles.Commands.EliminarEstadosCivilesCom
 {
     public class EliminarEstadoCivilCommand : IRequest<Respuesta<int>>
     {
-        public int IdEstadoCivil { get; set; } = 0;
+        public int IdEstadoCivil { get; set; }
     }
 
     public class EliminarEstadoCivilCommand_Manejador : IRequestHandler<EliminarEstadoCivilCommand, Respuesta<int>>

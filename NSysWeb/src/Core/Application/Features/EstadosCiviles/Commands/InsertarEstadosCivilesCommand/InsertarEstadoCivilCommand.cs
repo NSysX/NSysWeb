@@ -37,6 +37,8 @@ namespace Application.Features.EstadosCiviles.Commands.InsertarEstadosCivilesCom
 
         public async Task<Respuesta<int>> Handle(InsertarEstadoCivilCommand peticion, CancellationToken cancellationToken)
         {
+            // var existe_estadoCivil = await _respositorioAsync.GetByIdAsync(peticion.Descripcion);
+
             var nuevoRegistro = _mapper.Map<EstadoCivil>(peticion);
             var data = await _respositorioAsync.AddAsync(nuevoRegistro);
 

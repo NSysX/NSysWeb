@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Features\EstadosCiviles\Commands\ActualizarEstadosCivilesCommand\" />
-    <Folder Include="Features\EstadosCiviles\Queries\ListarEstadosCivilesQuery\" />
-    <Folder Include="Features\EstadosCiviles\Queries\ObtenerXIdEstadoCivilQuery\" />
     <Folder Include="Filters\" />
   </ItemGroup>
 

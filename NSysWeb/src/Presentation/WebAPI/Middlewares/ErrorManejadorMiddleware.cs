@@ -21,7 +21,6 @@ namespace WebAPI.Middlewares
 
         public async Task Invoke(HttpContext contexto)
         {
-            
             try
             {
                 await _siguiente(contexto);
@@ -34,7 +33,20 @@ namespace WebAPI.Middlewares
                 respuesta.ContentType = "application/json";
                 // Le vamos a dar un modelo a ese response personalizado que hicimos previamente en wrappers
                 // Succede es falso por que entro aqui
-                var modeloRespuesta = new Respuesta<string>() { Succeeded = false, Message = error?.Message };
+                Respuesta<string> modeloRespuesta = new Respuesta<string>();
+               // string inner_Exception = error.InnerException.Message;
+                modeloRespuesta.Succeeded = false;
+
+                if (error.InnerException != null && error.InnerException.Message.ToLower().Contains("duplicate"))
+                {
+                    modeloRespuesta.Message = "No se puede Insertar Registros Duplicados";
+                    modeloRespuesta.Errors.Add(error.InnerException.Message);
+                }
+                else
+                {
+                    modeloRespuesta.Message = error?.Message;
+                }
+
                 // Luego se llena el resto del objeto
                 switch (error)
                 {

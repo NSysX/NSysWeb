@@ -8,13 +8,13 @@ namespace Application.Features.EstadosCiviles.Commands.EliminarEstadosCivilesCom
         public EliminarEstadoCivilValidador()
         {
             RuleFor(i => i.IdEstadoCivil)
-                .NotEmpty().WithMessage("'{PropertyName}' : No Debe Ser Vacio")
-                .Must(SoloNumeros);
+                .NotEmpty().WithMessage("'{PropertyName}' : No Debe Ser Vacio");
+                //.Must(SoloNumeros);
         }
 
-        private protected static bool SoloNumeros(int id)
-        {
-            return Regex.IsMatch(id.ToString(), @"^[1-9]*$");
-        }
+        //private protected static bool SoloNumeros(int id)
+        //{
+        //    return Regex.IsMatch(id.ToString(), @"^[1-9]*$");
+        //}
     }
 }

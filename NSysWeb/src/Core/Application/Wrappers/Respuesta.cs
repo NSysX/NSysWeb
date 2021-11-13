@@ -9,7 +9,7 @@ namespace Application.Wrappers
     {
         public bool Succeeded { get; set; }
         public string Message { get; set; }
-        public List<String> Errors { get; set; }
+        public List<String> Errors { get; set; } = new List<string>();
         public T Data { get; set; }
 
         public Respuesta()
