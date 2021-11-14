@@ -37,14 +37,27 @@ namespace WebAPI.Middlewares
                // string inner_Exception = error.InnerException.Message;
                 modeloRespuesta.Succeeded = false;
 
-                if (error.InnerException != null && error.InnerException.Message.ToLower().Contains("duplicate"))
+                switch (error.Source)
                 {
-                    modeloRespuesta.Message = "No se puede Insertar Registros Duplicados";
-                    modeloRespuesta.Errors.Add(error.InnerException.Message);
-                }
-                else
-                {
-                    modeloRespuesta.Message = error?.Message;
+                    case "Microsoft.Data.SqlClient":
+                        // Aveces no trae innerMessage
+                        if (error.Message.ToLower().Contains("null values"))
+                        {
+                            modeloRespuesta.Message = "No se Pueden Consultar registros con campos NULOS";
+                            modeloRespuesta.Errors.Add("En la configuracion esta marcado como Requerido");
+                        }
+                        break;
+                    case "Microsoft.EntityFrameworkCore.Relational":
+                        // Trae inner message
+                        if (error.InnerException.Message.ToLower().Contains("duplicate key"))
+                        {
+                            modeloRespuesta.Message = "No se puede Insertar Registros Duplicados";
+                            modeloRespuesta.Errors.Add(error.InnerException.Message);
+                        }
+                        break;
+                    default:
+                        modeloRespuesta.Message = error?.Message;
+                        break;
                 }
 
                 // Luego se llena el resto del objeto
