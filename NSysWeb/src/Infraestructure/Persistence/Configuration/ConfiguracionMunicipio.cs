@@ -6,69 +6,65 @@ namespace Persistence.Configuration
 {
     public class ConfiguracionMunicipio : IEntityTypeConfiguration<Municipio>
     {
-        public void Configure(EntityTypeBuilder<Municipio> builder)
+        public void Configure(EntityTypeBuilder<Municipio> entity)
         {
-            builder.HasKey(e => e.IdMunicipio);
+            entity.HasKey(e => e.IdMunicipio);
 
-            builder.ToTable("Municipio");
+            entity.ToTable("Municipio");
 
-            builder.HasComment("Municipios de Mexico");
+            entity.HasComment("Municipios de Mexico");
 
-            builder.HasIndex(e => e.IdEstado, "IXFK_Municipio_Estado");
+            entity.HasIndex(e => e.IdEstado, "IXFK_Municipio_Estado");
 
-            builder.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbrevi")
+            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbrevi")
                 .IsUnique();
 
-            builder.HasIndex(e => new { e.IdEstado, e.Nombre }, "IX_NoDuplicadoNomXEdo")
+            entity.HasIndex(e => e.Codigo, "IX_NoDuplicadoCodigo")
                 .IsUnique();
 
-            builder.Property(e => e.IdMunicipio)
+            entity.HasIndex(e => new { e.IdEstado, e.Nombre }, "IX_NoDuplicadoNomXEdo")
+                .IsUnique();
+
+            entity.Property(e => e.IdMunicipio)
                 .HasColumnName("idMunicipio")
                 .HasComment("id consecutivo de municipio");
 
-            builder.Property(e => e.Abreviatura)
+            entity.Property(e => e.Abreviatura)
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            builder.Property(e => e.Es_Habilitado)
-                .HasColumnName("Es_Habilitado")
-                .HasComment("Si el registro esta disponible");
+            entity.Property(e => e.Codigo).HasComment("Codigo visible al usuario");
 
-            builder.Property(e => e.Fecha_Creacion)
+            entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta disponible");
+
+            entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de Creacion del registro");
 
-            builder.Property(e => e.Fecha_Modificacion)
+            entity.Property(e => e.FechaModificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la utlima modificacion");
 
-            builder.Property(e => e.IdEstado)
+            entity.Property(e => e.IdEstado)
                 .HasColumnName("idEstado")
                 .HasComment("id que pertenece al estado");
 
-            builder.Property(e => e.Nombre)
-                .IsRequired()
+            entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Nombre del Municipio");
 
-            builder.Property(e => e.Usuario_Creacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el Registro");
 
-            builder.Property(e => e.Usuario_Modificacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Modificacion")
                 .HasComment("Ultimo usuario que modifico el registro");
 
-            builder.HasOne(d => d.IdEstadoNavigation)
+            entity.HasOne(d => d.IdEstadoNavigation)
                 .WithMany(p => p.Municipios)
                 .HasForeignKey(d => d.IdEstado)
                 .OnDelete(DeleteBehavior.ClientSetNull)

@@ -6,62 +6,57 @@ namespace Persistence.Configuration
 {
     public class ConfiguracionEstado : IEntityTypeConfiguration<Estado>
     {
-        public void Configure(EntityTypeBuilder<Estado> builder)
+        public void Configure(EntityTypeBuilder<Estado> entity)
         {
-            builder.HasKey(e => e.IdEstado);
+            entity.HasKey(e => e.IdEstado);
 
-            builder.ToTable("Estado");
+            entity.ToTable("Estado");
 
-            builder.HasComment("Estado de paises");
+            entity.HasComment("Estado de paises");
 
-            builder.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbrev")
+            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbrev")
                 .IsUnique();
 
-            builder.HasIndex(e => e.Nombre, "IX_NoDuplicadoNombre")
+            entity.HasIndex(e => e.Codigo, "IX_NoDuplicadoCodigo")
                 .IsUnique();
 
-            builder.Property(e => e.IdEstado)
+            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNombre")
+                .IsUnique();
+
+            entity.Property(e => e.IdEstado)
                 .HasColumnName("idEstado")
                 .HasComment("id del estado");
 
-            builder.Property(e => e.Abreviatura)
-                .IsRequired()
+            entity.Property(e => e.Abreviatura)
                 .HasMaxLength(3)
                 .IsUnicode(false)
                 .HasComment("Abreviatura de nombre del estado de la republica");
 
-            builder.Property(e => e.Es_Habilitado)
-                .HasColumnName("Es_Habilitado")
-                .HasComment("si esta disponible el registro");
+            entity.Property(e => e.Codigo).HasComment("codigo consecutivo para no mostrar el id usuario");
 
-            builder.Property(e => e.Fecha_Creacion)
+            entity.Property(e => e.EsHabilitado).HasComment("si esta disponible el registro");
+
+            entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de creacion del registro");
 
-            builder.Property(e => e.Fecha_Modificacion)
+            entity.Property(e => e.FechaModificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la ultima modificacion");
 
-            builder.Property(e => e.Nombre)
-                .IsRequired()
+            entity.Property(e => e.Nombre)
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasComment("Nombre del estado del pais");
 
-            builder.Property(e => e.Usuario_Creacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el registro");
 
-            builder.Property(e => e.Usuario_Modificacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Modificacion")
                 .HasComment("Usuario de la ultima modificacion");
         }
     }

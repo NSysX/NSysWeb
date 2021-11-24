@@ -6,94 +6,84 @@ namespace Persistence.Configuration
 {
     public class ConfiguracionDireccion : IEntityTypeConfiguration<Direccion>
     {
-        public void Configure(EntityTypeBuilder<Direccion> builder)
+        public void Configure(EntityTypeBuilder<Direccion> entity)
         {
-            builder.HasKey(e => e.IdDireccion);
+            entity.HasKey(e => e.IdDireccion);
 
-            builder.ToTable("Direccion");
+            entity.ToTable("Direccion");
 
-            builder.HasComment("Registra todas las direcciones");
+            entity.HasComment("Registra todas las direcciones");
 
-            builder.HasIndex(e => e.IdAsentamiento, "IXFK_Direccion_Asentamiento");
+            entity.HasIndex(e => e.IdAsentamiento, "IXFK_Direccion_Asentamiento");
 
-            builder.HasIndex(e => new { e.Calle, e.Numero_Exterior, e.Numero_Interior, e.IdAsentamiento }, "IX_NoDuplicados")
-                .IsUnique();
+            entity.Property(e => e.IdDireccion).HasComment("Id Numerico Consecutivo de direcciones");
 
-            builder.Property(e => e.IdDireccion).HasComment("Id Numerico Consecutivo de direcciones");
-
-            builder.Property(e => e.Calle)
-                .IsRequired()
+            entity.Property(e => e.Calle)
                 .HasMaxLength(150)
                 .IsUnicode(false);
 
-            builder.Property(e => e.Coordenadas_Geo)
-                .IsRequired()
-                .HasComment("Coordenadas geograficas ");
+            entity.Property(e => e.CoordenadasGeo).HasComment("Coordenadas geograficas , Acepta nulos");
 
-            builder.Property(e => e.Es_Fiscal).HasComment("Si la direccion es fiscal para la emision de facturas");
+            entity.Property(e => e.EntreLaCalle)
+                .HasMaxLength(100)
+                .IsUnicode(false);
 
-            builder.Property(e => e.Es_Habilitado)
-                .HasColumnName("Es_Habilitado")
-                .HasComment("Si esta disponible el registro");
+            entity.Property(e => e.EsFiscal).HasComment("Si la direccion es fiscal para la emision de facturas");
 
-            builder.Property(e => e.Estatus)
-                .IsRequired()
+            entity.Property(e => e.EsHabilitado).HasComment("Si esta disponible el registro");
+
+            entity.Property(e => e.Estatus)
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength(true)
+                .IsFixedLength()
                 .HasComment("Estatus de la direccion");
 
-            builder.Property(e => e.Fecha_Creacion)
+            entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de creacion del registro");
 
-            builder.Property(e => e.Fecha_Modificacion)
+            entity.Property(e => e.FechaModificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la Ultima Modificacion");
 
-            builder.Property(e => e.Foto)
-                .IsRequired()
+            entity.Property(e => e.Foto)
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasComment("Foto de la ubicacion");
 
-            builder.Property(e => e.IdAsentamiento)
+            entity.Property(e => e.IdAsentamiento)
                 .HasColumnName("idAsentamiento")
                 .HasComment("el id de la tabla Asentamiento");
 
-            builder.Property(e => e.Numero_Exterior)
-                .IsRequired()
+            entity.Property(e => e.NumeroExterior)
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            builder.Property(e => e.Numero_Interior)
-                .IsRequired()
+            entity.Property(e => e.NumeroInterior)
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            builder.Property(e => e.Referencia)
-                .IsRequired()
+            entity.Property(e => e.Referencia)
                 .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasComment("Referencias para identificar la direccion");
 
-            builder.Property(e => e.Usuario_Creacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el registro");
 
-            builder.Property(e => e.Usuario_Modificacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Modificacion")
                 .HasComment("Usuario que hizo la ultima modificacion");
 
-            builder.HasOne(d => d.IdAsentamientoNavigation)
+            entity.Property(e => e.YlaCalle)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("YLaCalle");
+
+            entity.HasOne(d => d.IdAsentamientoNavigation)
                 .WithMany(p => p.Direccions)
                 .HasForeignKey(d => d.IdAsentamiento)
                 .OnDelete(DeleteBehavior.ClientSetNull)

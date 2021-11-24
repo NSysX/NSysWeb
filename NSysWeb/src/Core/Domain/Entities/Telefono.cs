@@ -4,29 +4,29 @@ using System.Collections.Generic;
 namespace Domain.Entities
 {
     /// <summary>
-    /// Los estados Civiles de las Personas
+    /// Todos los Telefonos de personas y empresas
     /// </summary>
-    public partial class EstadoCivil
+    public partial class Telefono
     {
-        public EstadoCivil()
+        public Telefono()
         {
-            Personas = new HashSet<Persona>();
+            PersonaTelefonos = new HashSet<PersonaTelefono>();
         }
 
         /// <summary>
-        /// Id consecutivo 
+        /// Identificador unico de la tabla telefono
         /// </summary>
-        public int IdEstadoCivil { get; set; }
+        public int IdTelefono { get; set; }
         /// <summary>
         /// Fecha de creacion del registro
         /// </summary>
         public DateTime FechaCreacion { get; set; }
         /// <summary>
-        /// El usuario que creo el registro
+        /// Usuario que creo el registro
         /// </summary>
         public string UsuarioCreacion { get; set; } = null!;
         /// <summary>
-        /// Fecha de la ultima modificacion
+        /// Ultima fecha de Modificacion del registro
         /// </summary>
         public DateTime FechaModificacion { get; set; }
         /// <summary>
@@ -34,18 +34,26 @@ namespace Domain.Entities
         /// </summary>
         public string UsuarioModificacion { get; set; } = null!;
         /// <summary>
-        /// Si el registro esta habilitado
+        /// Si el registro esta habilitado para trabajar
         /// </summary>
         public bool EsHabilitado { get; set; }
         /// <summary>
-        /// Estatus del estado civil
+        /// Estatus del registro
         /// </summary>
         public string Estatus { get; set; } = null!;
         /// <summary>
-        /// Descripcion del estado civil
+        /// Celular o Fijo
         /// </summary>
-        public string Descripcion { get; set; } = null!;
+        public string TipoTelefono { get; set; } = null!;
+        /// <summary>
+        /// Codigo Telefonico del Pais
+        /// </summary>
+        public string CodigoPais { get; set; } = null!;
+        /// <summary>
+        /// Numero telefonico
+        /// </summary>
+        public string Numero { get; set; } = null!;
 
-        public virtual ICollection<Persona> Personas { get; set; }
+        public virtual ICollection<PersonaTelefono> PersonaTelefonos { get; set; }
     }
 }

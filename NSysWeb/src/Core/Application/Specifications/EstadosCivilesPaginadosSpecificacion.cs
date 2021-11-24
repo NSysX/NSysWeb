@@ -1,10 +1,7 @@
 ﻿using Ardalis.Specification;
 using Domain.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Specifications
 {
@@ -17,10 +14,10 @@ namespace Application.Specifications
 
             if (!String.IsNullOrEmpty(descripcion))
                 Query.Search(x => x.Descripcion,"%" + descripcion + "%")
-                    .Where(r => r.Es_Habilitado == true);
+                    .Where(r => r.EsHabilitado == true);
 
             if (!String.IsNullOrEmpty(estatus))
-                Query.Where(x => x.Estatus == estatus && x.Es_Habilitado == true);
+                Query.Where(x => x.Estatus == estatus && x.EsHabilitado == true);
         }
     }
 }

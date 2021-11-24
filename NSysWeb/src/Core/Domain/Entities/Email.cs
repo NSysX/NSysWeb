@@ -4,29 +4,29 @@ using System.Collections.Generic;
 namespace Domain.Entities
 {
     /// <summary>
-    /// Los estados Civiles de las Personas
+    /// Todos lo Correos Electronicos de personas y Empresas
     /// </summary>
-    public partial class EstadoCivil
+    public partial class Email
     {
-        public EstadoCivil()
+        public Email()
         {
-            Personas = new HashSet<Persona>();
+            PersonaEmails = new HashSet<PersonaEmail>();
         }
 
         /// <summary>
-        /// Id consecutivo 
+        /// Identificador unico
         /// </summary>
-        public int IdEstadoCivil { get; set; }
+        public int IdEmail { get; set; }
         /// <summary>
-        /// Fecha de creacion del registro
+        /// Fecha de Creacion del registro
         /// </summary>
         public DateTime FechaCreacion { get; set; }
         /// <summary>
-        /// El usuario que creo el registro
+        /// Usuario Creacion del registro
         /// </summary>
         public string UsuarioCreacion { get; set; } = null!;
         /// <summary>
-        /// Fecha de la ultima modificacion
+        /// Fecha modificacion
         /// </summary>
         public DateTime FechaModificacion { get; set; }
         /// <summary>
@@ -34,18 +34,18 @@ namespace Domain.Entities
         /// </summary>
         public string UsuarioModificacion { get; set; } = null!;
         /// <summary>
-        /// Si el registro esta habilitado
+        /// Si el registro esta habilitado para trabajar con el, borrado logico
         /// </summary>
         public bool EsHabilitado { get; set; }
         /// <summary>
-        /// Estatus del estado civil
+        /// El Email o Correo electroinico
         /// </summary>
-        public string Estatus { get; set; } = null!;
+        public string Email1 { get; set; } = null!;
         /// <summary>
-        /// Descripcion del estado civil
+        /// Tipo de email personal trabajo 
         /// </summary>
-        public string Descripcion { get; set; } = null!;
+        public string TipoEmail { get; set; } = null!;
 
-        public virtual ICollection<Persona> Personas { get; set; }
+        public virtual ICollection<PersonaEmail> PersonaEmails { get; set; }
     }
 }

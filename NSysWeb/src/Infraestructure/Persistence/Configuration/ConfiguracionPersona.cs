@@ -6,121 +6,100 @@ namespace Persistence.Configuration
 {
     public class ConfiguracionPersona : IEntityTypeConfiguration<Persona>
     {
-        public void Configure(EntityTypeBuilder<Persona> builder)
+        public void Configure(EntityTypeBuilder<Persona> entity)
         {
-            builder.HasKey(e => e.IdPersona);
+            entity.HasKey(e => e.IdPersona);
 
-            builder.ToTable("Persona");
+            entity.ToTable("Persona");
 
-            builder.HasComment("Almacena la informacion de todas las personas");
+            entity.HasComment("Almacena la informacion de todas las personas");
 
-            builder.HasIndex(e => e.IdEstadoCivil, "IXFK_Persona_EstadoCivil");
+            entity.HasIndex(e => e.IdEstadoCivil, "IXFK_Persona_EstadoCivil");
 
-            builder.HasIndex(e => e.IdNacionalidad, "IXFK_Persona_Nacionalidad");
+            entity.HasIndex(e => e.IdNacionalidad, "IXFK_Persona_Nacionalidad");
 
-            builder.HasIndex(e => new { e.Apellido_Paterno, e.Apellido_Materno, e.Nombres }, "IX_NoDuplicado")
+            entity.HasIndex(e => new { e.ApellidoPaterno, e.ApellidoMaterno, e.Nombres }, "IX_NoDuplicado")
                 .IsUnique();
 
-            builder.Property(e => e.IdPersona)
+            entity.Property(e => e.IdPersona)
                 .HasColumnName("idPersona")
                 .HasComment("id consecutivo de la tabla personas");
 
-            builder.Property(e => e.Apellido_Materno)
-                .IsRequired()
+            entity.Property(e => e.ApellidoMaterno)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Apellido materno de la persona");
 
-            builder.Property(e => e.Apellido_Paterno)
-                .IsRequired()
+            entity.Property(e => e.ApellidoPaterno)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Apellido paterno de la persona");
 
-            builder.Property(e => e.Curp)
-                .IsRequired()
-                .HasMaxLength(18)
-                .IsUnicode(false)
-                .HasComment("Clave Unica de Resgitro de Poblacion contiene 18 caracteres");
+            entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta habilitado ");
 
-            builder.Property(e => e.Es_Habilitado)
-                .HasColumnName("Es_Habilitado")
-                .HasComment("Si el registro esta habilitado ");
-
-            builder.Property(e => e.Estatus)
-                .IsRequired()
+            entity.Property(e => e.Estatus)
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength(true)
+                .IsFixedLength()
                 .HasComment("Estatus de la Persona ");
 
-            builder.Property(e => e.Fecha_Creacion)
+            entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Creacion")
                 .HasComment("Fecha de la Creacion del registro");
 
-            builder.Property(e => e.Fecha_Modificacion)
+            entity.Property(e => e.FechaModificacion)
                 .HasColumnType("datetime")
-                .HasColumnName("Fecha_Modificacion")
                 .HasComment("Fecha de la ultima modificacion ");
 
-            builder.Property(e => e.Fecha_Nacimiento)
+            entity.Property(e => e.FechaNacimiento)
                 .HasColumnType("date")
                 .HasComment("Fecha de nacimiento de la persona");
 
-            builder.Property(e => e.Foto)
-                .IsRequired()
+            entity.Property(e => e.Foto)
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasComment("El path de la foto de la persona");
 
-            builder.Property(e => e.IdEstadoCivil)
+            entity.Property(e => e.IdEstadoCivil)
                 .HasColumnName("idEstadoCivil")
                 .HasComment("El estado civil de la persona Casado, Divorciado, Soltero, union libre");
 
-            builder.Property(e => e.IdNacionalidad)
+            entity.Property(e => e.IdNacionalidad)
                 .HasColumnName("idNacionalidad")
                 .HasComment("id Nacionalidad de la persona");
 
-            builder.Property(e => e.Nombres)
-                .IsRequired()
+            entity.Property(e => e.Nombres)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Nombre o Nombres de la persona");
 
-            builder.Property(e => e.Nss)
-                .IsRequired()
-                .HasMaxLength(11)
+            entity.Property(e => e.Notas)
                 .IsUnicode(false)
-                .HasComment("Numero de Seguro Social tiene 11 caracteres");
+                .HasComment("Notas importantes de la persona");
 
-            builder.Property(e => e.Sexo)
-                .IsRequired()
+            entity.Property(e => e.Sexo)
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength(true)
+                .IsFixedLength()
                 .HasComment("M = Masculino , F = Femenino");
 
-            builder.Property(e => e.Usuario_Creacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Creacion")
                 .HasComment("Usuario que creo el registro");
 
-            builder.Property(e => e.Usuario_Modificacion)
-                .IsRequired()
+            entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Usuario_Modificacion")
                 .HasComment("Ultimo usuario que modifico ");
 
-            builder.HasOne(d => d.IdEstadoCivilNavigation)
+            entity.HasOne(d => d.IdEstadoCivilNavigation)
                 .WithMany(p => p.Personas)
                 .HasForeignKey(d => d.IdEstadoCivil)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Persona_EstadoCivil");
 
-            builder.HasOne(d => d.IdNacionalidadNavigation)
+            entity.HasOne(d => d.IdNacionalidadNavigation)
                 .WithMany(p => p.Personas)
                 .HasForeignKey(d => d.IdNacionalidad)
                 .OnDelete(DeleteBehavior.ClientSetNull)

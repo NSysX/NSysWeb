@@ -24,14 +24,26 @@ namespace Persistence.Contexts
             this._fechaHoraServicio = fechaHoraServicio;
         }
 
-        public DbSet<Asentamiento> Asentamiento { get; set; }
-        public DbSet<Direccion> Direccion { get; set; }
-        public DbSet<Estado> Estado { get; set; }
-        public DbSet<EstadoCivil> EstadoCivil { get; set; }
-        public DbSet<Municipio> Municipio { get; set; }
-        public DbSet<Nacionalidad> Nacionalidad { get; set; }
-        public DbSet<Persona> Persona { get; set; }
-        public DbSet<PersonaDireccion> PersonaDireccion { get; set; }
+        //public virtual DbSet<Asentamiento> Asentamientos { get; set; }
+
+        public virtual DbSet<Asentamiento> Asentamientos { get; set; }
+        public virtual DbSet<Direccion> Direccions { get; set; }
+        public virtual DbSet<Documento> Documentos { get; set; }
+        public virtual DbSet<Email> Emails { get; set; }
+        public virtual DbSet<Estado> Estados { get; set; }
+        public virtual DbSet<EstadoCivil> EstadoCivils { get; set; }
+        public virtual DbSet<Municipio> Municipios { get; set; }
+        public virtual DbSet<Nacionalidad> Nacionalidads { get; set; }
+        public virtual DbSet<Persona> Personas { get; set; }
+        public virtual DbSet<PersonaDireccion> PersonaDireccions { get; set; }
+        public virtual DbSet<PersonaDocumento> PersonaDocumentos { get; set; }
+        public virtual DbSet<PersonaEmail> PersonaEmails { get; set; }
+        public virtual DbSet<PersonaTelefono> PersonaTelefonos { get; set; }
+        public virtual DbSet<SysDominioEmail> SysDominioEmails { get; set; }
+        public virtual DbSet<Telefono> Telefonos { get; set; }
+        public virtual DbSet<TipoAsentamiento> TipoAsentamientos { get; set; }
+        public virtual DbSet<TipoDocumento> TipoDocumentos { get; set; }
+
 
         // Vamos a sobreescribir el metodo SaveChanges Async
         // lo que hace es guardar todos los cambios a nivel bd y hacer un commit
@@ -46,15 +58,15 @@ namespace Persistence.Contexts
                 switch (entry.State)
                 {
                     case EntityState.Modified:
-                        entry.Entity.Fecha_Modificacion = _fechaHoraServicio.Now;
-                        entry.Entity.Usuario_Modificacion = "";
+                        entry.Entity.FechaModificacion = _fechaHoraServicio.Now;
+                        entry.Entity.UsuarioModificacion = "";
                         break;
                     case EntityState.Added:
-                        entry.Entity.Fecha_Creacion = _fechaHoraServicio.Now;
-                        entry.Entity.Usuario_Creacion = "";
-                        entry.Entity.Usuario_Modificacion = "";
-                        entry.Entity.Fecha_Modificacion = new System.DateTime(1900, 1, 1, 00, 00, 00, 000);
-                        entry.Entity.Es_Habilitado = true;
+                        entry.Entity.FechaCreacion = _fechaHoraServicio.Now;
+                        entry.Entity.UsuarioCreacion = "";
+                        entry.Entity.UsuarioModificacion = "";
+                        entry.Entity.FechaModificacion = new System.DateTime(1900, 1, 1, 00, 00, 00, 000);
+                        entry.Entity.EsHabilitado = true;
                         break;
 
                     // Falta llenar en usuario creacion y usuario modificacion
