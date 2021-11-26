@@ -2,10 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence.Configuration
 {
@@ -26,15 +22,11 @@ namespace Persistence.Configuration
             entity.HasIndex(e => new { e.IdPersona, e.IdDocumento }, "IX_NoDuplicado")
                 .IsUnique();
 
-            entity.Property(e => e.IdPersonaDocumento).HasColumnName("idPersonaDocumento");
+            entity.Property(e => e.IdPersonaDocumento).HasComment("Identificador ");
 
-            entity.Property(e => e.IdDocumento)
-                .HasColumnName("idDocumento")
-                .HasComment("IdDocumento de la Tabla Documento");
+            entity.Property(e => e.IdDocumento).HasComment("IdDocumento de la Tabla Documento");
 
-            entity.Property(e => e.IdPersona)
-                .HasColumnName("idPersona")
-                .HasComment("El idPersona de la tabla Personas");
+            entity.Property(e => e.IdPersona).HasComment("El idPersona de la tabla Personas");
 
             entity.HasOne(d => d.IdDocumentoNavigation)
                 .WithMany(p => p.PersonaDocumentos)

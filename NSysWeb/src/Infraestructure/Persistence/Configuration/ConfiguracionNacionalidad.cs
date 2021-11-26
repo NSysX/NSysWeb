@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Persistence.Configuration
 {
@@ -14,17 +15,24 @@ namespace Persistence.Configuration
 
             entity.HasComment("Catalogo de Nacionalidades con su bandera");
 
-            entity.HasIndex(e => e.Nacionalidad1, "IX_NoDuplicado")
+            entity.HasIndex(e => e.Decripcion, "IX_NoDuplicado")
                 .IsUnique();
 
             entity.Property(e => e.IdNacionalidad).HasComment("Id unico para el registro");
 
+            entity.Property(e => e.Decripcion)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasComment("concepto de nacionalidad de la persona");
+
             entity.Property(e => e.EsHabilitado).HasComment("si esta disponible el registro ");
 
             entity.Property(e => e.Estatus)
+                .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength()
+                .IsFixedLength(true)
                 .HasComment("El Estatus del Registro");
 
             entity.Property(e => e.FechaCreacion)
@@ -35,18 +43,14 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("fecha de la ultima modificacion");
 
-            entity.Property(e => e.Nacionalidad1)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("Nacionalidad")
-                .HasComment("concepto de nacionalidad de la persona");
-
             entity.Property(e => e.UsuarioCreacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Usuario que creo el registro");
 
             entity.Property(e => e.UsuarioModificacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("El ultimo Usuario que modifico el registro");

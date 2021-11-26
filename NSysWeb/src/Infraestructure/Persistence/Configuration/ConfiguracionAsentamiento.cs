@@ -21,13 +21,18 @@ namespace Persistence.Configuration
             entity.HasIndex(e => new { e.IdMunicipio, e.IdTipoAsentamiento, e.Nombre }, "IX_NoDuplicado")
                 .IsUnique();
 
-            entity.Property(e => e.IdAsentamiento)
-                .HasColumnName("idAsentamiento")
-                .HasComment("Consecutivo de Asentamiento");
+            entity.Property(e => e.IdAsentamiento).HasComment("Consecutivo de Asentamiento");
 
             entity.Property(e => e.CodigoPostal).HasComment("Codigo Postal");
 
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta habilitado ");
+
+            entity.Property(e => e.Estatus)
+                .IsRequired()
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength(true)
+                .HasComment("Estatus del registro");
 
             entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
@@ -37,25 +42,24 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Fecha de la Ultima Modificacion");
 
-            entity.Property(e => e.IdMunicipio)
-                .HasColumnName("idMunicipio")
-                .HasComment("id del municipio al que pertenece");
+            entity.Property(e => e.IdMunicipio).HasComment("id del municipio al que pertenece");
 
-            entity.Property(e => e.IdTipoAsentamiento)
-                .HasColumnName("idTipoAsentamiento")
-                .HasComment("El id de la tabla TipoAsentamiento ");
+            entity.Property(e => e.IdTipoAsentamiento).HasComment("El id de la tabla TipoAsentamiento ");
 
             entity.Property(e => e.Nombre)
+                .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasComment("Nombre del asentamiento");
 
             entity.Property(e => e.UsuarioCreacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Usuario de Creacion del registro");
 
             entity.Property(e => e.UsuarioModificacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");

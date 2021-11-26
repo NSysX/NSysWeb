@@ -21,16 +21,16 @@ namespace Persistence.Configuration
             entity.HasIndex(e => new { e.ApellidoPaterno, e.ApellidoMaterno, e.Nombres }, "IX_NoDuplicado")
                 .IsUnique();
 
-            entity.Property(e => e.IdPersona)
-                .HasColumnName("idPersona")
-                .HasComment("id consecutivo de la tabla personas");
+            entity.Property(e => e.IdPersona).HasComment("id consecutivo de la tabla personas");
 
             entity.Property(e => e.ApellidoMaterno)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Apellido materno de la persona");
 
             entity.Property(e => e.ApellidoPaterno)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Apellido paterno de la persona");
@@ -38,9 +38,10 @@ namespace Persistence.Configuration
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta habilitado ");
 
             entity.Property(e => e.Estatus)
+                .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength()
+                .IsFixedLength(true)
                 .HasComment("Estatus de la Persona ");
 
             entity.Property(e => e.FechaCreacion)
@@ -56,39 +57,41 @@ namespace Persistence.Configuration
                 .HasComment("Fecha de nacimiento de la persona");
 
             entity.Property(e => e.Foto)
+                .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasComment("El path de la foto de la persona");
 
-            entity.Property(e => e.IdEstadoCivil)
-                .HasColumnName("idEstadoCivil")
-                .HasComment("El estado civil de la persona Casado, Divorciado, Soltero, union libre");
+            entity.Property(e => e.IdEstadoCivil).HasComment("El estado civil de la persona Casado, Divorciado, Soltero, union libre");
 
-            entity.Property(e => e.IdNacionalidad)
-                .HasColumnName("idNacionalidad")
-                .HasComment("id Nacionalidad de la persona");
+            entity.Property(e => e.IdNacionalidad).HasComment("id Nacionalidad de la persona");
 
             entity.Property(e => e.Nombres)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Nombre o Nombres de la persona");
 
             entity.Property(e => e.Notas)
+                .IsRequired()
                 .IsUnicode(false)
                 .HasComment("Notas importantes de la persona");
 
             entity.Property(e => e.Sexo)
+                .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength()
+                .IsFixedLength(true)
                 .HasComment("M = Masculino , F = Femenino");
 
             entity.Property(e => e.UsuarioCreacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Usuario que creo el registro");
 
             entity.Property(e => e.UsuarioModificacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico ");

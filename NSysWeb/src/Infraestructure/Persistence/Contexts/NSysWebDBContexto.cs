@@ -27,19 +27,19 @@ namespace Persistence.Contexts
         //public virtual DbSet<Asentamiento> Asentamientos { get; set; }
 
         public virtual DbSet<Asentamiento> Asentamientos { get; set; }
+        public virtual DbSet<CorreoElectronico> CorreoElectronicos { get; set; }
         public virtual DbSet<Direccion> Direccions { get; set; }
         public virtual DbSet<Documento> Documentos { get; set; }
-        public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Estado> Estados { get; set; }
         public virtual DbSet<EstadoCivil> EstadoCivils { get; set; }
         public virtual DbSet<Municipio> Municipios { get; set; }
         public virtual DbSet<Nacionalidad> Nacionalidads { get; set; }
         public virtual DbSet<Persona> Personas { get; set; }
+        public virtual DbSet<PersonaCorreoElectronico> PersonaCorreoElectronicos { get; set; }
         public virtual DbSet<PersonaDireccion> PersonaDireccions { get; set; }
         public virtual DbSet<PersonaDocumento> PersonaDocumentos { get; set; }
-        public virtual DbSet<PersonaEmail> PersonaEmails { get; set; }
         public virtual DbSet<PersonaTelefono> PersonaTelefonos { get; set; }
-        public virtual DbSet<SysDominioEmail> SysDominioEmails { get; set; }
+        public virtual DbSet<SysDominioCorreo> SysDominioCorreos { get; set; }
         public virtual DbSet<Telefono> Telefonos { get; set; }
         public virtual DbSet<TipoAsentamiento> TipoAsentamientos { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumentos { get; set; }
@@ -79,9 +79,9 @@ namespace Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            //modelBuilder.HasAnnotation("","");
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

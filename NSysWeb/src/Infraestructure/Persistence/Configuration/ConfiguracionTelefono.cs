@@ -2,6 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Persistence.Configuration
 {
@@ -15,9 +19,13 @@ namespace Persistence.Configuration
 
             entity.HasComment("Todos los Telefonos de personas y empresas");
 
+            entity.HasIndex(e => new { e.CodigoPais, e.Numero }, "IX_NoDuplicado")
+                .IsUnique();
+
             entity.Property(e => e.IdTelefono).HasComment("Identificador unico de la tabla telefono");
 
             entity.Property(e => e.CodigoPais)
+                .IsRequired()
                 .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasComment("Codigo Telefonico del Pais");
@@ -25,9 +33,10 @@ namespace Persistence.Configuration
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta habilitado para trabajar");
 
             entity.Property(e => e.Estatus)
+                .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength()
+                .IsFixedLength(true)
                 .HasComment("Estatus del registro");
 
             entity.Property(e => e.FechaCreacion)
@@ -39,21 +48,25 @@ namespace Persistence.Configuration
                 .HasComment("Ultima fecha de Modificacion del registro");
 
             entity.Property(e => e.Numero)
+                .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasComment("Numero telefonico");
 
             entity.Property(e => e.TipoTelefono)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Celular o Fijo");
 
             entity.Property(e => e.UsuarioCreacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Usuario que creo el registro");
 
             entity.Property(e => e.UsuarioModificacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");

@@ -2,10 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence.Configuration
 {
@@ -21,12 +17,13 @@ namespace Persistence.Configuration
 
             entity.HasIndex(e => e.IdTipoDocumento, "IXFK_Documento_TipoDocumento");
 
-            entity.HasIndex(e => e.CadenaUnica, "IX_NoDuplicado")
+            entity.HasIndex(e => e.CodigoUnico, "IX_NoDuplicado")
                 .IsUnique();
 
             entity.Property(e => e.IdDocumento).HasComment("El id de la tabla Documento");
 
-            entity.Property(e => e.CadenaUnica)
+            entity.Property(e => e.CodigoUnico)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("La cadena unica del documento");
@@ -34,9 +31,10 @@ namespace Persistence.Configuration
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta disponible para usarlo");
 
             entity.Property(e => e.Estatus)
+                .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength()
+                .IsFixedLength(true)
                 .HasComment("algun estatus para el registro");
 
             entity.Property(e => e.FechaCreacion)
@@ -50,24 +48,21 @@ namespace Persistence.Configuration
             entity.Property(e => e.IdTipoDocumento).HasComment("El identificador unico de la tabla TipoDocumento");
 
             entity.Property(e => e.Imagen)
+                .IsRequired()
                 .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasComment("Imagen del documento");
 
             entity.Property(e => e.UsuarioCreacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");
-
-            entity.HasOne(d => d.IdTipoDocumentoNavigation)
-                .WithMany(p => p.Documentos)
-                .HasForeignKey(d => d.IdTipoDocumento)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Documento_TipoDocumento");
         }
     }
 }

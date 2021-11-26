@@ -1,6 +1,11 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Persistence.Configuration
 {
@@ -20,8 +25,6 @@ namespace Persistence.Configuration
 
             entity.HasIndex(e => new { e.IdPersona, e.IdDireccion }, "IX_NoDuplicado")
                 .IsUnique();
-
-            entity.Property(e => e.IdPersonaDireccion).HasColumnName("idPersonaDireccion");
 
             entity.Property(e => e.IdDireccion).HasComment("El id de la Tabla Direccion");
 

@@ -1,10 +1,15 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Persistence.Configuration
 {
-    public class ConfiguraTipoAsentamiento : IEntityTypeConfiguration<TipoAsentamiento>
+    public class ConfiguracionTipoAsentamiento : IEntityTypeConfiguration<TipoAsentamiento>
     {
         public void Configure(EntityTypeBuilder<TipoAsentamiento> entity)
         {
@@ -14,43 +19,50 @@ namespace Persistence.Configuration
 
             entity.HasComment("Los tipos de Asentamientos como Ejido, Colonia , Poblado");
 
-            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbrevia")
+            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbre")
                 .IsUnique();
 
-            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNombre")
+            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoAsen")
                 .IsUnique();
 
-            entity.Property(e => e.IdTipoAsentamiento)
-                .HasColumnName("idTipoAsentamiento")
-                .HasComment("Id Consecutivo");
+            entity.Property(e => e.IdTipoAsentamiento).HasComment("Identificador unico ");
 
             entity.Property(e => e.Abreviatura)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Abreviatura de la descripcion de tipo de asentamiento");
 
             entity.Property(e => e.EsHabilitado).HasComment("Si esta disponible el registro ");
 
+            entity.Property(e => e.Estatus)
+                .IsRequired()
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength(true);
+
             entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
                 .HasComment("Fecha de Creacion del registro");
 
             entity.Property(e => e.FechaModificacion)
-                .HasMaxLength(50)
-                .IsUnicode(false)
+                .HasColumnType("datetime")
                 .HasComment("Ultima Fecha de Modificacion");
 
             entity.Property(e => e.Nombre)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Nombre del tipo de Asentamiento ");
 
             entity.Property(e => e.UsuarioCreacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Usuario que creo el registro");
 
             entity.Property(e => e.UsuarioModificacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");

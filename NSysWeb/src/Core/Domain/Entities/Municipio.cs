@@ -1,57 +1,25 @@
-﻿using System;
+﻿using Domain.Common;
+using System;
 using System.Collections.Generic;
+
+#nullable disable
 
 namespace Domain.Entities
 {
-    /// <summary>
-    /// Municipios de Mexico
-    /// </summary>
-    public partial class Municipio
+    public class Municipio : EntidadBaseAuditable
     {
         public Municipio()
         {
             Asentamientos = new HashSet<Asentamiento>();
         }
 
-        /// <summary>
-        /// id consecutivo de municipio
-        /// </summary>
         public int IdMunicipio { get; set; }
-        /// <summary>
-        /// id que pertenece al estado
-        /// </summary>
         public int IdEstado { get; set; }
-        /// <summary>
-        /// Fecha de Creacion del registro
-        /// </summary>
-        public DateTime FechaCreacion { get; set; }
-        /// <summary>
-        /// Usuario que creo el Registro
-        /// </summary>
-        public string UsuarioCreacion { get; set; } = null!;
-        /// <summary>
-        /// Fecha de la utlima modificacion
-        /// </summary>
-        public DateTime FechaModificacion { get; set; }
-        /// <summary>
-        /// Ultimo usuario que modifico el registro
-        /// </summary>
-        public string UsuarioModificacion { get; set; } = null!;
-        /// <summary>
-        /// Si el registro esta disponible
-        /// </summary>
-        public bool EsHabilitado { get; set; }
-        /// <summary>
-        /// Codigo visible al usuario
-        /// </summary>
-        public int Codigo { get; set; }
-        /// <summary>
-        /// Nombre del Municipio
-        /// </summary>
-        public string Nombre { get; set; } = null!;
-        public string Abreviatura { get; set; } = null!;
+        public string Estatus { get; set; }
+        public string Nombre { get; set; }
+        public string Abreviatura { get; set; }
 
-        public virtual Estado IdEstadoNavigation { get; set; } = null!;
+        public virtual Estado IdEstadoNavigation { get; set; }
         public virtual ICollection<Asentamiento> Asentamientos { get; set; }
     }
 }

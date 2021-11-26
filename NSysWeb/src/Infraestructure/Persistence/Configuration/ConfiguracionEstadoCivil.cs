@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Persistence.Configuration
 {
@@ -12,7 +13,7 @@ namespace Persistence.Configuration
 
             entity.ToTable("EstadoCivil");
 
-            entity.HasComment("Los estados Civiles de las Personas");
+            entity.HasComment("Los Estados Civiles de las Personas");
 
             entity.HasIndex(e => e.Descripcion, "IX_NoDuplicado")
                 .IsUnique();
@@ -20,6 +21,7 @@ namespace Persistence.Configuration
             entity.Property(e => e.IdEstadoCivil).HasComment("Id consecutivo ");
 
             entity.Property(e => e.Descripcion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Descripcion del estado civil");
@@ -27,9 +29,10 @@ namespace Persistence.Configuration
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta habilitado");
 
             entity.Property(e => e.Estatus)
+                .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength()
+                .IsFixedLength(true)
                 .HasComment("Estatus del estado civil");
 
             entity.Property(e => e.FechaCreacion)
@@ -41,11 +44,13 @@ namespace Persistence.Configuration
                 .HasComment("Fecha de la ultima modificacion");
 
             entity.Property(e => e.UsuarioCreacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("El usuario que creo el registro");
 
             entity.Property(e => e.UsuarioModificacion)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");

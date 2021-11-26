@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ActualizacionDB\" />
+  </ItemGroup>
+
 </Project>

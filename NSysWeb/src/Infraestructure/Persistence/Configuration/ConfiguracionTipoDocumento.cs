@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Persistence.Configuration
 {
@@ -15,15 +14,16 @@ namespace Persistence.Configuration
 
             entity.HasComment("Se capturan los tipos de documentos para que esten disponibles");
 
-            entity.HasIndex(e => e.Abreviacion, "IX_NoDuplicado_Abrev")
+            entity.HasIndex(e => e.Abreviacion, "IX_NoDuplicadoAbre")
                 .IsUnique();
 
-            entity.HasIndex(e => e.Nombre, "IX_NoDuplicado_Nom")
+            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNom")
                 .IsUnique();
 
             entity.Property(e => e.IdTipoDocumento).HasComment("El identificador unico de registro");
 
             entity.Property(e => e.Abreviacion)
+                .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasComment("Abreviacion del documento");
@@ -31,9 +31,10 @@ namespace Persistence.Configuration
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta disponible para trabajar con el");
 
             entity.Property(e => e.Estatus)
+                .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .IsFixedLength()
+                .IsFixedLength(true)
                 .HasComment("Estatus del registro");
 
             entity.Property(e => e.FechaCreacion)
@@ -45,21 +46,27 @@ namespace Persistence.Configuration
                 .HasComment("Fecha de la ultima modificacion del registro");
 
             entity.Property(e => e.Longitud)
+                .IsRequired()
                 .HasMaxLength(2)
                 .IsUnicode(false)
                 .HasComment("La longitud de caracteres permitido para la Cadena Unica");
 
             entity.Property(e => e.Nombre)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Nombre completo del documento ");
 
             entity.Property(e => e.UsuarioCreacion)
-                .HasColumnType("datetime")
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasComment("Usuario que creo el registro");
 
             entity.Property(e => e.UsuarioModificacion)
-                .HasColumnType("datetime")
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasComment("El usuario de la ultima modificacion");
         }
     }

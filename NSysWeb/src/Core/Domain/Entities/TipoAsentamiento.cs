@@ -1,50 +1,22 @@
-﻿using System;
+﻿using Domain.Common;
+using System;
 using System.Collections.Generic;
+
+#nullable disable
 
 namespace Domain.Entities
 {
-    /// <summary>
-    /// Los tipos de Asentamientos como Ejido, Colonia , Poblado
-    /// </summary>
-    public partial class TipoAsentamiento
+    public class TipoAsentamiento : EntidadBaseAuditable
     {
         public TipoAsentamiento()
         {
             Asentamientos = new HashSet<Asentamiento>();
         }
 
-        /// <summary>
-        /// Id Consecutivo
-        /// </summary>
         public int IdTipoAsentamiento { get; set; }
-        /// <summary>
-        /// Fecha de Creacion del registro
-        /// </summary>
-        public DateTime FechaCreacion { get; set; }
-        /// <summary>
-        /// Usuario que creo el registro
-        /// </summary>
-        public string UsuarioCreacion { get; set; } = null!;
-        /// <summary>
-        /// Ultima Fecha de Modificacion
-        /// </summary>
-        public string FechaModificacion { get; set; } = null!;
-        /// <summary>
-        /// Ultimo usuario que modifico el registro
-        /// </summary>
-        public string UsuarioModificacion { get; set; } = null!;
-        /// <summary>
-        /// Si esta disponible el registro 
-        /// </summary>
-        public bool EsHabilitado { get; set; }
-        /// <summary>
-        /// Nombre del tipo de Asentamiento 
-        /// </summary>
-        public string Nombre { get; set; } = null!;
-        /// <summary>
-        /// Abreviatura de la descripcion de tipo de asentamiento
-        /// </summary>
-        public string Abreviatura { get; set; } = null!;
+        public string Estatus { get; set; }
+        public string Nombre { get; set; }
+        public string Abreviatura { get; set; }
 
         public virtual ICollection<Asentamiento> Asentamientos { get; set; }
     }
