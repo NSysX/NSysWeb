@@ -1,23 +1,20 @@
-﻿using Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace Domain.Entities
 {
-    public class CorreoElectronico : EntidadBaseAuditable
+    public partial class CorreoElectronico
     {
-        public CorreoElectronico()
-        {
-            PersonaCorreoElectronicos = new HashSet<PersonaCorreoElectronico>();
-        }
-
         public int IdCorreoElectronico { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public string UsuarioCreacion { get; set; }
+        public DateTime FechaModificacion { get; set; }
+        public string UsuarioModificacion { get; set; }
+        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
         public string Correo { get; set; }
         public string TipoEmail { get; set; }
-
-        public virtual ICollection<PersonaCorreoElectronico> PersonaCorreoElectronicos { get; set; }
     }
 }

@@ -17,8 +17,8 @@ namespace WebAPI.Controllers.v1
             return Ok(await Mediator.Send(new ObtenerXIdEstadoCivilQuery { IdEstadoCivil = id }));
         }
 
-        [HttpGet(Name = "ListarXParametros")]
-        public async Task<ActionResult> Get([FromQuery] ListarEstadosCivilesXParametro parametros)
+        [HttpGet(Name = "ListarXParametrosEstadosCiviles")]
+        public async Task<ActionResult> Get([FromQuery] EstadosCivilesParametros parametros)
         {
             return Ok(await Mediator.Send(new ListarEstadosCivilesQuery
             {
@@ -35,16 +35,16 @@ namespace WebAPI.Controllers.v1
             return Ok(await Mediator.Send(insertarEstadoCivilCommand));
         }
 
-        [HttpDelete("{id:int}", Name = "EliminaEstadoCivil_Fisico")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return Ok(await Mediator.Send(new EliminarEstadoCivilCommand { IdEstadoCivil = id} ));
-        }
-
         [HttpPut(Name = "ActulizaEstadoCivil")]
         public async Task<ActionResult> Update(ActualizarEstadoCivilCommand actualizarEstadoCivilCommand)
         {
             return Ok(await Mediator.Send(actualizarEstadoCivilCommand));
         }
+
+        [HttpDelete("{id:int}", Name = "EliminaEstadoCivil_Fisico")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new EliminarEstadoCivilCommand { IdEstadoCivil = id} ));
+        } 
     }
 }

@@ -15,7 +15,7 @@ namespace Application.Features.EstadosCiviles.Commands.InsertarEstadosCivilesCom
                 .NotNull().WithMessage("{PropertyName} : No debe ser NULL")
                 .NotEmpty().WithMessage("{PropertyName} : No debe estar Vacia")
                 .Length(3, 35).WithMessage("{PropertyName} : Debe tener entre {MinLength} y {MaxLength} Caracteres")
-                .Matches(@"^[a-zA-Z()áéíóúñÑ.,\s]*$|^[\W]*$").WithMessage("{PropertyName} : Contiene Caracteres Invalidos (Solo acepta letras mayusculas,espacios Y /)");
+                .Matches(@"^[a-zA-Z()áéíóúñÑ.,/s @]*$|^[\W]*$").WithMessage("{PropertyName} : Contiene Caracteres Invalidos (Solo acepta letras mayusculas,espacios Y /)");
         }
     }
 }

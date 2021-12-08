@@ -1,24 +1,20 @@
-﻿using Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace Domain.Entities
 {
-    public class Persona : EntidadBaseAuditable
+    public partial class Persona
     {
-        public Persona()
-        {
-            PersonaCorreoElectronicos = new HashSet<PersonaCorreoElectronico>();
-            PersonaDireccions = new HashSet<PersonaDireccion>();
-            PersonaDocumentos = new HashSet<PersonaDocumento>();
-            PersonaTelefonos = new HashSet<PersonaTelefono>();
-        }
-
         public int IdPersona { get; set; }
         public int IdNacionalidad { get; set; }
         public int IdEstadoCivil { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public string UsuarioCreacion { get; set; }
+        public DateTime FechaModificacion { get; set; }
+        public string UsuarioModificacion { get; set; }
+        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
@@ -30,9 +26,5 @@ namespace Domain.Entities
 
         public virtual EstadoCivil IdEstadoCivilNavigation { get; set; }
         public virtual Nacionalidad IdNacionalidadNavigation { get; set; }
-        public virtual ICollection<PersonaCorreoElectronico> PersonaCorreoElectronicos { get; set; }
-        public virtual ICollection<PersonaDireccion> PersonaDireccions { get; set; }
-        public virtual ICollection<PersonaDocumento> PersonaDocumentos { get; set; }
-        public virtual ICollection<PersonaTelefono> PersonaTelefonos { get; set; }
     }
 }

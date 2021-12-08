@@ -15,12 +15,12 @@ namespace Persistence.Configuration
 
             entity.HasComment("Catalogo de Nacionalidades con su bandera");
 
-            entity.HasIndex(e => e.Decripcion, "IX_NoDuplicado")
+            entity.HasIndex(e => e.Descripcion, "IX_NoDuplicado")
                 .IsUnique();
 
             entity.Property(e => e.IdNacionalidad).HasComment("Id unico para el registro");
 
-            entity.Property(e => e.Decripcion)
+            entity.Property(e => e.Descripcion)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)

@@ -13,7 +13,7 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<PersonaDireccion> entity)
         {
-            entity.HasKey(e => e.IdPersonaDireccion);
+            entity.HasNoKey();
 
             entity.ToTable("PersonaDireccion");
 
@@ -31,13 +31,13 @@ namespace Persistence.Configuration
             entity.Property(e => e.IdPersona).HasComment("El id de la tabla de Personas");
 
             entity.HasOne(d => d.IdDireccionNavigation)
-                .WithMany(p => p.PersonaDireccions)
+                .WithMany()
                 .HasForeignKey(d => d.IdDireccion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDireccion_Direccion");
 
             entity.HasOne(d => d.IdPersonaNavigation)
-                .WithMany(p => p.PersonaDireccions)
+                .WithMany()
                 .HasForeignKey(d => d.IdPersona)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDireccion_Persona");

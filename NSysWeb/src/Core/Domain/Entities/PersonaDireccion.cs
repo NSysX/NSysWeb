@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class PersonaDireccion
+    public partial class PersonaDireccion
     {
-        public int IdPersonaDireccion { get; set; }
         public int IdPersona { get; set; }
         public int IdDireccion { get; set; }
 

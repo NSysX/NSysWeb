@@ -9,7 +9,7 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<PersonaDocumento> entity)
         {
-            entity.HasKey(e => e.IdPersonaDocumento);
+            entity.HasNoKey();
 
             entity.ToTable("PersonaDocumento");
 
@@ -22,20 +22,18 @@ namespace Persistence.Configuration
             entity.HasIndex(e => new { e.IdPersona, e.IdDocumento }, "IX_NoDuplicado")
                 .IsUnique();
 
-            entity.Property(e => e.IdPersonaDocumento).HasComment("Identificador ");
-
             entity.Property(e => e.IdDocumento).HasComment("IdDocumento de la Tabla Documento");
 
             entity.Property(e => e.IdPersona).HasComment("El idPersona de la tabla Personas");
 
             entity.HasOne(d => d.IdDocumentoNavigation)
-                .WithMany(p => p.PersonaDocumentos)
+                .WithMany()
                 .HasForeignKey(d => d.IdDocumento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDocumento_Documento");
 
             entity.HasOne(d => d.IdPersonaNavigation)
-                .WithMany(p => p.PersonaDocumentos)
+                .WithMany()
                 .HasForeignKey(d => d.IdPersona)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDocumento_Persona");

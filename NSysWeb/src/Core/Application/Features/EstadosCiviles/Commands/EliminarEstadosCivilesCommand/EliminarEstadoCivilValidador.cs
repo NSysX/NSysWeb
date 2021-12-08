@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System.Text.RegularExpressions;
 
 namespace Application.Features.EstadosCiviles.Commands.EliminarEstadosCivilesCommand
 {
@@ -8,13 +7,14 @@ namespace Application.Features.EstadosCiviles.Commands.EliminarEstadosCivilesCom
         public EliminarEstadoCivilValidador()
         {
             RuleFor(i => i.IdEstadoCivil)
-                .NotEmpty().WithMessage("'{PropertyName}' : No Debe Ser Vacio");
-                //.Must(SoloNumeros);
+                .NotNull().WithMessage("'{PropertyName}' : No puede ser Nulo")
+                .NotEmpty().WithMessage("'{PropertyName}' : No puede Estar Vacio")
+                .Must(EsPositivo).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
         }
 
-        //private protected static bool SoloNumeros(int id)
-        //{
-        //    return Regex.IsMatch(id.ToString(), @"^[1-9]*$");
-        //}
+        protected static bool EsPositivo(int id)
+        {
+            return id > 0;
+        }
     }
 }

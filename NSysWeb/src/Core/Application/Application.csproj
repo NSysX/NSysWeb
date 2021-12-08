@@ -14,6 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Personas\Commands\ActualizarPersonasCommand\" />
+    <Folder Include="Features\Personas\Commands\EliminarPersonasCommand\" />
+    <Folder Include="Features\Personas\Queries\" />
     <Folder Include="Filters\" />
   </ItemGroup>
 

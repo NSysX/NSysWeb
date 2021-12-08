@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace Persistence.Configuration
 {
-    public class ConfiguracionTipoAsentamiento : IEntityTypeConfiguration<TipoAsentamiento>
+    public class ConfiguracionAsentamientoTipo : IEntityTypeConfiguration<AsentamientoTipo>
     {
-        public void Configure(EntityTypeBuilder<TipoAsentamiento> entity)
+        public void Configure(EntityTypeBuilder<AsentamientoTipo> entity)
         {
-            entity.HasKey(e => e.IdTipoAsentamiento);
+            entity.HasKey(e => e.IdTipoAsentamiento)
+                     .HasName("PK_TipoAsentamiento");
 
-            entity.ToTable("TipoAsentamiento");
+            entity.ToTable("AsentamientoTipo");
 
             entity.HasComment("Los tipos de Asentamientos como Ejido, Colonia , Poblado");
 

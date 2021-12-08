@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Application.Specifications
 {
-    public class EstadosCivilesPaginadosSpecificacion : Specification<EstadoCivil>
+    public class EstadosCivilesPaginadosSpec : Specification<EstadoCivil>
     {
-        public EstadosCivilesPaginadosSpecificacion(int registrosXPagina, int numeroPagina, string descripcion, string estatus)
+        public EstadosCivilesPaginadosSpec(int registrosXPagina, int numeroPagina, string descripcion, string estatus)
         {
             Query.Skip((numeroPagina - 1) * registrosXPagina)
                 .Take(registrosXPagina).OrderBy(x => x.Descripcion);

@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common;
 using NetTopologySuite.Geometries;
 
 #nullable disable
 
 namespace Domain.Entities
 {
-    public class Direccion : EntidadBaseAuditable
+    public partial class Direccion
     {
-        public Direccion()
-        {
-            PersonaDireccions = new HashSet<PersonaDireccion>();
-        }
-
         public int IdDireccion { get; set; }
         public int IdAsentamiento { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public string UsuarioCreacion { get; set; }
+        public DateTime FechaModificacion { get; set; }
+        public string UsuarioModificacion { get; set; }
+        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
         public string Calle { get; set; }
         public string EntreLaCalle { get; set; }
@@ -28,6 +27,5 @@ namespace Domain.Entities
         public bool EsFiscal { get; set; }
 
         public virtual Asentamiento IdAsentamientoNavigation { get; set; }
-        public virtual ICollection<PersonaDireccion> PersonaDireccions { get; set; }
     }
 }

@@ -1,12 +1,11 @@
-﻿using Application.Interfaces;
+﻿using Application.Exceptions;
+using Application.Interfaces;
+using Application.Specifications.EstadosCiviles;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,6 +31,13 @@ namespace Application.Features.EstadosCiviles.Commands.ActualizarEstadosCivilesC
 
         public async Task<Respuesta<int>> Handle(ActualizarEstadoCivilCommand request, CancellationToken cancellationToken)
         {
+            var datosAVerificar = new ExisteEstadoCivilSpec(request.Descripcion, request.IdEstadoCivil);
+            var existe = await _repositorioAsync.GetBySpecAsync(datosAVerificar);
+
+            // Si trae algun registro que coincida
+            if (existe != null)
+                throw new ExcepcionesDeAPI("No se puede Actualizar con datos Duplicados");
+
             EstadoCivil existe_estadoCivil = await _repositorioAsync.GetByIdAsync(request.IdEstadoCivil);
 
             if (existe_estadoCivil == null)

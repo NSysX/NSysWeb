@@ -1,4 +1,6 @@
-﻿using Application.Interfaces;
+﻿using Application.Exceptions;
+using Application.Interfaces;
+using Application.Specifications.EstadosCiviles;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -37,7 +39,11 @@ namespace Application.Features.EstadosCiviles.Commands.InsertarEstadosCivilesCom
 
         public async Task<Respuesta<int>> Handle(InsertarEstadoCivilCommand peticion, CancellationToken cancellationToken)
         {
-            // var existe_estadoCivil = await _respositorioAsync.GetByIdAsync(peticion.Descripcion);
+            var datosAVerificar = new ExisteEstadoCivilSpec(peticion.Descripcion);
+            var existe = await _respositorioAsync.GetBySpecAsync(datosAVerificar);
+
+            if (existe != null)
+                throw new ExcepcionesDeAPI("No se Puede Insertar Estados Civiles Duplicados");
 
             var nuevoRegistro = _mapper.Map<EstadoCivil>(peticion);
             var data = await _respositorioAsync.AddAsync(nuevoRegistro);

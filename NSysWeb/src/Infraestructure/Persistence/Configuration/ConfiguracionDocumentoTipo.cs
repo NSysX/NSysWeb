@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Configuration
 {
-    public class ConfiguracionTipoDocumento : IEntityTypeConfiguration<TipoDocumento>
+    public class ConfiguracionDocumentoTipo : IEntityTypeConfiguration<DocumentoTipo>
     {
-        public void Configure(EntityTypeBuilder<TipoDocumento> entity)
+        public void Configure(EntityTypeBuilder<DocumentoTipo> entity)
         {
-            entity.HasKey(e => e.IdTipoDocumento);
+            entity.HasKey(e => e.IdTipoDocumento)
+                    .HasName("PK_TipoDocumento");
 
-            entity.ToTable("TipoDocumento");
+            entity.ToTable("DocumentoTipo");
 
             entity.HasComment("Se capturan los tipos de documentos para que esten disponibles");
 
@@ -45,11 +46,7 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Fecha de la ultima modificacion del registro");
 
-            entity.Property(e => e.Longitud)
-                .IsRequired()
-                .HasMaxLength(2)
-                .IsUnicode(false)
-                .HasComment("La longitud de caracteres permitido para la Cadena Unica");
+            entity.Property(e => e.Longitud).HasComment("La longitud de caracteres permitido para la Cadena Unica");
 
             entity.Property(e => e.Nombre)
                 .IsRequired()
