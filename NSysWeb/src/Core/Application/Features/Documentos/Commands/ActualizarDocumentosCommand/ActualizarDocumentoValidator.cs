@@ -16,7 +16,7 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
                 .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
                 .Must(MayorACero).WithMessage("'{PropertyName}' : el Id debe ser Mayor a Cero");
 
-            RuleFor(c => c.IdTipoDocumento)
+            RuleFor(c => c.IdDocumentoTipo)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
                 .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
                 .Must(MayorACero).WithMessage("'{PropertyName}' : el Id debe ser Mayor a Cero");

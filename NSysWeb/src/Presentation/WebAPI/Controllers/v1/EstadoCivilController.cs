@@ -23,7 +23,7 @@ namespace WebAPI.Controllers.v1
             return Ok(await Mediator.Send(new ListarEstadosCivilesQuery
             {
                 NumeroDePagina = parametros.NumeroDePagina,
-                RegistroXPagina = parametros.RegistrosXPagina,
+                RegistrosXPagina = parametros.RegistrosXPagina,
                 Descripcion = parametros.Descripcion,
                 Estatus = parametros.Estatus
             }));

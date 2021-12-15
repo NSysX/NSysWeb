@@ -9,6 +9,6 @@ namespace Application.DTOs
     public class DocumentoDTO
     {
         public int IdDocumento { get; set; }
-        public TipoDocumentoDTO MyProperty { get; set; }
+        public DocumentoTipoDTO MyProperty { get; set; }
     }
 }

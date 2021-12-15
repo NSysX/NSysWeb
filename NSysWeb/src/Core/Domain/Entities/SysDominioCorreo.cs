@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Common;
 
 #nullable disable
 
 namespace Domain.Entities
 {
-    public partial class SysDominioCorreo
+    public partial class SysDominioCorreo : EntidadBaseAuditable
     {
         public int IdSysDominioCorreo { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public DateTime FechaModificacion { get; set; }
-        public string UsuarioModificacion { get; set; }
-        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
         public string Dominio { get; set; }
     }

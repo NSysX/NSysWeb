@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Common;
 
 #nullable disable
 
 namespace Domain.Entities
 {
-    public partial class PersonaCorreoElectronico
+    public partial class PersonaCorreoElectronico : EntidadBaseAuditable
     {
         public int IdPersona { get; set; }
         public int IdCorreoElectronico { get; set; }

@@ -10,8 +10,6 @@ namespace WebAPI.Controllers.v1
     [ApiVersion("1.0")]
     public class DocumentoController : BaseApiController
     {
-
-
         [HttpPost(Name = "InsertarDocumento")]
         public async Task<ActionResult> PostDocumento(InsertarDocumentoCommand insertarDocumentoCommand)
         {
@@ -29,6 +27,5 @@ namespace WebAPI.Controllers.v1
         {
             return Ok(await Mediator.Send(new EliminarDocumentoCommand { IdDocumento = id }));
         }
-
     }
 }

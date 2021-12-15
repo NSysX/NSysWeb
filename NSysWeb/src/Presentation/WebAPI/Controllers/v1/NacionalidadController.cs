@@ -29,13 +29,13 @@ namespace WebAPI.Controllers.v1
         }
 
         [HttpPost(Name = "InsertaNacionalidad")]
-        public async Task<ActionResult> PostNacionalidad(InsertaNacionalidadCommand nacionalidad)
+        public async Task<ActionResult> PostNacionalidad(InsertarNacionalidadCommand nacionalidad)
         {
             return Ok(await Mediator.Send(nacionalidad));
         }
 
         [HttpPut(Name = "ActualizaNacionalidad")]
-        public async Task<ActionResult> UpdateNacionalidad(ActualizaNacionalidadCommand actualiza)
+        public async Task<ActionResult> UpdateNacionalidad(ActualizarNacionalidadCommand actualiza)
         {
             return Ok(await Mediator.Send(actualiza));
         }

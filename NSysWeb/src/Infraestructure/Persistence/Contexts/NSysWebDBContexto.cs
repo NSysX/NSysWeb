@@ -42,7 +42,7 @@ namespace Persistence.Contexts
         public virtual DbSet<SysDominioCorreo> SysDominioCorreos { get; set; }
         public virtual DbSet<Telefono> Telefonos { get; set; }
         public virtual DbSet<AsentamientoTipo> TipoAsentamientos { get; set; }
-        public virtual DbSet<DocumentoTipo> TipoDocumentos { get; set; }
+        public virtual DbSet<DocumentoTipo> DocumentosTipos { get; set; }
 
 
         // Vamos a sobreescribir el metodo SaveChanges Async

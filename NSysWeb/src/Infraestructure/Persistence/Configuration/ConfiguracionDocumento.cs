@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Persistence.Configuration
 {
@@ -15,7 +14,7 @@ namespace Persistence.Configuration
 
             entity.HasComment("Se incluyen todos los documentos que las personas fisicas y morales pueden tener");
 
-            entity.HasIndex(e => e.IdTipoDocumento, "IXFK_Documento_TipoDocumento");
+            entity.HasIndex(e => e.IdDocumentoTipo, "IXFK_Documento_DocumentoTipo");
 
             entity.HasIndex(e => e.CodigoUnico, "IX_NoDuplicado")
                 .IsUnique();
@@ -45,7 +44,7 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Ultima Fecha de modificacion");
 
-            entity.Property(e => e.IdTipoDocumento).HasComment("El identificador unico de la tabla TipoDocumento");
+            entity.Property(e => e.IdDocumentoTipo).HasComment("El identificador unico de la tabla DocumentoTipo");
 
             entity.Property(e => e.Imagen)
                 .IsRequired()
@@ -63,6 +62,12 @@ namespace Persistence.Configuration
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");
+
+            entity.HasOne(d => d.IdDocumentoTipoNavigation)
+                .WithMany(p => p.Documentos)
+                .HasForeignKey(d => d.IdDocumentoTipo)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Documento_DocumentoTipo");
         }
     }
 }

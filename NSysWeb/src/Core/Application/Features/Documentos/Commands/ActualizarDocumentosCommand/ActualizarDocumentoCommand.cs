@@ -15,7 +15,7 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
     public class ActualizarDocumentoCommand : IRequest<Respuesta<int>>
     {
         public int IdDocumento { get; set; }
-        public int IdTipoDocumento { get; set; }
+        public int IdDocumentoTipo { get; set; }
         public string Estatus { get; set; }
         public string CodigoUnico { get; set; }
         public string Imagen { get; set; }
@@ -24,13 +24,13 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
     public class ActualizarDocumento_Manejador : IRequestHandler<ActualizarDocumentoCommand, Respuesta<int>>
     {
         private readonly IRepositorioAsync<Documento> _repositorioAsyc;
-        private readonly IMapper _mapper;
+        // private readonly IMapper _mapper;
 
         public ActualizarDocumento_Manejador(IRepositorioAsync<Documento> repositorioAsyc,
                                              IMapper mapper)
         {
             this._repositorioAsyc = repositorioAsyc;
-            this._mapper = mapper;
+            //this._mapper = mapper;
         }
 
         public async Task<Respuesta<int>> Handle(ActualizarDocumentoCommand request, CancellationToken cancellationToken)
@@ -41,7 +41,7 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
             if (documento == null)
                 throw new KeyNotFoundException($"No se Encontro el Registro con el Id = { request.IdDocumento }");
 
-            documento.IdTipoDocumento = request.IdTipoDocumento;
+            documento.IdDocumentoTipo = request.IdDocumentoTipo;
             documento.Estatus = request.Estatus;
             documento.CodigoUnico = request.CodigoUnico;
             documento.Imagen = request.Imagen;

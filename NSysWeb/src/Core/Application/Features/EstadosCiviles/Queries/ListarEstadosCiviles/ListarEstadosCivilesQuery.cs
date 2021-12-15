@@ -14,7 +14,7 @@ namespace Application.Features.EstadosCiviles.Queries.ListarEstadosCivilesQuery
     public class ListarEstadosCivilesQuery : IRequest<RespuestaPaginada<List<EstadoCivilDTO>>>
     {
         public int NumeroDePagina { get; set; }
-        public int RegistroXPagina { get; set; }
+        public int RegistrosXPagina { get; set; }
         public string Descripcion { get; set; }
         public string Estatus { get; set; }
     }
@@ -32,11 +32,11 @@ namespace Application.Features.EstadosCiviles.Queries.ListarEstadosCivilesQuery
 
             public async Task<RespuestaPaginada<List<EstadoCivilDTO>>> Handle(ListarEstadosCivilesQuery request, CancellationToken cancellationToken)
             {
-                var estadosCiviles = await _repositorioEstadoCivil.ListAsync(new EstadosCivilesPaginadosSpec(request.RegistroXPagina, request.NumeroDePagina, request.Descripcion, request.Estatus));
+                var estadosCiviles = await _repositorioEstadoCivil.ListAsync(new EstadosCivilesPaginadosSpec(request.RegistrosXPagina, request.NumeroDePagina, request.Descripcion, request.Estatus));
 
                 var estadosCivilesDTO = _mapper.Map<List<EstadoCivilDTO>>(estadosCiviles);
 
-                return new RespuestaPaginada<List<EstadoCivilDTO>>(estadosCivilesDTO, request.NumeroDePagina, request.RegistroXPagina);
+                return new RespuestaPaginada<List<EstadoCivilDTO>>(estadosCivilesDTO, request.NumeroDePagina, request.RegistrosXPagina);
             }
         }
     

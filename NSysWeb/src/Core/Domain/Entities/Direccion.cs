@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Common;
 using NetTopologySuite.Geometries;
+using System;
 
 #nullable disable
 
 namespace Domain.Entities
 {
-    public partial class Direccion
+    public partial class Direccion : EntidadBaseAuditable
     {
         public int IdDireccion { get; set; }
         public int IdAsentamiento { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public DateTime FechaModificacion { get; set; }
-        public string UsuarioModificacion { get; set; }
-        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
         public string Calle { get; set; }
         public string EntreLaCalle { get; set; }

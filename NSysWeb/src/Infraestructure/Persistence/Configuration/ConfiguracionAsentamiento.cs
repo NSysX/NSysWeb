@@ -14,11 +14,9 @@ namespace Persistence.Configuration
 
             entity.HasComment("Nombre del asentamiento");
 
-            entity.HasIndex(e => e.IdMunicipio, "IXFK_Asentamiento_Municipio");
+            entity.HasIndex(e => e.IdAsentamientoTipo, "IXFK_Asentamiento_AsentamientoTipo");
 
-            entity.HasIndex(e => e.IdTipoAsentamiento, "IXFK_Asentamiento_TipoAsentamiento");
-
-            entity.HasIndex(e => new { e.IdMunicipio, e.IdTipoAsentamiento, e.Nombre }, "IX_NoDuplicado")
+            entity.HasIndex(e => new { e.IdMunicipio, e.IdAsentamientoTipo, e.Nombre }, "IX_NoDuplicado")
                 .IsUnique();
 
             entity.Property(e => e.IdAsentamiento).HasComment("Consecutivo de Asentamiento");
@@ -42,9 +40,9 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Fecha de la Ultima Modificacion");
 
-            entity.Property(e => e.IdMunicipio).HasComment("id del municipio al que pertenece");
+            entity.Property(e => e.IdAsentamientoTipo).HasComment("El id de la tabla TipoAsentamiento ");
 
-            entity.Property(e => e.IdTipoAsentamiento).HasComment("El id de la tabla TipoAsentamiento ");
+            entity.Property(e => e.IdMunicipio).HasComment("id del municipio al que pertenece");
 
             entity.Property(e => e.Nombre)
                 .IsRequired()
@@ -64,17 +62,11 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");
 
-            entity.HasOne(d => d.IdMunicipioNavigation)
+            entity.HasOne(d => d.IdAsentamientoTipoNavigation)
                 .WithMany(p => p.Asentamientos)
-                .HasForeignKey(d => d.IdMunicipio)
+                .HasForeignKey(d => d.IdAsentamientoTipo)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Asentamiento_Municipio");
-
-            entity.HasOne(d => d.IdTipoAsentamientoNavigation)
-                .WithMany(p => p.Asentamientos)
-                .HasForeignKey(d => d.IdTipoAsentamiento)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Asentamiento_TipoAsentamiento");
+                .HasConstraintName("FK_Asentamiento_AsentamientoTipo");
         }
     }
 }

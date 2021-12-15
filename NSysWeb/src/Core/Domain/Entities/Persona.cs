@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Common;
+using System;
 
 #nullable disable
 
 namespace Domain.Entities
 {
-    public partial class Persona
+    public partial class Persona : EntidadBaseAuditable
     {
         public int IdPersona { get; set; }
         public int IdNacionalidad { get; set; }
         public int IdEstadoCivil { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public DateTime FechaModificacion { get; set; }
-        public string UsuarioModificacion { get; set; }
-        public bool EsHabilitado { get; set; }
         public string Estatus { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }

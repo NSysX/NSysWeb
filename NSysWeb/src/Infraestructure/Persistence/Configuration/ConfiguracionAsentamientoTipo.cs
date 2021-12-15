@@ -13,8 +13,7 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<AsentamientoTipo> entity)
         {
-            entity.HasKey(e => e.IdTipoAsentamiento)
-                     .HasName("PK_TipoAsentamiento");
+            entity.HasKey(e => e.IdAsentamientoTipo);
 
             entity.ToTable("AsentamientoTipo");
 
@@ -26,11 +25,11 @@ namespace Persistence.Configuration
             entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoAsen")
                 .IsUnique();
 
-            entity.Property(e => e.IdTipoAsentamiento).HasComment("Identificador unico ");
+            entity.Property(e => e.IdAsentamientoTipo).HasComment("Identificador unico ");
 
             entity.Property(e => e.Abreviatura)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasComment("Abreviatura de la descripcion de tipo de asentamiento");
 

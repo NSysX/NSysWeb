@@ -3,9 +3,13 @@ using Application.Features.Documentos.Commands.InsertarDocumentosCommand;
 using Application.Features.EstadosCiviles.Commands.InsertarEstadosCivilesCommand;
 using Application.Features.Nacionalidades.Commands;
 using Application.Features.Personas.Commands.InsertarPersonasCommand;
-using Application.Features.TiposDocumentos.Commands.InsertarTiposDocumentosCommand;
+using Application.Features.DocumentosTipos.Commands.InsertarDocumentosTiposCommand;
 using AutoMapper;
 using Domain.Entities;
+using Application.Features.Estados.Commands;
+using Application.Features.AsentamientosTipos.Commands.InsertarAsentamientosTipos;
+using Application.Features.AsentamientosTipos.Commands.ActualizaAsentamientosTipos;
+using Application.Features.SysDominiosCorreos.Commands.InsertarSysDominiosCorreosCommand;
 
 namespace Application.Mappings
 {
@@ -20,9 +24,9 @@ namespace Application.Mappings
             //CreateMap<ActualizarEstadoCivilCommand, EstadoCivil>();
             #endregion
 
-            #region MapeoTipoDocumento
-            CreateMap<InsertarTipoDocumentoCommand, DocumentoTipo>().ReverseMap();
-            CreateMap<DocumentoTipo, TipoDocumentoDTO>().ReverseMap();
+            #region DocumentoTipo
+            CreateMap<InsertarDocumentoTipoCommand, DocumentoTipo>().ReverseMap();
+            CreateMap<DocumentoTipo, DocumentoTipoDTO>().ReverseMap();
             #endregion
 
             #region Documento
@@ -34,8 +38,27 @@ namespace Application.Mappings
             #endregion
 
             #region Nacionalidad
-            CreateMap<InsertaNacionalidadCommand, Nacionalidad>().ReverseMap();
+            CreateMap<InsertarNacionalidadCommand, Nacionalidad>().ReverseMap();
             CreateMap<Nacionalidad, NacionalidadDTO>().ReverseMap();
+            #endregion
+
+            #region Estado
+            CreateMap<InsertarEstadoCommand, Estado>().ReverseMap();
+            CreateMap<EstadoDTO, Estado>().ReverseMap();
+            #endregion
+
+            #region AsentamientoTipo
+            CreateMap<InsertarAsentamientoTipoCommand, AsentamientoTipo>().ReverseMap();
+            CreateMap<AsentamientoTipo, AsentamientoTipoDTO>().ReverseMap();
+            #endregion
+
+            #region SysDominioCorreo
+            CreateMap<InsertarSysDominioCorreoCommand, SysDominioCorreo>().ReverseMap();
+            #endregion
+
+            #region SysDominioCorreo
+            CreateMap<InsertarSysDominioCorreoCommand, SysDominioCorreo>().ReverseMap();
+            CreateMap<SysDominioCorreo, SysDominioCorreoDTO>().ReverseMap();
             #endregion
         }
     }

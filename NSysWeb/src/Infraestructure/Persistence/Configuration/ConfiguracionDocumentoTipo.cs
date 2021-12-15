@@ -8,26 +8,25 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<DocumentoTipo> entity)
         {
-            entity.HasKey(e => e.IdTipoDocumento)
-                    .HasName("PK_TipoDocumento");
+            entity.HasKey(e => e.IdDocumentoTipo);
 
             entity.ToTable("DocumentoTipo");
 
             entity.HasComment("Se capturan los tipos de documentos para que esten disponibles");
 
-            entity.HasIndex(e => e.Abreviacion, "IX_NoDuplicadoAbre")
+            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbre")
                 .IsUnique();
 
             entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNom")
                 .IsUnique();
 
-            entity.Property(e => e.IdTipoDocumento).HasComment("El identificador unico de registro");
+            entity.Property(e => e.IdDocumentoTipo).HasComment("El identificador unico de registro");
 
-            entity.Property(e => e.Abreviacion)
+            entity.Property(e => e.Abreviatura)
                 .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false)
-                .HasComment("Abreviacion del documento");
+                .HasComment("Abreviatura del documento");
 
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta disponible para trabajar con el");
 
