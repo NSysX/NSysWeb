@@ -94,15 +94,15 @@ namespace Persistence.Configuration
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasComment("Ultimo usuario que modifico ");
+                .HasComment("Ultimo usuario que modifico");
 
-            entity.HasOne(d => d.IdEstadoCivilNavigation)
+            entity.HasOne(d => d.EstadoCivil)
                 .WithMany(p => p.Personas)
                 .HasForeignKey(d => d.IdEstadoCivil)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Persona_EstadoCivil");
 
-            entity.HasOne(d => d.IdNacionalidadNavigation)
+            entity.HasOne(d => d.Nacionalidad)
                 .WithMany(p => p.Personas)
                 .HasForeignKey(d => d.IdNacionalidad)
                 .OnDelete(DeleteBehavior.ClientSetNull)

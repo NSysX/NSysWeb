@@ -14,7 +14,7 @@ namespace Persistence.Configuration
 
             entity.HasComment("Registra todas las direcciones");
 
-            entity.HasIndex(e => e.IdAsentamiento, "IXFK_Direccion_Asentamiento");
+            entity.HasIndex(e => e.AsentamientoId, "IXFK_Direccion_Asentamiento");
 
             entity.Property(e => e.IdDireccion).HasComment("Id Numerico Consecutivo de direcciones");
 
@@ -55,7 +55,7 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Foto de la ubicacion");
 
-            entity.Property(e => e.IdAsentamiento).HasComment("el id de la tabla Asentamiento");
+            entity.Property(e => e.AsentamientoId).HasComment("El id de la tabla Asentamiento");
 
             entity.Property(e => e.NumeroExterior)
                 .IsRequired()
@@ -91,9 +91,9 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasColumnName("YLaCalle");
 
-            entity.HasOne(d => d.IdAsentamientoNavigation)
-                .WithMany(p => p.Direccions)
-                .HasForeignKey(d => d.IdAsentamiento)
+            entity.HasOne(d => d.AsentamientoIdNavigation)
+                .WithMany(p => p.Direcciones)
+                .HasForeignKey(d => d.AsentamientoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Direccion_Asentamiento");
         }

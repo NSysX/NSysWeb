@@ -36,6 +36,7 @@ namespace Application
             serviciosColeccion.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             // Para poder registrarlos en startup.cs se hace una referencia de WebAPI --> Application
+
         }
     }
 }

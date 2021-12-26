@@ -14,8 +14,7 @@ namespace Application.Features.AsentamientosTipos.Commands.ActualizaAsentamiento
         {
             RuleFor(i => i.IdAsentamientoTipo)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser Nulo")
-                .NotEmpty().WithMessage("'{PropertyName}' : No puede Estar Vacio")
-                .Must(EsPositivo).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
+                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
 
             RuleFor(e => e.Estatus)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar Vacio")
@@ -34,8 +33,5 @@ namespace Application.Features.AsentamientosTipos.Commands.ActualizaAsentamiento
                 .Length(1, 5).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
                 .Matches(@"^[A-Z.]*$").WithMessage("'{PropertyName}' : Solo acepta letras y puntos");
         }
-
-        protected static bool EsPositivo(int id) => id > 0;
-
     }
 }

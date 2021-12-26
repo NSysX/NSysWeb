@@ -7,9 +7,9 @@ namespace Application.Specifications
 {
     public class DocumentosTiposPaginadosSpec : Specification<DocumentoTipo>
     {
-        public DocumentosTiposPaginadosSpec(int registrosXPagina, int numeroPagina, string nombre, string abreviatura, string estatus)
+        public DocumentosTiposPaginadosSpec(int registrosXPagina, int NumeroDePagina, string nombre, string abreviatura, string estatus)
         {
-            Query.Skip((numeroPagina - 1) * registrosXPagina)
+            Query.Skip((NumeroDePagina - 1) * registrosXPagina)
                 .Take(registrosXPagina).OrderBy(x => x.Nombre);
 
             if (!String.IsNullOrEmpty(nombre))

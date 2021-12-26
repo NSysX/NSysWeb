@@ -7,8 +7,8 @@ namespace Application.Features.Documentos.Commands.InsertarDocumentosCommand
         public InsertarDocumentoValidador()
         {
             RuleFor(t => t.IdDocumentoTipo)
-                .NotEmpty().WithMessage("'{PropertyName}' : No debe estar Vacio")
-                .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO");
+                .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO")
+                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
 
             RuleFor(e => e.Estatus)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe ser Vacio")

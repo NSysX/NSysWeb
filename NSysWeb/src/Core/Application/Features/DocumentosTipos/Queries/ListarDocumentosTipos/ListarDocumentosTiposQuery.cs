@@ -14,7 +14,7 @@ namespace Application.Features.DocumentosTipos.Queries.ListarDocumentosTipos
     // esta clase crea el objeto que vamos a mandar desde el httpget
     public class ListarDocumentosTiposQuery : IRequest<RespuestaPaginada<List<DocumentoTipoDTO>>>
     {
-        public int NumeroPagina { get; set; }
+        public int NumeroDePagina { get; set; }
         public int RegistrosXPagina { get; set; }
         public string Nombre { get; set; }
         public string Abreviatura { get; set; }
@@ -36,11 +36,11 @@ namespace Application.Features.DocumentosTipos.Queries.ListarDocumentosTipos
         // interfaz de Mediatr
         public async Task<RespuestaPaginada<List<DocumentoTipoDTO>>> Handle(ListarDocumentosTiposQuery request, CancellationToken cancellationToken)
         {
-            var documentosTipos = await _repositorioAsync.ListAsync(new DocumentosTiposPaginadosSpec(request.RegistrosXPagina, request.NumeroPagina, request.Nombre , request.Abreviatura, request.Estatus));
+            var documentosTipos = await _repositorioAsync.ListAsync(new DocumentosTiposPaginadosSpec(request.RegistrosXPagina, request.NumeroDePagina, request.Nombre , request.Abreviatura, request.Estatus));
 
             var documentosTiposDTOs = _mapper.Map<List<DocumentoTipoDTO>>(documentosTipos);
 
-            return new RespuestaPaginada<List<DocumentoTipoDTO>>(documentosTiposDTOs, request.NumeroPagina, request.RegistrosXPagina);
+            return new RespuestaPaginada<List<DocumentoTipoDTO>>(documentosTiposDTOs, request.NumeroDePagina, request.RegistrosXPagina);
         }
     }
 }

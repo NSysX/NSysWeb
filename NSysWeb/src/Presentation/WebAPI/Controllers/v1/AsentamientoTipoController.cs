@@ -16,7 +16,7 @@ namespace WebAPI.Controllers.v1
         {
             return Ok(await Mediator.Send(new ListarAsentamientosTiposQuery
             {
-                NumeroPagina = asentamientosTiposParametros.NumeroDePagina,
+                NumeroDePagina = asentamientosTiposParametros.NumeroDePagina,
                 RegistrosXPagina = asentamientosTiposParametros.RegistrosXPagina,
                 Estatus = asentamientosTiposParametros.Estatus,
                 Nombre = asentamientosTiposParametros.Nombre,

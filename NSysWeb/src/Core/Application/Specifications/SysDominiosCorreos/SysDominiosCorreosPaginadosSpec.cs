@@ -7,9 +7,9 @@ namespace Application.Specifications.SysDominiosCorreos
 {
     public class SysDominiosCorreosPaginadosSpec : Specification<SysDominioCorreo>
     {
-        public SysDominiosCorreosPaginadosSpec(int registrosXPagina, int numeroPagina, string estatus, string dominio)
+        public SysDominiosCorreosPaginadosSpec(int registrosXPagina, int NumeroDePagina, string estatus, string dominio)
         {
-            Query.Skip((numeroPagina - 1) * registrosXPagina)
+            Query.Skip((NumeroDePagina - 1) * registrosXPagina)
                 .Take(registrosXPagina).OrderBy(d => d.Dominio);
 
             if (!String.IsNullOrEmpty(estatus))

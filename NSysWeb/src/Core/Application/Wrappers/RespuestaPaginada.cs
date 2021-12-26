@@ -11,9 +11,9 @@ namespace Application.Wrappers
         public int NumeroDePagina { get; set; } 
         public int RegistrosXPagina { get; set; }
 
-        public RespuestaPaginada(T data, int numeroPagina, int registrosXPagina)
+        public RespuestaPaginada(T data, int NumeroDePagina, int registrosXPagina)
         {
-            this.NumeroDePagina = numeroPagina;
+            this.NumeroDePagina = NumeroDePagina;
             this.RegistrosXPagina = registrosXPagina;
             // de Respuesta
             this.Data = data;

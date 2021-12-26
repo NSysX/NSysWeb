@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.DTOs
+﻿namespace Application.DTOs
 {
     public class DocumentoDTO
     {
         public int IdDocumento { get; set; }
-        public DocumentoTipoDTO MyProperty { get; set; }
+        public string Estatus { get; set; }
+        public string CodigoUnico { get; set; }
+        public int IdDocumentoTipo { get; set; }
+
+        public DocumentoTipoDTO DocumentoTipo { get; set; }
     }
 }

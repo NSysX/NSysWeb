@@ -5,10 +5,7 @@ using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +13,7 @@ namespace Application.Features.AsentamientosTipos.Queries.ListarAsentamientosTip
 {
     public class ListarAsentamientosTiposQuery : IRequest<RespuestaPaginada<List<AsentamientoTipoDTO>>>
     {
-        public int NumeroPagina { get; set; }
+        public int NumeroDePagina { get; set; } 
         public int RegistrosXPagina { get; set; }
         public string Estatus { get; set; }
         public string Nombre { get; set; }
@@ -36,11 +33,11 @@ namespace Application.Features.AsentamientosTipos.Queries.ListarAsentamientosTip
 
         public async Task<RespuestaPaginada<List<AsentamientoTipoDTO>>> Handle(ListarAsentamientosTiposQuery request, CancellationToken cancellationToken)
         {
-            List<AsentamientoTipo> asentamientoTipos = await _repositorioAsync.ListAsync(new ListarAsentamientosTiposSpec(request.RegistrosXPagina, request.NumeroPagina, request.Estatus, request.Nombre, request.Abeviatura), cancellationToken);
+            List<AsentamientoTipo> asentamientoTipos = await _repositorioAsync.ListAsync(new ListarAsentamientosTiposSpec(request.NumeroDePagina, request.RegistrosXPagina,  request.Estatus, request.Nombre, request.Abeviatura), cancellationToken);
 
             List<AsentamientoTipoDTO> asentamientoTipoDTOs = _mapper.Map<List<AsentamientoTipoDTO>>(asentamientoTipos);
 
-            return new RespuestaPaginada<List<AsentamientoTipoDTO>>(asentamientoTipoDTOs, request.NumeroPagina, request.RegistrosXPagina);
+            return new RespuestaPaginada<List<AsentamientoTipoDTO>>(asentamientoTipoDTOs, request.NumeroDePagina, request.RegistrosXPagina);
         }
     }
 }

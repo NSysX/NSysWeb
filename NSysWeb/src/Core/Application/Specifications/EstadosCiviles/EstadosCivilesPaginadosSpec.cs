@@ -7,9 +7,9 @@ namespace Application.Specifications
 {
     public class EstadosCivilesPaginadosSpec : Specification<EstadoCivil>
     {
-        public EstadosCivilesPaginadosSpec(int registrosXPagina, int numeroPagina, string descripcion, string estatus)
+        public EstadosCivilesPaginadosSpec(int registrosXPagina, int NumeroDePagina, string descripcion, string estatus)
         {
-            Query.Skip((numeroPagina - 1) * registrosXPagina)
+            Query.Skip((NumeroDePagina - 1) * registrosXPagina)
                 .Take(registrosXPagina).OrderBy(x => x.Descripcion);
 
             if (!String.IsNullOrEmpty(descripcion))

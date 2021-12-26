@@ -16,7 +16,7 @@ namespace WebAPI.Controllers.v1
         {
             return Ok(await Mediator.Send(new ListarSysDominiosCorreosQuery
             {
-                NumeroPagina = sysDominiosCorreosParametros.NumeroDePagina,
+                NumeroDePagina = sysDominiosCorreosParametros.NumeroDePagina,
                 RegistrosXPagina = sysDominiosCorreosParametros.RegistrosXPagina,
                 Estatus = sysDominiosCorreosParametros.Estatus,
                 Dominio = sysDominiosCorreosParametros.Dominio

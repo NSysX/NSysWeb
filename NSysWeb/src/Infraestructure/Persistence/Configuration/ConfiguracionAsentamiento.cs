@@ -16,7 +16,7 @@ namespace Persistence.Configuration
 
             entity.HasIndex(e => e.IdAsentamientoTipo, "IXFK_Asentamiento_AsentamientoTipo");
 
-            entity.HasIndex(e => new { e.IdMunicipio, e.IdAsentamientoTipo, e.Nombre }, "IX_NoDuplicado")
+            entity.HasIndex(e => new { e.MunicipioId, e.IdAsentamientoTipo, e.Nombre }, "IX_NoDuplicado")
                 .IsUnique();
 
             entity.Property(e => e.IdAsentamiento).HasComment("Consecutivo de Asentamiento");
@@ -42,7 +42,7 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdAsentamientoTipo).HasComment("El id de la tabla TipoAsentamiento ");
 
-            entity.Property(e => e.IdMunicipio).HasComment("id del municipio al que pertenece");
+            entity.Property(e => e.MunicipioId).HasComment("id del municipio al que pertenece");
 
             entity.Property(e => e.Nombre)
                 .IsRequired()

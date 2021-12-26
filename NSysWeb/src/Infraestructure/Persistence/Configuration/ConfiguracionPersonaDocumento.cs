@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Persistence.Configuration
 {
@@ -9,7 +8,7 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<PersonaDocumento> entity)
         {
-            entity.HasNoKey();
+            entity.HasKey(p => p.IdPersonaDocumento);
 
             entity.ToTable("PersonaDocumento");
 
@@ -24,16 +23,16 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdDocumento).HasComment("IdDocumento de la Tabla Documento");
 
-            entity.Property(e => e.IdPersona).HasComment("El idPersona de la tabla Personas");
+            entity.Property(e => e.IdPersona).HasComment("El IdPersona de la tabla Personas");
 
-            entity.HasOne(d => d.IdDocumentoNavigation)
-                .WithMany()
+            entity.HasOne(d => d.Documento) // un documento tiene
+                .WithMany(pd => pd.PersonaDocumentos) // muchos objetos personasdocumentos
                 .HasForeignKey(d => d.IdDocumento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDocumento_Documento");
 
-            entity.HasOne(d => d.IdPersonaNavigation)
-                .WithMany()
+            entity.HasOne(d => d.Persona) // una persona tiene
+                .WithMany(pd => pd.PersonaDocumentos) // muchos objetos personasdocumentos
                 .HasForeignKey(d => d.IdPersona)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDocumento_Persona");

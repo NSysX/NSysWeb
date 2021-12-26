@@ -1,13 +1,9 @@
 ﻿using Application.Interfaces;
-using Application.Specifications.Personas;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,12 +36,13 @@ namespace Application.Features.Personas.Commands.InsertarPersonasCommand
 
         public async Task<Respuesta<int>> Handle(InsertarPersonaCommand request, CancellationToken cancellationToken)
         {
-            var datosDuplicado = new ExistePersonaSpec(request.ApellidoPaterno, 
-                                                       request.ApellidoPaterno,
-                                                       request.Nombres);
+            //var datosDuplicado = new ExistePersonaSpec(request.ApellidoPaterno, 
+            //                                           request.ApellidoPaterno,
+            //                                           request.Nombres);
 
-            var existe = await _repositorioAsync.GetBySpecAsync(datosDuplicado);
-               
+            //var existe = await _repositorioAsync.GetBySpecAsync(datosDuplicado);
+            
+            
 
             // Recibimos el objeto Insertar y lo mapeamos a la entidad 
             Persona persona = _mapper.Map<Persona>(request);

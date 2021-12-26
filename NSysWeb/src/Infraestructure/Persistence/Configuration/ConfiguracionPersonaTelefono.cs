@@ -9,7 +9,7 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<PersonaTelefono> entity)
         {
-            entity.HasNoKey();
+            entity.HasKey(i => i.IdPersonaTelefono);
 
             entity.ToTable("PersonaTelefono");
 
@@ -26,17 +26,17 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdTelefono).HasComment("El identificador de la tabla telefono");
 
-            entity.HasOne(d => d.IdPersonaNavigation)
-                .WithMany()
-                .HasForeignKey(d => d.IdPersona)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PersonaTelefono_Persona");
-
-            entity.HasOne(d => d.IdTelefonoNavigation)
-                .WithMany()
+            entity.HasOne(d => d.Telefono) // en la entidad telefono tiene
+                .WithMany(p => p.PersonaTelefonos) // varios registros en personaTelefonos
                 .HasForeignKey(d => d.IdTelefono)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaTelefono_Telefono");
+
+            entity.HasOne(d => d.Persona) // en la tabla persona
+                .WithMany(tp => tp.PersonaTelefonos) // tiene relacion en persona telefono 
+                .HasForeignKey(d => d.IdPersona)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PersonaTelefono_Persona");
         }
     }
 }

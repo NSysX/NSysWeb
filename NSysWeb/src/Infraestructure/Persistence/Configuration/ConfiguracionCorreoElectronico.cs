@@ -41,7 +41,7 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Fecha modificacion");
 
-            entity.Property(e => e.TipoEmail)
+            entity.Property(e => e.TipoCorreo)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)

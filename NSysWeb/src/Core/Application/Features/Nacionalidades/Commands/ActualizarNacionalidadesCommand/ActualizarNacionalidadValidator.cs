@@ -1,21 +1,14 @@
-﻿using Domain.Entities;
-using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace Application.Features.Nacionalidades.Commands.ActualizarNacionalidadesCommand
 {
-    public class ActualizarNacionalidadValidator : AbstractValidator<Nacionalidad>
+    public class ActualizarNacionalidadValidator : AbstractValidator<ActualizarNacionalidadCommand>
     {
         public ActualizarNacionalidadValidator()
         {
             RuleFor(c => c.IdNacionalidad)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
-                .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
-                .Must(MayorACero).WithMessage("'{PropertyName}' : el Id debe ser Mayor a Cero");
+                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
 
             RuleFor(s => s.Estatus)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
@@ -28,11 +21,6 @@ namespace Application.Features.Nacionalidades.Commands.ActualizarNacionalidadesC
                 .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
                 .Length(5, 50).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres")
                 .Matches(@"^[a-zA-Z()áéíóúñÑ.,\s]*$|^[\W]*$").WithMessage("'{PropertyName}' : Contiene Caracteres Invalidos (Solo acepta letras mayusculas,espacios Y /)");
-        }
-
-        protected static bool MayorACero(int id)
-        {
-            return id > 0;
         }
     }
 }

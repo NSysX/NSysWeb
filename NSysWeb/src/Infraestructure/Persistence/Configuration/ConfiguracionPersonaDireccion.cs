@@ -13,7 +13,7 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<PersonaDireccion> entity)
         {
-            entity.HasNoKey();
+            entity.HasKey(p => p.IdPersonaDireccion);
 
             entity.ToTable("PersonaDireccion");
 

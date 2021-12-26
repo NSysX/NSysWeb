@@ -14,8 +14,7 @@ namespace Application.Features.DocumentosTipos.Commands.ActualizarDocumentosTipo
         {
            RuleFor(i => i.IdDocumentoTipo)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser Nulo")
-                .NotEmpty().WithMessage("'{PropertyName}' : No puede Estar Vacio")
-                .Must(EsPositivo).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
+                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
             
             RuleFor(e => e.Estatus)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar Vacio")
@@ -41,7 +40,5 @@ namespace Application.Features.DocumentosTipos.Commands.ActualizarDocumentosTipo
         }
 
         protected static bool longitudValida(int longitud) => (longitud <= 0 || longitud > 30) ? false : true;
-
-        protected static bool EsPositivo(int id) => id > 0;
     }
 }

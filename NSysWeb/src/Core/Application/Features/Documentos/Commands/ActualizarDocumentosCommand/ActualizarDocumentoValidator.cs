@@ -13,13 +13,11 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
         {
             RuleFor(c => c.IdDocumento)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
-                .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
-                .Must(MayorACero).WithMessage("'{PropertyName}' : el Id debe ser Mayor a Cero");
+                .GreaterThan(0).WithMessage("'{PropertyName}' : el Id debe ser Mayor a Cero");
 
             RuleFor(c => c.IdDocumentoTipo)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
-                .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
-                .Must(MayorACero).WithMessage("'{PropertyName}' : el Id debe ser Mayor a Cero");
+                .GreaterThan(0).WithMessage("'{PropertyName}' : el Id debe ser Mayor a Cero");
 
             RuleFor(s => s.Estatus)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
@@ -31,20 +29,13 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
                 .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
                 .Length(5, 50).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres")
-                .Matches(@"^[a-zA-Z()áéíóúñÑ.,\s]*$|^[\W]*$").WithMessage("'{PropertyName}' : Contiene Caracteres Invalidos (Solo acepta letras mayusculas,espacios Y /)");
+                .Matches(@"^[A-Z0-9áéíóúñÑ.,\s]*$").WithMessage("'{PropertyName}' : Contiene Caracteres Invalidos (Solo acepta letras mayusculas,espacios Y Numeros)");
 
             RuleFor(x => x.Imagen)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
                 .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
                 .Length(5, 250).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres")
-                .Matches(@"^[a-zA-Z:\s\\/]*$").WithMessage("'{PropertyName}' : Contiene Caracteres Invalidos (Solo acepta letras mayusculas,/,\\, :)");
+                .Matches(@"^[a-zA-Z:.\s\\/]*$").WithMessage("'{PropertyName}' : Contiene Caracteres Invalidos (Solo acepta letras mayusculas, Minusculas,/,\\, :)");
         }
-
-        protected static bool MayorACero(int id)
-        {
-            return id > 0;
-        }
-    }
-
-    
+    } 
 }

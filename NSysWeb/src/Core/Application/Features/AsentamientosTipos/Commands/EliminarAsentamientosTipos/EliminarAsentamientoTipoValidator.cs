@@ -13,13 +13,7 @@ namespace Application.Features.AsentamientosTipos.Commands.EliminarAsentamientos
         {
             RuleFor(i => i.IdAsentamientoTipo)
                .NotNull().WithMessage("'{PropertyName}' : No puede ser Nulo")
-               .NotEmpty().WithMessage("'{PropertyName}' : No puede Estar Vacio")
-               .Must(EsPositivo).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
-        }
-
-        protected static bool EsPositivo(int id)
-        {
-            return id > 0;
+               .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
         }
     }
 }

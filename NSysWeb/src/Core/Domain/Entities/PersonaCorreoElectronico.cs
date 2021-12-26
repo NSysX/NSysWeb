@@ -1,15 +1,14 @@
-﻿using Domain.Common;
-
-#nullable disable
+﻿#nullable disable
 
 namespace Domain.Entities
 {
-    public partial class PersonaCorreoElectronico : EntidadBaseAuditable
+    public partial class PersonaCorreoElectronico
     {
+        public int IdPersonaCorreoElectronico { get; set; }
         public int IdPersona { get; set; }
         public int IdCorreoElectronico { get; set; }
 
-        public virtual CorreoElectronico IdCorreoElectronicoNavigation { get; set; }
-        public virtual Persona IdPersonaNavigation { get; set; }
+        public virtual CorreoElectronico CorreoElectronico { get; set; }
+        public virtual Persona Persona { get; set; }
     }
 }

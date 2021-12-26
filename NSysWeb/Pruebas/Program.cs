@@ -6,12 +6,10 @@ namespace Pruebas
     {
         static void Main(string[] args)
         {
+            DateTime fecha = DateTime.Now;
+            var respuesta = fecha != default(DateTime);
 
-            string frase = "The Statment Duplicate is (Casado) statment";
-
-            int posicionInicial = frase.ToLower().IndexOf('(');
-
-            Console.WriteLine($"hubicacion de inicio de parentesis = {posicionInicial}");
+            Console.WriteLine($"default(DateTime) = { respuesta }");
             Console.ReadKey();
         }
     }

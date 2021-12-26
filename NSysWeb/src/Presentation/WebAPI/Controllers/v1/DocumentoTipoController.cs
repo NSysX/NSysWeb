@@ -22,7 +22,7 @@ namespace WebAPI.Controllers.v1
         {
             return Ok(await Mediator.Send(new ListarDocumentosTiposQuery
             {
-                NumeroPagina = documentosTiposParametros.NumeroDePagina,
+                NumeroDePagina = documentosTiposParametros.NumeroDePagina,
                 RegistrosXPagina = documentosTiposParametros.RegistrosXPagina,
                 Nombre = documentosTiposParametros.Nombre,
                 Abreviatura = documentosTiposParametros.Abreviatura,

@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using System;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -19,7 +20,10 @@ namespace Domain.Entities
         public string Foto { get; set; }
         public string Notas { get; set; }
 
-        public virtual EstadoCivil IdEstadoCivilNavigation { get; set; }
-        public virtual Nacionalidad IdNacionalidadNavigation { get; set; }
+        public virtual EstadoCivil EstadoCivil { get; set; }
+        public virtual Nacionalidad Nacionalidad { get; set; }
+        public List<PersonaDocumento> PersonaDocumentos { get; set; }
+        public List<PersonaTelefono> PersonaTelefonos { get; set; }
+        public List<PersonaCorreoElectronico> PersonaCorreosElectronicos { get; set; }
     }
 }

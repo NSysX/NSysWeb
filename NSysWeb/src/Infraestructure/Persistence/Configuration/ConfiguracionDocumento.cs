@@ -44,7 +44,7 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Ultima Fecha de modificacion");
 
-            entity.Property(e => e.IdDocumentoTipo).HasComment("El identificador unico de la tabla DocumentoTipo");
+            entity.Property(e => e.IdDocumentoTipo).HasComment("El Identificador unico de la tabla DocumentoTipo");
 
             entity.Property(e => e.Imagen)
                 .IsRequired()
@@ -63,7 +63,7 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");
 
-            entity.HasOne(d => d.IdDocumentoTipoNavigation)
+            entity.HasOne(d => d.DocumentoTipo)
                 .WithMany(p => p.Documentos)
                 .HasForeignKey(d => d.IdDocumentoTipo)
                 .OnDelete(DeleteBehavior.ClientSetNull)

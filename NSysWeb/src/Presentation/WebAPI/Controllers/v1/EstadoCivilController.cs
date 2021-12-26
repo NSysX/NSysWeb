@@ -11,6 +11,8 @@ namespace WebAPI.Controllers.v1
     [ApiVersion("1.0")]
     public class EstadoCivilController : BaseApiController
     {
+        
+
         [HttpGet("{id:int}",Name = "ObtenerXId")]
         public async Task<ActionResult> GetByid(int id)
         {

@@ -49,7 +49,7 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.Numero)
                 .IsRequired()
-                .HasMaxLength(10)
+                .HasMaxLength(15)
                 .IsUnicode(false)
                 .HasComment("Numero telefonico");
 

@@ -1,6 +1,5 @@
 ﻿using Domain.Common;
 using NetTopologySuite.Geometries;
-using System;
 
 #nullable disable
 
@@ -9,7 +8,7 @@ namespace Domain.Entities
     public partial class Direccion : EntidadBaseAuditable
     {
         public int IdDireccion { get; set; }
-        public int IdAsentamiento { get; set; }
+        public int AsentamientoId { get; set; }
         public string Estatus { get; set; }
         public string Calle { get; set; }
         public string EntreLaCalle { get; set; }
@@ -21,6 +20,6 @@ namespace Domain.Entities
         public string Foto { get; set; }
         public bool EsFiscal { get; set; }
 
-        public virtual Asentamiento IdAsentamientoNavigation { get; set; }
+        public virtual Asentamiento AsentamientoIdNavigation { get; set; }
     }
 }

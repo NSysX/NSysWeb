@@ -1,5 +1,5 @@
 ﻿using Domain.Common;
-using System;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -13,6 +13,7 @@ namespace Domain.Entities
         public string CodigoUnico { get; set; }
         public string Imagen { get; set; }
 
-        public virtual DocumentoTipo IdDocumentoTipoNavigation { get; set; }
+        public virtual DocumentoTipo DocumentoTipo { get; set; }
+        public List<PersonaDocumento> PersonaDocumentos { get; set; }
     }
 }

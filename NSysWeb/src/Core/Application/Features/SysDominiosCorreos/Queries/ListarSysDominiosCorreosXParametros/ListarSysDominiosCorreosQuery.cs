@@ -5,10 +5,7 @@ using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +13,7 @@ namespace Application.Features.SysDominiosCorreos.Queries.ListarSysDominiosCorre
 {
     public class ListarSysDominiosCorreosQuery : IRequest<RespuestaPaginada<List<SysDominioCorreoDTO>>>
     {
-        public int NumeroPagina { get; set; }
+        public int NumeroDePagina { get; set; }
         public int RegistrosXPagina { get; set; }
         public string Estatus { get; set; }
         public string Dominio { get; set; }
@@ -35,11 +32,11 @@ namespace Application.Features.SysDominiosCorreos.Queries.ListarSysDominiosCorre
 
         public async Task<RespuestaPaginada<List<SysDominioCorreoDTO>>> Handle(ListarSysDominiosCorreosQuery request, CancellationToken cancellationToken)
         {
-            List<SysDominioCorreo> sysDominiosCorreos = await _repositorioAsync.ListAsync(new SysDominiosCorreosPaginadosSpec(request.RegistrosXPagina, request.NumeroPagina, request.Estatus, request.Dominio), cancellationToken);
+            List<SysDominioCorreo> sysDominiosCorreos = await _repositorioAsync.ListAsync(new SysDominiosCorreosPaginadosSpec(request.RegistrosXPagina, request.NumeroDePagina, request.Estatus, request.Dominio), cancellationToken);
 
             List<SysDominioCorreoDTO> sysDominioCorreoDTOs = _mapper.Map<List<SysDominioCorreoDTO>>(sysDominiosCorreos);
 
-            return new RespuestaPaginada<List<SysDominioCorreoDTO>>(sysDominioCorreoDTOs, request.NumeroPagina, request.RegistrosXPagina);
+            return new RespuestaPaginada<List<SysDominioCorreoDTO>>(sysDominioCorreoDTOs, request.NumeroDePagina, request.RegistrosXPagina);
         }
     }
 }
