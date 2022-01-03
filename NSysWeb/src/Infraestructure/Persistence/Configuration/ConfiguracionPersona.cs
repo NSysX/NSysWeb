@@ -58,7 +58,7 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.Foto)
                 .IsRequired()
-                .HasMaxLength(100)
+                .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasComment("El path de la foto de la persona");
 

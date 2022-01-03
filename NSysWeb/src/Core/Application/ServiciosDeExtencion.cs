@@ -1,7 +1,10 @@
 ﻿using Application.Behaviours;
+using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using System.Reflection;
 
 namespace Application
@@ -23,6 +26,17 @@ namespace Application
             
             // Revise automaticamente los mapeos que haga en esta biblioteca de clases
             serviciosColeccion.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            // Agregamos para la instancia de GeometryServices
+            //serviciosColeccion.AddSingleton<GeometryFactory>(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
+
+            //serviciosColeccion.AddSingleton(provider =>
+            //    new MapperConfiguration(config =>
+            //    {
+            //        var geometryFactory = provider.GetRequiredService<GeometryFactory>();
+            //        config.AddProfile(new Auto)
+            //    }).CreateMapper()
+            //);
 
             // Fluent Validation la validacion va en application
             serviciosColeccion.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

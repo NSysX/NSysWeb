@@ -14,27 +14,22 @@ namespace Persistence.Configuration
 
             entity.HasComment("Estado de paises");
 
-            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbre")
+            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNombre")
                 .IsUnique();
 
-            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoEsta")
+            entity.HasIndex(e => e.RenapoAbrev, "IX_NoDuplicadoRenapoAbrev")
+                .IsUnique();
+
+            entity.HasIndex(e => e.TresDigitosAbrev, "IX_NoDuplicadoTresDigitosAbrev")
+                .IsUnique();
+
+            entity.HasIndex(e => e.VariableAbrev, "IX_NoDuplicadoVariableAbrev")
+                .IsUnique();
+
+            entity.HasIndex(e => e.Clave, "IX_NoDuplicadoClave")
                 .IsUnique();
 
             entity.Property(e => e.IdEstado).HasComment("id del estado");
-
-            entity.Property(e => e.Abreviatura)
-                .IsRequired()
-                .HasMaxLength(3)
-                .IsUnicode(false)
-                .HasComment("Abreviatura de nombre del estado de la republica");
-
-            entity.Property(e => e.EsHabilitado).HasComment("si esta disponible el registro");
-
-            entity.Property(e => e.Estatus)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .IsFixedLength(true);
 
             entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
@@ -43,12 +38,6 @@ namespace Persistence.Configuration
             entity.Property(e => e.FechaModificacion)
                 .HasColumnType("datetime")
                 .HasComment("Fecha de la ultima modificacion");
-
-            entity.Property(e => e.Nombre)
-                .IsRequired()
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasComment("Nombre del estado del pais");
 
             entity.Property(e => e.UsuarioCreacion)
                 .IsRequired()
@@ -61,6 +50,42 @@ namespace Persistence.Configuration
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Usuario de la ultima modificacion");
+
+            entity.Property(e => e.Estatus)
+                .IsRequired()
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .IsFixedLength(true);
+
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasComment("Nombre del estado del pais");
+
+            entity.Property(e => e.Clave)
+                .IsRequired()
+                .HasComment("Clave del Estado");
+
+            entity.Property(e => e.VariableAbrev)
+                .IsRequired()
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasComment("Abreviatura de nombre de tipo Variable");
+
+            entity.Property(e => e.RenapoAbrev)
+                .IsRequired()
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .HasComment("Abreviatura de nombre segun Registro de Poblacion (RENAPO)");
+
+            entity.Property(e => e.TresDigitosAbrev)
+                .IsRequired()
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .HasComment("Abreviatura de nombre a Tres Digitos");
+
+            entity.Property(e => e.EsHabilitado).HasComment("si esta disponible el registro"); 
         }
     }
 }

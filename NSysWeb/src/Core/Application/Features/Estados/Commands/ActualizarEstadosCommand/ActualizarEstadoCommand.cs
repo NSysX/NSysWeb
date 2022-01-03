@@ -14,7 +14,10 @@ namespace Application.Features.Estados.Commands.ActualizarEstadosCommand
         public int IdEstado { get; set; }
         public string Estatus { get; set; }
         public string Nombre { get; set; }
-        public string Abreviatura { get; set; }
+        public string VariableAbrev { get; set; }
+        public string RenapoAbrev { get; set; }
+        public string TresDigitosAbrev { get; set; }
+        public int Clave { get; set; }
     }
 
     public class ActualizarEstado_Manejador : IRequestHandler<ActualizarEstadoCommand, Respuesta<int>>
@@ -38,9 +41,12 @@ namespace Application.Features.Estados.Commands.ActualizarEstadosCommand
 
             estado.Estatus = request.Estatus.Trim();
             estado.Nombre = request.Nombre.Trim();
-            estado.Abreviatura = request.Abreviatura.Trim();
+            estado.VariableAbrev = request.VariableAbrev.Trim();
+            estado.RenapoAbrev = request.RenapoAbrev.Trim();
+            estado.TresDigitosAbrev = request.TresDigitosAbrev?.Trim();
+            estado.Clave = request.Clave;
 
-            await _repositorioAsync.UpdateAsync(estado);
+            await _repositorioAsync.UpdateAsync(estado, cancellationToken);
 
             return new Respuesta<int>(estado.IdEstado);
         }

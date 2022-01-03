@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Persistence.Configuration
 {
@@ -17,10 +16,13 @@ namespace Persistence.Configuration
 
             entity.HasIndex(e => e.IdEstado, "IXFK_Municipio_Estado");
 
-            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbre")
+            entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbrevMuni")
                 .IsUnique();
 
-            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNom")
+            entity.HasIndex(e => new { e.IdEstado, e.Clave }, "IX_NoDuplicadoIdEstadoIdMuni")
+                .IsUnique();
+
+            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNomMuni")
                 .IsUnique();
 
             entity.Property(e => e.IdMunicipio).HasComment("id consecutivo de municipio");
@@ -48,6 +50,8 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdEstado).HasComment("id que pertenece al estado");
 
+            entity.Property(e => e.Clave).HasComment("Clave unica de municipio por estado");
+
             entity.Property(e => e.Nombre)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -66,7 +70,7 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");
 
-            entity.HasOne(d => d.IdEstadoNavigation)
+            entity.HasOne(d => d.Estado)
                 .WithMany(p => p.Municipios)
                 .HasForeignKey(d => d.IdEstado)
                 .OnDelete(DeleteBehavior.ClientSetNull)

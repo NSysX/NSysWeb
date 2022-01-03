@@ -20,10 +20,9 @@ namespace Application.Features.Documentos.Commands.InsertarDocumentosCommand
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar Vacio")
                 .NotNull().WithMessage("'{PropertyName}' : No debe se NULO");
 
-            RuleFor(i => i.Imagen)
-                .NotEmpty().WithMessage("'{PropertyName}' : No debe estar Vacio")
+            RuleFor(i => i.Foto)
                 .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO")
-                .Length(1,250).WithMessage("'{PropertyName}' : No debe tener mas de 250 caracteres")
+                .MaximumLength(250).WithMessage("'{PropertyName}' : No debe tener mas de {MaxLength} caracteres")
                 .Matches(@"^[A-Za-z0-9:\\.]*$");
         }
     }

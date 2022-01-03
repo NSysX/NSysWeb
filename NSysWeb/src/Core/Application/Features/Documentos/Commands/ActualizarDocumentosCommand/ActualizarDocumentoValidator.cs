@@ -31,7 +31,7 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
                 .Length(5, 50).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres")
                 .Matches(@"^[A-Z0-9áéíóúñÑ.,\s]*$").WithMessage("'{PropertyName}' : Contiene Caracteres Invalidos (Solo acepta letras mayusculas,espacios Y Numeros)");
 
-            RuleFor(x => x.Imagen)
+            RuleFor(x => x.Foto)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
                 .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
                 .Length(5, 250).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres")

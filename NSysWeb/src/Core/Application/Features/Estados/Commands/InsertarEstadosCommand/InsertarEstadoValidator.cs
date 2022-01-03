@@ -18,11 +18,29 @@ namespace Application.Features.Estados.Commands
                 .Length(5, 20).WithMessage("'{PropertyName}' : No debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
                 .Matches(@"^[a-zA-Z()áéíóúñÑ.,/s @]*$|^[\W]*$").WithMessage("'{PropertyName}' : Solo Caracteres Alfanumericos");
 
-            RuleFor(a => a.Abreviatura)
-                .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
+            RuleFor(a => a.VariableAbrev)
+                //.NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
                 .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo")
-                .Length(1, 3).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
-                .Matches(@"^[A-Z.]*$").WithMessage("'{PropertyName}' : Solo acepta letras y puntos");
+                .Length(3, 10).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
+                .Matches(@"^[A-Za-záéíóú. ]*$").WithMessage("'{PropertyName}' : Solo acepta letras y puntos");
+
+            RuleFor(a => a.RenapoAbrev)
+                //.NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
+                .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo")
+                .Length(2, 2).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
+                .Matches(@"^[A-Za-záéíóú. ]*$").WithMessage("'{PropertyName}' : Solo acepta letras y puntos");
+
+            RuleFor(a => a.TresDigitosAbrev)  
+                //.NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
+                .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo")
+                .Length(3, 3).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
+                .Matches(@"^[A-Za-záéíóú. ]*$").WithMessage("'{PropertyName}' : Solo acepta letras y puntos");
+
+            RuleFor(a => a.Clave)
+                //.NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
+                .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo");
+               // .Length(3, 3).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Numeros (ej. 001)")
+               // .Matches(@"^[0-9]{3}$").WithMessage("'{PropertyName}' : Solo acepta Numeros (001)");
         }
     }
 }

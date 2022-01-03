@@ -238,17 +238,13 @@ namespace Persistence.Migrations
                         .HasComment("Id Numerico Consecutivo de direcciones")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AsentamientoId")
-                        .HasColumnType("int")
-                        .HasComment("El id de la tabla Asentamiento");
-
                     b.Property<string>("Calle")
                         .IsRequired()
                         .HasMaxLength(150)
                         .IsUnicode(false)
                         .HasColumnType("varchar(150)");
 
-                    b.Property<Geometry>("CoordenadasGeo")
+                    b.Property<Point>("CoordenadasGeo")
                         .HasColumnType("geography")
                         .HasComment("Coordenadas geograficas , Acepta nulos");
 
@@ -284,10 +280,14 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Foto")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(250)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(250)")
                         .HasComment("Foto de la ubicacion");
+
+                    b.Property<int>("IdAsentamiento")
+                        .HasColumnType("int")
+                        .HasComment("El id de la tabla Asentamiento");
 
                     b.Property<string>("NumeroExterior")
                         .IsRequired()
@@ -331,7 +331,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("IdDireccion");
 
-                    b.HasIndex(new[] { "AsentamientoId" }, "IXFK_Direccion_Asentamiento");
+                    b.HasIndex(new[] { "IdAsentamiento" }, "IXFK_Direccion_Asentamiento");
 
                     b.ToTable("Direccion");
 
@@ -374,16 +374,16 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime")
                         .HasComment("Ultima Fecha de modificacion");
 
-                    b.Property<int>("IdDocumentoTipo")
-                        .HasColumnType("int")
-                        .HasComment("El Identificador unico de la tabla DocumentoTipo");
-
-                    b.Property<string>("Imagen")
+                    b.Property<string>("Foto")
                         .IsRequired()
                         .HasMaxLength(250)
                         .IsUnicode(false)
                         .HasColumnType("varchar(250)")
-                        .HasComment("Imagen del documento");
+                        .HasComment("Foto del documento");
+
+                    b.Property<int>("IdDocumentoTipo")
+                        .HasColumnType("int")
+                        .HasComment("El Identificador unico de la tabla DocumentoTipo");
 
                     b.Property<string>("UsuarioCreacion")
                         .IsRequired()
@@ -495,12 +495,9 @@ namespace Persistence.Migrations
                         .HasComment("id del estado")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Abreviatura")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(3)")
-                        .HasComment("Abreviatura de nombre del estado de la republica");
+                    b.Property<int>("Clave")
+                        .HasColumnType("int")
+                        .HasComment("Clave del Estado");
 
                     b.Property<bool>("EsHabilitado")
                         .HasColumnType("bit")
@@ -528,6 +525,20 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(20)")
                         .HasComment("Nombre del estado del pais");
 
+                    b.Property<string>("RenapoAbrev")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(2)")
+                        .HasComment("Abreviatura de nombre segun Registro de Poblacion (RENAPO)");
+
+                    b.Property<string>("TresDigitosAbrev")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(3)")
+                        .HasComment("Abreviatura de nombre a Tres Digitos");
+
                     b.Property<string>("UsuarioCreacion")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -542,13 +553,28 @@ namespace Persistence.Migrations
                         .HasColumnType("varchar(50)")
                         .HasComment("Usuario de la ultima modificacion");
 
+                    b.Property<string>("VariableAbrev")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(10)")
+                        .HasComment("Abreviatura de nombre de tipo Variable");
+
                     b.HasKey("IdEstado");
 
-                    b.HasIndex(new[] { "Abreviatura" }, "IX_NoDuplicadoAbre")
-                        .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicadoAbre2");
+                    b.HasIndex(new[] { "Clave" }, "IX_NoDuplicadoClave")
+                        .IsUnique();
 
-                    b.HasIndex(new[] { "Nombre" }, "IX_NoDuplicadoEsta")
+                    b.HasIndex(new[] { "Nombre" }, "IX_NoDuplicadoNombre")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "RenapoAbrev" }, "IX_NoDuplicadoRenapoAbrev")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "TresDigitosAbrev" }, "IX_NoDuplicadoTresDigitosAbrev")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "VariableAbrev" }, "IX_NoDuplicadoVariableAbrev")
                         .IsUnique();
 
                     b.ToTable("Estado");
@@ -632,6 +658,10 @@ namespace Persistence.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)");
 
+                    b.Property<int>("Clave")
+                        .HasColumnType("int")
+                        .HasComment("Clave unica de municipio por estado");
+
                     b.Property<bool>("EsHabilitado")
                         .HasColumnType("bit")
                         .HasComment("Si el registro esta disponible");
@@ -680,13 +710,14 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "IdEstado" }, "IXFK_Municipio_Estado");
 
-                    b.HasIndex(new[] { "Abreviatura" }, "IX_NoDuplicadoAbre")
-                        .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicadoAbre3");
+                    b.HasIndex(new[] { "Abreviatura" }, "IX_NoDuplicadoAbrevMuni")
+                        .IsUnique();
 
-                    b.HasIndex(new[] { "Nombre" }, "IX_NoDuplicadoNom")
-                        .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicadoNom1");
+                    b.HasIndex(new[] { "IdEstado", "Clave" }, "IX_NoDuplicadoIdEstadoIdMuni")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "Nombre" }, "IX_NoDuplicadoNomMuni")
+                        .IsUnique();
 
                     b.ToTable("Municipio");
 
@@ -803,9 +834,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Foto")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(250)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(250)")
                         .HasComment("El path de la foto de la persona");
 
                     b.Property<int>("IdEstadoCivil")
@@ -1140,13 +1171,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Direccion", b =>
                 {
-                    b.HasOne("Domain.Entities.Asentamiento", "AsentamientoIdNavigation")
+                    b.HasOne("Domain.Entities.Asentamiento", "Asentamiento")
                         .WithMany("Direcciones")
-                        .HasForeignKey("AsentamientoId")
+                        .HasForeignKey("IdAsentamiento")
                         .HasConstraintName("FK_Direccion_Asentamiento")
                         .IsRequired();
 
-                    b.Navigation("AsentamientoIdNavigation");
+                    b.Navigation("Asentamiento");
                 });
 
             modelBuilder.Entity("Domain.Entities.Documento", b =>
@@ -1162,13 +1193,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Municipio", b =>
                 {
-                    b.HasOne("Domain.Entities.Estado", "IdEstadoNavigation")
+                    b.HasOne("Domain.Entities.Estado", "Estado")
                         .WithMany("Municipios")
                         .HasForeignKey("IdEstado")
                         .HasConstraintName("FK_Municipio_Estado")
                         .IsRequired();
 
-                    b.Navigation("IdEstadoNavigation");
+                    b.Navigation("Estado");
                 });
 
             modelBuilder.Entity("Domain.Entities.Persona", b =>
@@ -1193,13 +1224,13 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.PersonaCorreoElectronico", b =>
                 {
                     b.HasOne("Domain.Entities.CorreoElectronico", "CorreoElectronico")
-                        .WithMany()
+                        .WithMany("PersonasCorreosElectronicos")
                         .HasForeignKey("IdCorreoElectronico")
                         .HasConstraintName("FK_PersonaCorreoElectronico_CorreoElectronico")
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Persona", "Persona")
-                        .WithMany()
+                        .WithMany("PersonaCorreosElectronicos")
                         .HasForeignKey("IdPersona")
                         .HasConstraintName("FK_PersonaCorreoElectronico_Persona")
                         .IsRequired();
@@ -1211,21 +1242,21 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.PersonaDireccion", b =>
                 {
-                    b.HasOne("Domain.Entities.Direccion", "IdDireccionNavigation")
-                        .WithMany()
+                    b.HasOne("Domain.Entities.Direccion", "Direccion")
+                        .WithMany("PersonaDirecciones")
                         .HasForeignKey("IdDireccion")
                         .HasConstraintName("FK_PersonaDireccion_Direccion")
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Persona", "IdPersonaNavigation")
-                        .WithMany()
+                    b.HasOne("Domain.Entities.Persona", "Persona")
+                        .WithMany("PersonaDirecciones")
                         .HasForeignKey("IdPersona")
                         .HasConstraintName("FK_PersonaDireccion_Persona")
                         .IsRequired();
 
-                    b.Navigation("IdDireccionNavigation");
+                    b.Navigation("Direccion");
 
-                    b.Navigation("IdPersonaNavigation");
+                    b.Navigation("Persona");
                 });
 
             modelBuilder.Entity("Domain.Entities.PersonaDocumento", b =>
@@ -1276,6 +1307,16 @@ namespace Persistence.Migrations
                     b.Navigation("Asentamientos");
                 });
 
+            modelBuilder.Entity("Domain.Entities.CorreoElectronico", b =>
+                {
+                    b.Navigation("PersonasCorreosElectronicos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Direccion", b =>
+                {
+                    b.Navigation("PersonaDirecciones");
+                });
+
             modelBuilder.Entity("Domain.Entities.Documento", b =>
                 {
                     b.Navigation("PersonaDocumentos");
@@ -1303,6 +1344,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Persona", b =>
                 {
+                    b.Navigation("PersonaCorreosElectronicos");
+
+                    b.Navigation("PersonaDirecciones");
+
                     b.Navigation("PersonaDocumentos");
 
                     b.Navigation("PersonaTelefonos");

@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Application.Specifications.Documentos;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -30,7 +31,10 @@ namespace Application.Features.Documentos.Queries.ObtenerXIdDocumento
         }
         public async Task<Respuesta<DocumentoDTO>> Handle(ObtenerXIdDocumentoQuery request, CancellationToken cancellationToken)
         {
-            Documento documento = await _repositorioAsync.GetByIdAsync(request.IdDocumento, cancellationToken);
+
+            var doctoABuscar = new DocumentoXIdSpec(request.IdDocumento);
+
+            Documento documento = await _repositorioAsync.GetBySpecAsync(doctoABuscar, cancellationToken);
 
             if (documento == null)
                 throw new KeyNotFoundException($"No se encontro el Registro con el Id = { request.IdDocumento }");

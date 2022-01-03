@@ -13,7 +13,7 @@ namespace Application.Features.Documentos.Commands.InsertarDocumentosCommand
         public int IdDocumentoTipo { get; set; }
         public string Estatus { get; set; }
         public string CodigoUnico { get; set; }
-        public string Imagen { get; set; }
+        public string Foto { get; set; }
     }
 
     public class InsertarDocumentosCommand_Manejador : IRequestHandler<InsertarDocumentoCommand, Respuesta<int>>

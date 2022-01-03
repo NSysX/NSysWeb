@@ -14,6 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Direcciones\Commands\ActualizarDireccionesCommand\" />
+    <Folder Include="Features\Direcciones\Commands\EliminarDireccionesCommand\" />
+    <Folder Include="Features\Direcciones\Queries\" />
     <Folder Include="Filters\" />
   </ItemGroup>
 

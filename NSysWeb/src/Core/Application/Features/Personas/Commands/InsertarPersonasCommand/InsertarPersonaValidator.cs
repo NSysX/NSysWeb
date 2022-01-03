@@ -45,9 +45,9 @@ namespace Application.Features.Personas.Commands.InsertarPersonasCommand
                 .Must(FechaNacimeinto => FechaNacimeinto != default(DateTime)).WithMessage("'{PropertyName}' : Fecha Invalida");
 
             RuleFor(f => f.Foto)
-                .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")
-                .NotEmpty().WithMessage("'{PropertyName}' : No puede estar vacio")
-                .Length(10, 100).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres");
+                .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO")
+                .MaximumLength(250).WithMessage("'{PropertyName}' : No debe tener mas de {MaxLength} caracteres")
+                .Matches(@"^[A-Za-z0-9:\\.]*$");
 
             RuleFor(s => s.Sexo)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL")

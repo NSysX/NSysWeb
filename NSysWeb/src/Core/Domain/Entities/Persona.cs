@@ -22,6 +22,7 @@ namespace Domain.Entities
 
         public virtual EstadoCivil EstadoCivil { get; set; }
         public virtual Nacionalidad Nacionalidad { get; set; }
+        public List<PersonaDireccion> PersonaDirecciones { get; set; }
         public List<PersonaDocumento> PersonaDocumentos { get; set; }
         public List<PersonaTelefono> PersonaTelefonos { get; set; }
         public List<PersonaCorreoElectronico> PersonaCorreosElectronicos { get; set; }

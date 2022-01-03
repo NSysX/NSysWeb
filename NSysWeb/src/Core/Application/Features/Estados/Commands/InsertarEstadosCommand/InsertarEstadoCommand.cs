@@ -16,7 +16,10 @@ namespace Application.Features.Estados.Commands
     {
         public string Estatus { get; set; }
         public string Nombre { get; set; }
-        public string Abreviatura { get; set; }
+        public string VariableAbrev { get; set; }
+        public string RenapoAbrev { get; set; }
+        public string TresDigitosAbrev { get; set; }
+        public int Clave { get; set; }
     }
 
     public class InsertarEstado_Manejador : IRequestHandler<InsertarEstadoCommand, Respuesta<int>>

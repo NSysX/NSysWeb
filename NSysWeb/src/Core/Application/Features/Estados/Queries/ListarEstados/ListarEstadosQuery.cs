@@ -17,7 +17,7 @@ namespace Application.Features.Estados.Queries.ListarEstados
         public int RegistrosXPagina { get; set; }
         public string Estatus { get; set; }
         public string Nombre { get; set; }
-        public string Abreviatura { get; set; }
+        public string VariableAbrev { get; set; }
     }
 
     public class ListarEstados_Manejador : IRequestHandler<ListarEstadosQuery, RespuestaPaginada<List<EstadoDTO>>>
@@ -33,7 +33,7 @@ namespace Application.Features.Estados.Queries.ListarEstados
 
         public async Task<RespuestaPaginada<List<EstadoDTO>>> Handle(ListarEstadosQuery request, CancellationToken cancellationToken)
         {
-            List<Estado> estado = await _repositorioAsync.ListAsync(new EstadosPaginadosSpec( request.RegistrosXPagina, request.NumeroDePagina,  request.Estatus, request.Nombre, request.Abreviatura ));
+            List<Estado> estado = await _repositorioAsync.ListAsync(new EstadosPaginadosSpec(request.RegistrosXPagina, request.NumeroDePagina,  request.Estatus, request.Nombre, request.VariableAbrev));
 
             List<EstadoDTO> estadoDTOs = _mapper.Map<List<EstadoDTO>>(estado);
 

@@ -8,7 +8,7 @@ namespace Domain.Entities
         public int IdPersona { get; set; }
         public int IdDireccion { get; set; }
 
-        public virtual Direccion IdDireccionNavigation { get; set; }
-        public virtual Persona IdPersonaNavigation { get; set; }
+        public virtual Direccion Direccion { get; set; }
+        public virtual Persona Persona { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
         public int IdDocumentoTipo { get; set; }
         public string Estatus { get; set; }
         public string CodigoUnico { get; set; }
-        public string Imagen { get; set; }
+        public string Foto { get; set; }
     }
 
     public class ActualizarDocumento_Manejador : IRequestHandler<ActualizarDocumentoCommand, Respuesta<int>>
@@ -44,7 +44,7 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
             documento.IdDocumentoTipo = request.IdDocumentoTipo;
             documento.Estatus = request.Estatus;
             documento.CodigoUnico = request.CodigoUnico;
-            documento.Imagen = request.Imagen;
+            documento.Foto = request.Foto;
 
             await _repositorioAsyc.UpdateAsync(documento);
 

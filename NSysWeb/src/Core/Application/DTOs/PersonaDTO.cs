@@ -22,5 +22,6 @@ namespace Application.DTOs
         public List<PersonaDocumentoDTO> PersonaDocumentos { get; set; }
         public List<PersonaTelefonoDTO> PersonaTelefonos { get; set; }
         public List<PersonaCorreoElectronicoDTO> PersonaCorreosElectronicos { get; set; }
+        public List<PersonaDireccionDTO> Direccion { get; set; }
     }
 }

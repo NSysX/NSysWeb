@@ -1,5 +1,4 @@
 ﻿using Domain.Common;
-using System;
 
 #nullable disable
 
@@ -12,7 +11,8 @@ namespace Domain.Entities
         public string Estatus { get; set; }
         public string Nombre { get; set; }
         public string Abreviatura { get; set; }
+        public int Clave { get; set; }
 
-        public virtual Estado IdEstadoNavigation { get; set; }
+        public virtual Estado Estado { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace Application.Specifications.Estados
 {
     public class EstadosPaginadosSpec : Specification<Estado>
     {
-        public EstadosPaginadosSpec(int registrosXPagina, int numeroDePagina, string estatus, string nombre, string abreviatura)
+        public EstadosPaginadosSpec(int registrosXPagina, int numeroDePagina, string estatus, string nombre, string VariableAbrev)
         {
             Query.Skip((numeroDePagina - 1) * registrosXPagina)
                 .Take(registrosXPagina).OrderBy(e => nombre);
@@ -16,9 +16,9 @@ namespace Application.Specifications.Estados
                 Query.Search(n => n.Nombre, "%" + nombre + "%");
             }
 
-            if (!String.IsNullOrEmpty(abreviatura))
+            if (!String.IsNullOrEmpty(VariableAbrev))
             {
-                Query.Search(a => a.Abreviatura, "%" + abreviatura + "%");
+                Query.Search(a => a.VariableAbrev, "%" + VariableAbrev + "%");
             }
 
             if (!String.IsNullOrEmpty(estatus))

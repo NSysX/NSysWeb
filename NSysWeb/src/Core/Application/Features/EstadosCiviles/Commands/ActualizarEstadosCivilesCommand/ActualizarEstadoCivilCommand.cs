@@ -32,13 +32,13 @@ namespace Application.Features.EstadosCiviles.Commands.ActualizarEstadosCivilesC
         public async Task<Respuesta<int>> Handle(ActualizarEstadoCivilCommand request, CancellationToken cancellationToken)
         {
             var datosAVerificar = new ExisteEstadoCivilSpec(request.Descripcion, request.IdEstadoCivil);
-            var existe = await _repositorioAsync.GetBySpecAsync(datosAVerificar);
+            var existe = await _repositorioAsync.GetBySpecAsync(datosAVerificar, cancellationToken);
 
             // Si trae algun registro que coincida
             if (existe != null)
                 throw new ExcepcionesDeAPI("No se puede Actualizar con datos Duplicados");
 
-            EstadoCivil existe_estadoCivil = await _repositorioAsync.GetByIdAsync(request.IdEstadoCivil);
+            EstadoCivil existe_estadoCivil = await _repositorioAsync.GetByIdAsync(request.IdEstadoCivil, cancellationToken);
 
             if (existe_estadoCivil == null)
                 throw new KeyNotFoundException($"No existe el Registro con el Id = {request.IdEstadoCivil}");
@@ -46,7 +46,7 @@ namespace Application.Features.EstadosCiviles.Commands.ActualizarEstadosCivilesC
             existe_estadoCivil.Estatus = request.Estatus;
             existe_estadoCivil.Descripcion = request.Descripcion;
 
-            await _repositorioAsync.UpdateAsync(existe_estadoCivil);
+            await _repositorioAsync.UpdateAsync(existe_estadoCivil, cancellationToken);
 
             return new Respuesta<int>(existe_estadoCivil.IdEstadoCivil);
         }

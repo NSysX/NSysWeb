@@ -46,11 +46,11 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdDocumentoTipo).HasComment("El Identificador unico de la tabla DocumentoTipo");
 
-            entity.Property(e => e.Imagen)
+            entity.Property(e => e.Foto)
                 .IsRequired()
                 .HasMaxLength(250)
                 .IsUnicode(false)
-                .HasComment("Imagen del documento");
+                .HasComment("Foto del documento");
 
             entity.Property(e => e.UsuarioCreacion)
                 .IsRequired()

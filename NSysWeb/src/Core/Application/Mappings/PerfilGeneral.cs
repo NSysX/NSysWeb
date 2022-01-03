@@ -1,16 +1,20 @@
 ﻿using Application.DTOs;
 using Application.Features.AsentamientosTipos.Commands.InsertarAsentamientosTipos;
 using Application.Features.CorreosElectronicos.Commands.InsertarCorreosElectronicosCommand;
+using Application.Features.Direcciones.Commands.InsertarDireccionesCommand;
 using Application.Features.Documentos.Commands.InsertarDocumentosCommand;
 using Application.Features.DocumentosTipos.Commands.InsertarDocumentosTiposCommand;
 using Application.Features.Estados.Commands;
 using Application.Features.EstadosCiviles.Commands.InsertarEstadosCivilesCommand;
+using Application.Features.Municipios.Commands.InsertarMunicipiosCommand;
 using Application.Features.Nacionalidades.Commands;
 using Application.Features.Personas.Commands.InsertarPersonasCommand;
 using Application.Features.SysDominiosCorreos.Commands.InsertarSysDominiosCorreosCommand;
 using Application.Features.Telefonos.Commands.InsertarTelefonosCommand;
 using AutoMapper;
 using Domain.Entities;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 
 namespace Application.Mappings
 {
@@ -23,6 +27,20 @@ namespace Application.Mappings
             CreateMap<InsertarEstadoCivilCommand, EstadoCivil>();
             CreateMap<EstadoCivil, EstadoCivilDTO>().ReverseMap();
             //CreateMap<ActualizarEstadoCivilCommand, EstadoCivil>();
+            #endregion
+
+            #region Direccion
+
+            var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+            CreateMap<InsertarDireccionCommand, Direccion>()
+                .ForMember(dest => dest.CoordenadasGeo, opt => opt.MapFrom(src => 
+                          geometryFactory.CreatePoint(new Coordinate(src.Longitud, src.Latitud))));
+                 
+            CreateMap<Direccion, DireccionDTO>()
+                .ForMember(dest => dest.Longitud, opt => opt.MapFrom(src => src.CoordenadasGeo.X))
+                .ForMember(dest => dest.Latitud, opt => opt.MapFrom(src => src.CoordenadasGeo.Y));
+
             #endregion
 
             #region DocumentoTipo
@@ -52,6 +70,11 @@ namespace Application.Mappings
             #region Nacionalidad
             CreateMap<InsertarNacionalidadCommand, Nacionalidad>().ReverseMap();
             CreateMap<Nacionalidad, NacionalidadDTO>().ReverseMap();
+            #endregion
+
+            #region Municipio
+            CreateMap<InsertarMunicipioCommand, Municipio>().ReverseMap();
+            CreateMap<MunicipioDTO, Municipio>().ReverseMap();
             #endregion
 
             #region Estado

@@ -20,6 +20,7 @@ namespace Application.Specifications.Personas
                     .ThenInclude(t => t.Telefono)
                 .Include(pc => pc.PersonaCorreosElectronicos)
                     .ThenInclude(ce => ce.CorreoElectronico)
+                .Include(pd => pd.PersonaDirecciones)
                 .AsSplitQuery()
                 .OrderBy(ap => ap.ApellidoPaterno);
 

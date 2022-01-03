@@ -20,7 +20,7 @@ namespace WebAPI.Controllers.v1
                 RegistrosXPagina = estadosParametros.RegistrosXPagina,
                 Estatus = estadosParametros.Estatus,
                 Nombre = estadosParametros.Nombre,
-                Abreviatura = estadosParametros.Abreviatura
+                VariableAbrev = estadosParametros.VariableAbrev
             }));
         }
 

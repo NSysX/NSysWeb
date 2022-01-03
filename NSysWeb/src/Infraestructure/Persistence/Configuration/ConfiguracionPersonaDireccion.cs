@@ -30,14 +30,14 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdPersona).HasComment("El id de la tabla de Personas");
 
-            entity.HasOne(d => d.IdDireccionNavigation)
-                .WithMany()
+            entity.HasOne(d => d.Direccion)
+                .WithMany(pd => pd.PersonaDirecciones)
                 .HasForeignKey(d => d.IdDireccion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDireccion_Direccion");
 
-            entity.HasOne(d => d.IdPersonaNavigation)
-                .WithMany()
+            entity.HasOne(d => d.Persona)
+                .WithMany(pd => pd.PersonaDirecciones)
                 .HasForeignKey(d => d.IdPersona)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PersonaDireccion_Persona");
