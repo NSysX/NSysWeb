@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.Features.Asentamientos.Commands.InsertarAsentamientosCommand;
 using Application.Features.AsentamientosTipos.Commands.InsertarAsentamientosTipos;
 using Application.Features.CorreosElectronicos.Commands.InsertarCorreosElectronicosCommand;
 using Application.Features.Direcciones.Commands.InsertarDireccionesCommand;
@@ -8,6 +9,7 @@ using Application.Features.Estados.Commands;
 using Application.Features.EstadosCiviles.Commands.InsertarEstadosCivilesCommand;
 using Application.Features.Municipios.Commands.InsertarMunicipiosCommand;
 using Application.Features.Nacionalidades.Commands;
+using Application.Features.Paises.Commands.InsertarPaisesCommand;
 using Application.Features.Personas.Commands.InsertarPersonasCommand;
 using Application.Features.SysDominiosCorreos.Commands.InsertarSysDominiosCorreosCommand;
 using Application.Features.Telefonos.Commands.InsertarTelefonosCommand;
@@ -21,7 +23,12 @@ namespace Application.Mappings
     public class PerfilGeneral : Profile
     {
         public PerfilGeneral()
-        { 
+        {
+            #region Asentamiento
+            CreateMap<InsertarAsentamientoCommand, Asentamiento>();
+            CreateMap<Asentamiento, AsentamientoDTO>();
+            #endregion
+
             // vamos a ir agrupando todos los mapeos de comandos
             #region EstadoCivil
             CreateMap<InsertarEstadoCivilCommand, EstadoCivil>();
@@ -65,6 +72,11 @@ namespace Application.Mappings
             //.ForMember(dest => dest.Nacionalidad, opt => opt.MapFrom(src => src.IdNacionalidadNavigation))
             //.ForMember(personaDTO => personaDTO.PersonaDocumentos, opt => opt.MapFrom(persona => persona.PersonaDocumentos));
             //.ForMember(personaDTO => personaDTO.Documentos, opt => opt.MapFrom(persona => persona.Documentos));
+            #endregion
+
+            #region Pais
+            CreateMap<InsertarPaisCommand, Pais>();
+            CreateMap<Pais, PaisDTO>();
             #endregion
 
             #region Nacionalidad

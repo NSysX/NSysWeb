@@ -17,21 +17,32 @@ namespace Application.Features.Municipios.Commands.ActualizarMunicipiosCommand
         public string Nombre { get; set; }
         public string Abreviatura { get; set; }
         public int Clave { get; set; }
+        public string Ciudad { get; set; }
     }
 
     public class ActualizarMunicipio_Manejador : IRequestHandler<ActualizarMunicipioCommand, Respuesta<int>>
     {
         private readonly IRepositorioAsync<Municipio> _repositoryAsync;
-        private readonly IMapper _mapper;
+        private readonly IRepositorioAsync<Estado> _repositorioEstado;
+       // private readonly IMapper _mapper;
 
-        public ActualizarMunicipio_Manejador(IRepositorioAsync<Municipio> repositoryAsync, IMapper mapper)
+        public ActualizarMunicipio_Manejador(IRepositorioAsync<Municipio> repositoryAsync, 
+                                             IRepositorioAsync<Estado> repositorioEstado,
+                                             IMapper mapper)
         {
             this._repositoryAsync = repositoryAsync;
-            this._mapper = mapper;
+            this._repositorioEstado = repositorioEstado;
+            // this._mapper = mapper;
         }
 
         public async Task<Respuesta<int>> Handle(ActualizarMunicipioCommand request, CancellationToken cancellationToken)
         {
+            // Verifico que exista el estado
+            var estadoExiste = await _repositorioEstado.GetByIdAsync(request.IdEstado, cancellationToken);
+
+            if (estadoExiste == null)
+                throw new KeyNotFoundException($"No existe el Estado con el Id = { request.IdEstado }");
+
             Municipio municipio = await _repositoryAsync.GetByIdAsync(request.IdMunicipio, cancellationToken);
 
             if (municipio == null)
@@ -42,6 +53,7 @@ namespace Application.Features.Municipios.Commands.ActualizarMunicipiosCommand
             municipio.Nombre = request.Nombre;
             municipio.Abreviatura = request.Abreviatura;
             municipio.Clave = request.Clave;
+            municipio.Ciudad = request.Ciudad;
 
             await _repositoryAsync.UpdateAsync(municipio, cancellationToken);
 

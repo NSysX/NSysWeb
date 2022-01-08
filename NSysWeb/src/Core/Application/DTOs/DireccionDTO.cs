@@ -8,7 +8,7 @@ namespace Application.DTOs
 {
     public class DireccionDTO
     {
-        public int DireccionId { get; set; }
+        public int IdDireccion { get; set; }
         public int IdAsentamiento { get; set; }
         public string Estatus { get; set; }
         public string Calle { get; set; }

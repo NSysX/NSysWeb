@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Application.Specifications.Estados;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -31,7 +32,8 @@ namespace Application.Features.Estados.Queries.ObtenerXIdEstados
 
         public async Task<Respuesta<EstadoDTO>> Handle(ObtenerXIdEstadoQuery request, CancellationToken cancellationToken)
         {
-            Estado estado = await _repositorioAsync.GetByIdAsync(request.IdEstado);
+            var estadoXidSpec = new EstadoXIdSpec(request.IdEstado);
+            Estado estado = await _repositorioAsync.GetBySpecAsync(estadoXidSpec);
 
             if (estado == null)
                 throw new KeyNotFoundException($"No se encontro el registro con el Id = { request.IdEstado }");

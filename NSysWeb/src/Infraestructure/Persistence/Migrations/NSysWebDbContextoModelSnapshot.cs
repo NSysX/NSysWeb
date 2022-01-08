@@ -54,9 +54,9 @@ namespace Persistence.Migrations
 
                     b.Property<int>("IdAsentamientoTipo")
                         .HasColumnType("int")
-                        .HasComment("El id de la tabla TipoAsentamiento ");
+                        .HasComment("El id de la tabla TipoAsentamiento");
 
-                    b.Property<int>("MunicipioId")
+                    b.Property<int>("IdMunicipio")
                         .HasColumnType("int")
                         .HasComment("id del municipio al que pertenece");
 
@@ -85,7 +85,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "IdAsentamientoTipo" }, "IXFK_Asentamiento_AsentamientoTipo");
 
-                    b.HasIndex(new[] { "MunicipioId", "IdAsentamientoTipo", "Nombre" }, "IX_NoDuplicado")
+                    b.HasIndex(new[] { "IdMunicipio", "Nombre" }, "IX_NoDuplicadoIdMunicipioNombre")
                         .IsUnique();
 
                     b.ToTable("Asentamiento");
@@ -104,9 +104,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Abreviatura")
                         .IsRequired()
-                        .HasMaxLength(5)
+                        .HasMaxLength(8)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(5)")
+                        .HasColumnType("varchar(8)")
                         .HasComment("Abreviatura de la descripcion de tipo de asentamiento");
 
                     b.Property<bool>("EsHabilitado")
@@ -221,8 +221,7 @@ namespace Persistence.Migrations
                     b.HasKey("IdCorreoElectronico");
 
                     b.HasIndex(new[] { "Correo" }, "IX_NoDuplicado")
-                        .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado1");
+                        .IsUnique();
 
                     b.ToTable("CorreoElectronico");
 
@@ -404,7 +403,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "CodigoUnico" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado2");
+                        .HasDatabaseName("IX_NoDuplicado1");
 
                     b.ToTable("Documento");
 
@@ -518,6 +517,10 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime")
                         .HasComment("Fecha de la ultima modificacion");
 
+                    b.Property<int>("IdPais")
+                        .HasColumnType("int")
+                        .HasComment("Id al pais que pertenece");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -561,6 +564,8 @@ namespace Persistence.Migrations
                         .HasComment("Abreviatura de nombre de tipo Variable");
 
                     b.HasKey("IdEstado");
+
+                    b.HasIndex("IdPais");
 
                     b.HasIndex(new[] { "Clave" }, "IX_NoDuplicadoClave")
                         .IsUnique();
@@ -636,7 +641,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "Descripcion" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado3");
+                        .HasDatabaseName("IX_NoDuplicado2");
 
                     b.ToTable("EstadoCivil");
 
@@ -657,6 +662,13 @@ namespace Persistence.Migrations
                         .HasMaxLength(10)
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)");
+
+                    b.Property<string>("Ciudad")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(60)")
+                        .HasComment("Nombre de la Ciudad, No todos tienen ciudad");
 
                     b.Property<int>("Clave")
                         .HasColumnType("int")
@@ -683,7 +695,7 @@ namespace Persistence.Migrations
 
                     b.Property<int>("IdEstado")
                         .HasColumnType("int")
-                        .HasComment("id que pertenece al estado");
+                        .HasComment("Id que pertenece al estado");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -713,10 +725,10 @@ namespace Persistence.Migrations
                     b.HasIndex(new[] { "Abreviatura" }, "IX_NoDuplicadoAbrevMuni")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "IdEstado", "Clave" }, "IX_NoDuplicadoIdEstadoIdMuni")
+                    b.HasIndex(new[] { "IdEstado", "Clave" }, "IX_NoDuplicadoIdEstadoClave")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "Nombre" }, "IX_NoDuplicadoNomMuni")
+                    b.HasIndex(new[] { "Nombre", "IdEstado" }, "IX_NoDuplicadoNombreEstado")
                         .IsUnique();
 
                     b.ToTable("Municipio");
@@ -778,12 +790,82 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "Descripcion" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado4");
+                        .HasDatabaseName("IX_NoDuplicado3");
 
                     b.ToTable("Nacionalidad");
 
                     b
                         .HasComment("Catalogo de Nacionalidades con su bandera");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Pais", b =>
+                {
+                    b.Property<int>("IdPais")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Identificador unico")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Abreviatura")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(5)")
+                        .HasComment("Abreviatura del nombre del Pais");
+
+                    b.Property<bool>("EsHabilitado")
+                        .HasColumnType("bit")
+                        .HasComment("Si el registro esta disponible para trabajar con el");
+
+                    b.Property<string>("Estatus")
+                        .IsRequired()
+                        .HasMaxLength(1)
+                        .IsUnicode(false)
+                        .HasColumnType("char(1)")
+                        .IsFixedLength(true)
+                        .HasComment("Estatus del registro");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha en que se creo el registro");
+
+                    b.Property<DateTime>("FechaModificacion")
+                        .HasColumnType("datetime")
+                        .HasComment("Fecha de la ultima modificacion del registro");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasComment("Nombre del Pais");
+
+                    b.Property<string>("UsuarioCreacion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasComment("Usuario que creo el registro");
+
+                    b.Property<string>("UsuarioModificacion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasComment("El usuario de la ultima modificacion");
+
+                    b.HasKey("IdPais");
+
+                    b.HasIndex(new[] { "Abreviatura" }, "IX_NoDuplicadoAbrevPais")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "Nombre" }, "IX_NoDuplicadoNombrePais")
+                        .IsUnique();
+
+                    b.ToTable("Pais");
+
+                    b
+                        .HasComment("Catalogo de Paises");
                 });
 
             modelBuilder.Entity("Domain.Entities.Persona", b =>
@@ -890,7 +972,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "ApellidoPaterno", "ApellidoMaterno", "Nombres" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado5");
+                        .HasDatabaseName("IX_NoDuplicado4");
 
                     b.ToTable("Persona");
 
@@ -921,7 +1003,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "IdPersona", "IdCorreoElectronico" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado6");
+                        .HasDatabaseName("IX_NoDuplicado5");
 
                     b.ToTable("PersonaCorreoElectronico");
 
@@ -952,7 +1034,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "IdPersona", "IdDireccion" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado7");
+                        .HasDatabaseName("IX_NoDuplicado6");
 
                     b.ToTable("PersonaDireccion");
 
@@ -983,7 +1065,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "IdPersona", "IdDocumento" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado8");
+                        .HasDatabaseName("IX_NoDuplicado7");
 
                     b.ToTable("PersonaDocumento");
 
@@ -1014,7 +1096,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "IdPersona", "IdTelefono" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado9");
+                        .HasDatabaseName("IX_NoDuplicado8");
 
                     b.ToTable("PersonaTelefono");
 
@@ -1075,7 +1157,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex(new[] { "Dominio" }, "IX_NoDuplicado")
                         .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado10");
+                        .HasDatabaseName("IX_NoDuplicado9");
 
                     b.ToTable("SysDominioCorreo");
 
@@ -1148,9 +1230,8 @@ namespace Persistence.Migrations
 
                     b.HasKey("IdTelefono");
 
-                    b.HasIndex(new[] { "CodigoPais", "Numero" }, "IX_NoDuplicado")
-                        .IsUnique()
-                        .HasDatabaseName("IX_NoDuplicado11");
+                    b.HasIndex(new[] { "CodigoPais", "Numero" }, "IX_NoDuplicadoCodigoPaisNumero")
+                        .IsUnique();
 
                     b.ToTable("Telefono");
 
@@ -1160,13 +1241,21 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Asentamiento", b =>
                 {
-                    b.HasOne("Domain.Entities.AsentamientoTipo", "IdAsentamientoTipoNavigation")
+                    b.HasOne("Domain.Entities.AsentamientoTipo", "AsentamientoTipo")
                         .WithMany("Asentamientos")
                         .HasForeignKey("IdAsentamientoTipo")
                         .HasConstraintName("FK_Asentamiento_AsentamientoTipo")
                         .IsRequired();
 
-                    b.Navigation("IdAsentamientoTipoNavigation");
+                    b.HasOne("Domain.Entities.Municipio", "Municipio")
+                        .WithMany("Asentamientos")
+                        .HasForeignKey("IdMunicipio")
+                        .HasConstraintName("FK_Asentamiento_Municipio")
+                        .IsRequired();
+
+                    b.Navigation("AsentamientoTipo");
+
+                    b.Navigation("Municipio");
                 });
 
             modelBuilder.Entity("Domain.Entities.Direccion", b =>
@@ -1189,6 +1278,18 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("DocumentoTipo");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Estado", b =>
+                {
+                    b.HasOne("Domain.Entities.Pais", "Pais")
+                        .WithMany("Estados")
+                        .HasForeignKey("IdPais")
+                        .HasConstraintName("FK_Estado_Pais")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Pais");
                 });
 
             modelBuilder.Entity("Domain.Entities.Municipio", b =>
@@ -1337,9 +1438,19 @@ namespace Persistence.Migrations
                     b.Navigation("Personas");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Municipio", b =>
+                {
+                    b.Navigation("Asentamientos");
+                });
+
             modelBuilder.Entity("Domain.Entities.Nacionalidad", b =>
                 {
                     b.Navigation("Personas");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Pais", b =>
+                {
+                    b.Navigation("Estados");
                 });
 
             modelBuilder.Entity("Domain.Entities.Persona", b =>

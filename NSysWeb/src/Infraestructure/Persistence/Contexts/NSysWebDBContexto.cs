@@ -34,6 +34,7 @@ namespace Persistence.Contexts
         public virtual DbSet<EstadoCivil> EstadoCivils { get; set; }
         public virtual DbSet<Municipio> Municipios { get; set; }
         public virtual DbSet<Nacionalidad> Nacionalidads { get; set; }
+        public virtual DbSet<Pais> Pais { get; set; }
         public virtual DbSet<Persona> Personas { get; set; }
         public virtual DbSet<PersonaCorreoElectronico> PersonaCorreoElectronicos { get; set; }
         public virtual DbSet<PersonaDireccion> PersonaDireccions { get; set; }
@@ -80,7 +81,6 @@ namespace Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

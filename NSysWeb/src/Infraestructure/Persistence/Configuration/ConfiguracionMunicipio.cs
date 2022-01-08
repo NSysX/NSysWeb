@@ -19,10 +19,10 @@ namespace Persistence.Configuration
             entity.HasIndex(e => e.Abreviatura, "IX_NoDuplicadoAbrevMuni")
                 .IsUnique();
 
-            entity.HasIndex(e => new { e.IdEstado, e.Clave }, "IX_NoDuplicadoIdEstadoIdMuni")
+            entity.HasIndex(e => new { e.IdEstado, e.Clave }, "IX_NoDuplicadoIdEstadoClave")
                 .IsUnique();
 
-            entity.HasIndex(e => e.Nombre, "IX_NoDuplicadoNomMuni")
+            entity.HasIndex(e => new { e.Nombre, e.IdEstado}, "IX_NoDuplicadoNombreEstado")
                 .IsUnique();
 
             entity.Property(e => e.IdMunicipio).HasComment("id consecutivo de municipio");
@@ -48,9 +48,15 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Fecha de la utlima modificacion");
 
-            entity.Property(e => e.IdEstado).HasComment("id que pertenece al estado");
+            entity.Property(e => e.IdEstado).HasComment("Id que pertenece al estado");
 
             entity.Property(e => e.Clave).HasComment("Clave unica de municipio por estado");
+
+            entity.Property(e => e.Ciudad)
+                .IsRequired()
+                .HasMaxLength(60)
+                .IsUnicode(false)
+                .HasComment("Nombre de la Ciudad, No todos tienen ciudad");
 
             entity.Property(e => e.Nombre)
                 .IsRequired()

@@ -33,7 +33,7 @@ namespace Application.Features.AsentamientosTipos.Commands.InsertarAsentamientos
         public async Task<Respuesta<int>> Handle(InsertarAsentamientoTipoCommand request, CancellationToken cancellationToken)
         {
             AsentamientoTipo asentamientoTipo = _mapper.Map<AsentamientoTipo>(request);
-            var resultado = await _repositorioAsync.AddAsync(asentamientoTipo);
+            var resultado = await _repositorioAsync.AddAsync(asentamientoTipo, cancellationToken);
             return new Respuesta<int>(resultado.IdAsentamientoTipo);
         }
     }

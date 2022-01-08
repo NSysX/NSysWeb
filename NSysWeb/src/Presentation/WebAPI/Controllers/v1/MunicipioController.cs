@@ -1,4 +1,6 @@
-﻿using Application.Features.Municipios.Commands.InsertarMunicipiosCommand;
+﻿using Application.Features.Municipios.Commands.ActualizarMunicipiosCommand;
+using Application.Features.Municipios.Commands.EliminarMunicipiosCommand;
+using Application.Features.Municipios.Commands.InsertarMunicipiosCommand;
 using Application.Features.Municipios.Queries.MunicipiosXParametros;
 using Application.Features.Municipios.Queries.MunicipioXId;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +34,18 @@ namespace WebAPI.Controllers.v1
         public async Task<ActionResult> PostMunicipio(InsertarMunicipioCommand insertar)
         {
             return Ok(await Mediator.Send(insertar));
+        }
+
+        [HttpPut(Name = "ActualizarMunicipio")]
+        public async Task<ActionResult> PutMunicipio(ActualizarMunicipioCommand actualizar)
+        {
+            return Ok(await Mediator.Send(actualizar));
+        }
+
+        [HttpDelete("{id:int}", Name = "EliminarMunicipio")]
+        public async Task<ActionResult> DelMunicipio(int id)
+        {
+            return Ok(await Mediator.Send(new EliminarMunicipioCommand { IdMunicipio = id }));
         }
     }
 }

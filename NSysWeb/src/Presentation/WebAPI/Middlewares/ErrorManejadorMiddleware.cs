@@ -46,14 +46,19 @@ namespace WebAPI.Middlewares
                             modeloRespuesta.Message = "No se Pueden Consultar registros con campos NULOS";
                             modeloRespuesta.Errors.Add("En la configuracion esta marcado como Requerido");
                         }
+                        else
+                        {
+                            modeloRespuesta.Message = error.Message;
+                            modeloRespuesta.Errors.Add(error.InnerException.Message);
+                        }
                         break;
                     case "Microsoft.EntityFrameworkCore.Relational":
                         // Trae inner message
-                        if (error.InnerException.Message.ToLower().Contains("duplicate key"))
-                        {
-                            modeloRespuesta.Message = "No se puede Insertar Registros Duplicados";
+                       // if (error.InnerException.Message.ToLower().Contains("duplicate key"))
+                        //{
+                            modeloRespuesta.Message = error.Message; //"No se puede Insertar Registros Duplicados";
                             modeloRespuesta.Errors.Add(error.InnerException.Message);
-                        }
+                       // }
                         break;
                     default:
                         modeloRespuesta.Message = error?.Message;

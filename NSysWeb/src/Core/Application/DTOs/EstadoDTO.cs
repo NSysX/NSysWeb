@@ -9,5 +9,7 @@
         public string RenapoAbrev { get; set; }
         public string TresDigitosAbrev { get; set; }
         public int Clave { get; set; }
+
+        public virtual PaisDTO Pais { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Persistence
     {
         public static void AgregaInfraestructuraDePersistencia(this IServiceCollection services, IConfiguration configuration)
         {
-            // i se configura la migracion
+            // se configura la migracion
             services.AddDbContext<NSysWebDbContexto>(options => 
             options.UseSqlServer(configuration.GetConnectionString("NSysWeb"), r => { 
                     r.MigrationsAssembly(typeof(NSysWebDbContexto).Assembly.FullName);

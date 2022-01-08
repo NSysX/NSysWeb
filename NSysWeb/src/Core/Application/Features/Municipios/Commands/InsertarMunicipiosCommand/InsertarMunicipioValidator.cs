@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Municipios.Commands.InsertarMunicipiosCommand
 {
@@ -24,13 +19,13 @@ namespace Application.Features.Municipios.Commands.InsertarMunicipiosCommand
             RuleFor(n => n.Nombre)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacia")
                 .NotNull().WithMessage("'{PropertyName}' : No debe se Nulo")
-                .Length(5, 50).WithMessage("'{PropertyName}' : No debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
+                .Length(5, 50).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
                 .Matches(@"^[a-zA-Z()áéíóúñÑ.,/s 0-9]*$").WithMessage("'{PropertyName}' : Solo Letras, Numeros, Espacios");
 
             RuleFor(n => n.Abreviatura)
                 //.NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacia")
                 .NotNull().WithMessage("'{PropertyName}' : No debe se Nulo")
-                .Length(3, 10).WithMessage("'{PropertyName}' : No debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
+                .Length(2, 10).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
                 .Matches(@"^[a-zA-Z.]*$").WithMessage("'{PropertyName}' : Solo Letras");
 
             RuleFor(a => a.Clave)
@@ -38,6 +33,11 @@ namespace Application.Features.Municipios.Commands.InsertarMunicipiosCommand
                 .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo");
             // .Length(3, 3).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Numeros (ej. 001)")
             // .Matches(@"^[0-9]{3}$").WithMessage("'{PropertyName}' : Solo acepta Numeros (001)");
+
+            RuleFor(c => c.Ciudad)
+                .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo")
+                .Length(5, 80).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
+                .Matches(@"^[a-zA-Z()áéíóúñÑ .]*$").WithMessage("'{PropertyName}' : Solo Letras, Espacios y Puntos");
         }
     }
 }

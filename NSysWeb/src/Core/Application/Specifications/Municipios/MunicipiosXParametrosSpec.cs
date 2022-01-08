@@ -12,7 +12,9 @@ namespace Application.Specifications.Municipios
             Query.Skip((numeroDePagina - 1) * numeroDePagina)
                 .Take(registrosXPagina)
                 .Include(e => e.Estado)
-                .OrderBy(n => n.Nombre);
+                .OrderBy(n => n.Nombre)
+                .Include(e => e.Estado)
+                .ThenInclude(p => p.Pais);
 
             if (!String.IsNullOrEmpty(nombre))
                 Query.Search(n => n.Nombre, "%" + nombre + "%");

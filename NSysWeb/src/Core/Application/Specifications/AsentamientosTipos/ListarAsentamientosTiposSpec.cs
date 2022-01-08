@@ -7,9 +7,9 @@ namespace Application.Specifications.AsentamientosTipos
 {
     public class ListarAsentamientosTiposSpec : Specification<AsentamientoTipo>
     {
-        public ListarAsentamientosTiposSpec(int NumeroDePagina, int registrosXPagina, string estatus, string nombre, string abreviatura)
+        public ListarAsentamientosTiposSpec(int numeroDePagina, int registrosXPagina, string estatus, string nombre, string abreviatura)
         {
-            Query.Skip((NumeroDePagina - 1) * NumeroDePagina)
+            Query.Skip((numeroDePagina - 1) * numeroDePagina)
                 .Take(registrosXPagina).OrderBy(n => n.Nombre);
 
             if (!String.IsNullOrEmpty(estatus))

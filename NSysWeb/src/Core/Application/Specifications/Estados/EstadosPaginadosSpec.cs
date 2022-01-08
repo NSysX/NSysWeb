@@ -9,7 +9,9 @@ namespace Application.Specifications.Estados
         public EstadosPaginadosSpec(int registrosXPagina, int numeroDePagina, string estatus, string nombre, string VariableAbrev)
         {
             Query.Skip((numeroDePagina - 1) * registrosXPagina)
-                .Take(registrosXPagina).OrderBy(e => nombre);
+                .Take(registrosXPagina)
+                .OrderBy(e => nombre)
+                .Include(p => p.Pais);
 
             if (!String.IsNullOrEmpty(nombre))
             {

@@ -31,6 +31,8 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdEstado).HasComment("id del estado");
 
+            entity.Property(e => e.IdPais).HasComment("Id al pais que pertenece");
+
             entity.Property(e => e.FechaCreacion)
                 .HasColumnType("datetime")
                 .HasComment("Fecha de creacion del registro");
@@ -86,6 +88,12 @@ namespace Persistence.Configuration
                 .HasComment("Abreviatura de nombre a Tres Digitos");
 
             entity.Property(e => e.EsHabilitado).HasComment("si esta disponible el registro"); 
+
+            entity.HasOne(e => e.Pais)
+                .WithMany(e => e.Estados)
+                .HasForeignKey(e => e.IdPais)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Estado_Pais");
         }
     }
 }

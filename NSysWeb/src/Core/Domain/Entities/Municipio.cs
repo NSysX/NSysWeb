@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -12,7 +13,9 @@ namespace Domain.Entities
         public string Nombre { get; set; }
         public string Abreviatura { get; set; }
         public int Clave { get; set; }
+        public string Ciudad { get; set; }
 
         public virtual Estado Estado { get; set; }
+        public virtual List<Asentamiento> Asentamientos { get; set; }
     }
 }

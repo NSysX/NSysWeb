@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,29 +27,38 @@ namespace Application.Features.Personas.Commands.InsertarPersonasCommand
     public class InsertarPersona_Manejador : IRequestHandler<InsertarPersonaCommand, Respuesta<int>>
     {
         private readonly IRepositorioAsync<Persona> _repositorioAsync;
+        private readonly IRepositorioAsync<Nacionalidad> _repositorioNacionalidad;
+        private readonly IRepositorioAsync<EstadoCivil> _repositorioEstadoCivil;
         private readonly IMapper _mapper;
 
-        public InsertarPersona_Manejador(IRepositorioAsync<Persona> repositorioAsync, IMapper mapper)
+        public InsertarPersona_Manejador(IRepositorioAsync<Persona> repositorioAsync, 
+                                         IRepositorioAsync<Nacionalidad> repositorioNacionalidad,
+                                         IRepositorioAsync<EstadoCivil> repositorioEstadoCivil,
+                                         IMapper mapper)
         {
             this._repositorioAsync = repositorioAsync;
+            this._repositorioNacionalidad = repositorioNacionalidad;
+            this._repositorioEstadoCivil = repositorioEstadoCivil;
             this._mapper = mapper;
         }
 
         public async Task<Respuesta<int>> Handle(InsertarPersonaCommand request, CancellationToken cancellationToken)
         {
-            //var datosDuplicado = new ExistePersonaSpec(request.ApellidoPaterno, 
-            //                                           request.ApellidoPaterno,
-            //                                           request.Nombres);
+            // verifico que exista la Nacionalidad            
+            var nacionalidadExiste = await _repositorioNacionalidad.GetByIdAsync(request.IdNacionalidad, cancellationToken);
+            if (nacionalidadExiste == null)
+                throw new KeyNotFoundException($"No Existe la Nacionalidad con el Id = { request.IdNacionalidad }");
 
-            //var existe = await _repositorioAsync.GetBySpecAsync(datosDuplicado);
-            
-            
+            // verifico que exista el EstadoCivil
+            var estadoCivilExiste = await _repositorioEstadoCivil.GetByIdAsync(request.IdEstadoCivil, cancellationToken);
+            if (estadoCivilExiste == null)
+                throw new KeyNotFoundException($"No Existe el Estado Civil con el Id = { request.IdEstadoCivil }");
 
             // Recibimos el objeto Insertar y lo mapeamos a la entidad 
             Persona persona = _mapper.Map<Persona>(request);
 
             // insertamos y recibimos el id de la tabla
-            var respuesta = await _repositorioAsync.AddAsync(persona);
+            var respuesta = await _repositorioAsync.AddAsync(persona, cancellationToken);
 
             // respondemos creando un nuevo objeto de respuesta
             return new Respuesta<int>(respuesta.IdPersona);

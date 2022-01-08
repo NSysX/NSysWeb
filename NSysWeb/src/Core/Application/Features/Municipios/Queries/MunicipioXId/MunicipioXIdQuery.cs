@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Application.Specifications.Municipios;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -28,7 +29,8 @@ namespace Application.Features.Municipios.Queries.MunicipioXId
 
         public async Task<Respuesta<MunicipioDTO>> Handle(MunicipioXIdQuery request, CancellationToken cancellationToken)
         {
-            Municipio municipio = await _repositorioAsync.GetByIdAsync(request.IdMunicipio, cancellationToken);
+            var municipioXidSpec = new MunicipioXIdSpec(request.IdMunicipio);
+            Municipio municipio = await _repositorioAsync.GetBySpecAsync(municipioXidSpec, cancellationToken);
 
             if (municipio == null)
                 throw new KeyNotFoundException($"No se Encontro el registro con el Id = { request.IdMunicipio }");

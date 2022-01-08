@@ -14,12 +14,13 @@ namespace Domain.Entities
 
         public int IdAsentamiento { get; set; }
         public int IdAsentamientoTipo { get; set; }
-        public int MunicipioId { get; set; }
+        public int IdMunicipio { get; set; }
         public string Estatus { get; set; }
         public string Nombre { get; set; }
         public int CodigoPostal { get; set; }
 
-        public virtual AsentamientoTipo IdAsentamientoTipoNavigation { get; set; }
+        public virtual AsentamientoTipo AsentamientoTipo { get; set; }
+        public virtual Municipio Municipio { get; set; }
         public virtual ICollection<Direccion> Direcciones { get; set; }
     }
 }

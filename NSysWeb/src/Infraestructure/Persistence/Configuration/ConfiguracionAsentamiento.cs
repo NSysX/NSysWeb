@@ -16,7 +16,7 @@ namespace Persistence.Configuration
 
             entity.HasIndex(e => e.IdAsentamientoTipo, "IXFK_Asentamiento_AsentamientoTipo");
 
-            entity.HasIndex(e => new { e.MunicipioId, e.IdAsentamientoTipo, e.Nombre }, "IX_NoDuplicado")
+            entity.HasIndex(e => new { e.IdMunicipio, e.Nombre }, "IX_NoDuplicadoIdMunicipioNombre")
                 .IsUnique();
 
             entity.Property(e => e.IdAsentamiento).HasComment("Consecutivo de Asentamiento");
@@ -40,9 +40,9 @@ namespace Persistence.Configuration
                 .HasColumnType("datetime")
                 .HasComment("Fecha de la Ultima Modificacion");
 
-            entity.Property(e => e.IdAsentamientoTipo).HasComment("El id de la tabla TipoAsentamiento ");
+            entity.Property(e => e.IdAsentamientoTipo).HasComment("El id de la tabla TipoAsentamiento");
 
-            entity.Property(e => e.MunicipioId).HasComment("id del municipio al que pertenece");
+            entity.Property(e => e.IdMunicipio).HasComment("id del municipio al que pertenece");
 
             entity.Property(e => e.Nombre)
                 .IsRequired()
@@ -62,11 +62,17 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Ultimo usuario que modifico el registro");
 
-            entity.HasOne(d => d.IdAsentamientoTipoNavigation)
+            entity.HasOne(d => d.AsentamientoTipo)
                 .WithMany(p => p.Asentamientos)
                 .HasForeignKey(d => d.IdAsentamientoTipo)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Asentamiento_AsentamientoTipo");
+
+            entity.HasOne(m => m.Municipio)
+                .WithMany(a => a.Asentamientos)
+                .HasForeignKey(d => d.IdMunicipio)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Asentamiento_Municipio");
         }
     }
 }

@@ -22,11 +22,25 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.IdDocumentoTipo).HasComment("El identificador unico de registro");
 
-            entity.Property(e => e.Abreviatura)
-                .IsRequired()
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasComment("Abreviatura del documento");
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("datetime")
+                .HasComment("Fecha en que se creo el registro");
+
+            entity.Property(e => e.UsuarioCreacion)
+               .IsRequired()
+               .HasMaxLength(50)
+               .IsUnicode(false)
+               .HasComment("Usuario que creo el registro");
+
+            entity.Property(e => e.FechaModificacion)
+                .HasColumnType("datetime")
+                .HasComment("Fecha de la ultima modificacion del registro");
+
+            entity.Property(e => e.UsuarioModificacion)
+               .IsRequired()
+               .HasMaxLength(50)
+               .IsUnicode(false)
+               .HasComment("El usuario de la ultima modificacion");
 
             entity.Property(e => e.EsHabilitado).HasComment("Si el registro esta disponible para trabajar con el");
 
@@ -37,33 +51,19 @@ namespace Persistence.Configuration
                 .IsFixedLength(true)
                 .HasComment("Estatus del registro");
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha en que se creo el registro");
-
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de la ultima modificacion del registro");
-
-            entity.Property(e => e.Longitud).HasComment("La longitud de caracteres permitido para la Cadena Unica");
-
             entity.Property(e => e.Nombre)
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasComment("Nombre completo del documento ");
 
-            entity.Property(e => e.UsuarioCreacion)
+            entity.Property(e => e.Abreviatura)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(10)
                 .IsUnicode(false)
-                .HasComment("Usuario que creo el registro");
+                .HasComment("Abreviatura del documento");
 
-            entity.Property(e => e.UsuarioModificacion)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasComment("El usuario de la ultima modificacion");
+            entity.Property(e => e.Longitud).HasComment("La longitud de caracteres permitido para la Cadena Unica");
         }
     }
 }

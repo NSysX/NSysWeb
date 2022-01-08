@@ -19,7 +19,7 @@ namespace Persistence.Configuration
 
             entity.HasComment("Todos los Telefonos de personas y empresas");
 
-            entity.HasIndex(e => new { e.CodigoPais, e.Numero }, "IX_NoDuplicado")
+            entity.HasIndex(e => new { e.CodigoPais, e.Numero }, "IX_NoDuplicadoCodigoPaisNumero")
                 .IsUnique();
 
             entity.Property(e => e.IdTelefono).HasComment("Identificador unico de la tabla telefono");

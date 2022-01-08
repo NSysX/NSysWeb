@@ -6,6 +6,10 @@ namespace Application.Features.Documentos.Commands.InsertarDocumentosCommand
     {
         public InsertarDocumentoValidador()
         {
+            RuleFor(c => c.IdPersona)
+                .NotNull().WithMessage("'{PropertyName}' : No debe ser Nulo")
+                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
+
             RuleFor(t => t.IdDocumentoTipo)
                 .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO")
                 .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");

@@ -25,19 +25,24 @@ namespace Application.Features.Municipios.Commands.ActualizarMunicipiosCommand
             RuleFor(n => n.Nombre)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacia")
                 .NotNull().WithMessage("'{PropertyName}' : No debe se Nulo")
-                .Length(5, 20).WithMessage("'{PropertyName}' : No debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
+                .Length(5, 20).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
                 .Matches(@"^[a-zA-Z()áéíóúñÑ.,/s @]*$|^[\W]*$").WithMessage("'{PropertyName}' : Solo Caracteres Alfanumericos");
 
             RuleFor(a => a.Abreviatura)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
                 .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo")
-                .Length(3, 10).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
+                .Length(1, 10).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
                 .Matches(@"^[A-Za-záéíóú. ]*$").WithMessage("'{PropertyName}' : Solo acepta letras y puntos");
 
             RuleFor(i => i.Clave)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser Nulo")
                 .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
+
+            RuleFor(c => c.Ciudad)
+                .NotNull().WithMessage("'{PrpertyName}' : No debe ser Nulo")
+                .Length(5, 80).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
+                .Matches(@"^[a-zA-Z()áéíóúñÑ .]*$").WithMessage("'{PropertyName}' : Solo Letras, Espacios y Puntos");
         }
     }
 }

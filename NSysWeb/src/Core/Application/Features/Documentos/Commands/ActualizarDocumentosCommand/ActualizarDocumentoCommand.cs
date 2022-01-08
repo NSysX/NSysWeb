@@ -24,17 +24,27 @@ namespace Application.Features.Documentos.Commands.ActualizarDocumentosCommand
     public class ActualizarDocumento_Manejador : IRequestHandler<ActualizarDocumentoCommand, Respuesta<int>>
     {
         private readonly IRepositorioAsync<Documento> _repositorioAsyc;
+        private readonly IRepositorioAsync<DocumentoTipo> _repositorioDocumentoTipo;
+
         // private readonly IMapper _mapper;
 
         public ActualizarDocumento_Manejador(IRepositorioAsync<Documento> repositorioAsyc,
+                                             IRepositorioAsync<DocumentoTipo> repositorioDocumentoTipo,
                                              IMapper mapper)
         {
             this._repositorioAsyc = repositorioAsyc;
+            this._repositorioDocumentoTipo = repositorioDocumentoTipo;
             //this._mapper = mapper;
         }
 
         public async Task<Respuesta<int>> Handle(ActualizarDocumentoCommand request, CancellationToken cancellationToken)
         {
+            // Verifico que exista el Documento Tipo
+            var documentoTipoExiste = await _repositorioDocumentoTipo.GetByIdAsync(request.IdDocumentoTipo, cancellationToken);
+
+            if (documentoTipoExiste == null)
+                throw new KeyNotFoundException($"No se Encontro el Documento Tipo con el Id = { request.IdDocumentoTipo }");
+
             // verificamos si existe el registro del id
             Documento documento = await _repositorioAsyc.GetByIdAsync(request.IdDocumento);
 

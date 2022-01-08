@@ -15,7 +15,7 @@ namespace Application.Features.Estados.Commands
             RuleFor(n => n.Nombre)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacia")
                 .NotNull().WithMessage("'{PropertyName}' : No debe se Nulo")
-                .Length(5, 20).WithMessage("'{PropertyName}' : No debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
+                .Length(5, 20).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
                 .Matches(@"^[a-zA-Z()áéíóúñÑ.,/s @]*$|^[\W]*$").WithMessage("'{PropertyName}' : Solo Caracteres Alfanumericos");
 
             RuleFor(a => a.VariableAbrev)

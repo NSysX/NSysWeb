@@ -29,7 +29,7 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.Abreviatura)
                 .IsRequired()
-                .HasMaxLength(5)
+                .HasMaxLength(8)
                 .IsUnicode(false)
                 .HasComment("Abreviatura de la descripcion de tipo de asentamiento");
 
