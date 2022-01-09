@@ -1,10 +1,7 @@
 ﻿using Application.Behaviours;
-using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
 using System.Reflection;
 
 namespace Application

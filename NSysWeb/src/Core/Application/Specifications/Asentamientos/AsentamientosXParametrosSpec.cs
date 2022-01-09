@@ -22,7 +22,8 @@ namespace Application.Specifications.Asentamientos
                 Query.Search(n => n.Nombre, "%" + nombre + "%");
 
             if (codigoPostal != 0)
-                Query.Where(c => c.CodigoPostal == codigoPostal);
+                Query.Where(c => c.CodigoPostal >= codigoPostal);
+
         }
     }
 }

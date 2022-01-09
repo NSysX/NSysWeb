@@ -4,6 +4,7 @@ using Application.Features.EstadosCiviles.Commands.InsertarEstadosCivilesCommand
 using Application.Features.EstadosCiviles.Queries.ListarEstadosCivilesQuery;
 using Application.Features.EstadosCiviles.Queries.ObtenerXIdEstadoCivil;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers.v1
@@ -11,6 +12,11 @@ namespace WebAPI.Controllers.v1
     [ApiVersion("1.0")]
     public class EstadoCivilController : BaseApiController
     {
+
+        public EstadoCivilController(ILogger<EstadoCivilController> logger)
+        {
+
+        }
         
 
         [HttpGet("{id:int}",Name = "ObtenerXId")]

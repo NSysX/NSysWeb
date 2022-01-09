@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using WebAPI.Core.Swagger;
 using WebAPI.Extensiones;
 
 namespace WebAPI
@@ -33,6 +34,7 @@ namespace WebAPI
         {
             //services.AddControllers().AddJsonOptions(x =>
             //         x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
             services.AgregaCoreDeAplicacion();
             services.AgregaInfraestructuraDeShared(Configuration);
             services.AgregaInfraestructuraDePersistencia(Configuration);
@@ -44,6 +46,8 @@ namespace WebAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                //c.DocumentFilter<DocumentFilter>();
+                c.OrderActionsBy(x => x.HttpMethod);
             });
         }
 

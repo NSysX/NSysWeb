@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 
 namespace Application.Wrappers
@@ -11,6 +12,7 @@ namespace Application.Wrappers
         public string Message { get; set; }
         public List<String> Errors { get; set; } = new List<string>();
         public T Data { get; set; }
+
 
         public Respuesta()
         {

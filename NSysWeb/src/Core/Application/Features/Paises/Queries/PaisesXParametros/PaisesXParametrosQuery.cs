@@ -36,7 +36,9 @@ namespace Application.Features.Paises.Queries.PaisesXParametros
 
             List<PaisDTO> paisDTOs = _mapper.Map<List<PaisDTO>>(pais);
 
-            return new RespuestaPaginada<List<PaisDTO>>(paisDTOs, request.NumeroDePagina, request.RegistrosXPagina);
+            var data = new RespuestaPaginada<List<PaisDTO>>(paisDTOs, request.NumeroDePagina, request.RegistrosXPagina);
+
+            return data;
         }
     }
 }
