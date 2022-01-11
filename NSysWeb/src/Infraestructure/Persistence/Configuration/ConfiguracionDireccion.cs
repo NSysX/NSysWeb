@@ -27,7 +27,7 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.EntreLaCalle)
                 .IsRequired()
-                .HasMaxLength(100)
+                .HasMaxLength(150)
                 .IsUnicode(false);
 
             entity.Property(e => e.EsFiscal).HasComment("Si la direccion es fiscal para la emision de facturas");
@@ -87,7 +87,7 @@ namespace Persistence.Configuration
 
             entity.Property(e => e.YlaCalle)
                 .IsRequired()
-                .HasMaxLength(100)
+                .HasMaxLength(150)
                 .IsUnicode(false)
                 .HasColumnName("YLaCalle");
 

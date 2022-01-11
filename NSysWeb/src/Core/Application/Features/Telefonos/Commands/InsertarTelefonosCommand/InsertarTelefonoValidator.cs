@@ -6,6 +6,10 @@ namespace Application.Features.Telefonos.Commands.InsertarTelefonosCommand
     {
         public InsertarTelefonoValidator()
         {
+            RuleFor(c => c.IdPersona)
+                .NotNull().WithMessage("'{PropertyName}' : No debe ser Nulo")
+                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
+
             RuleFor(s => s.Estatus)
                 .NotNull().WithMessage("'{PropertyName}' : No debe ser NULL")
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe ser Vacio")

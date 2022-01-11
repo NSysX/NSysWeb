@@ -1,11 +1,11 @@
 using Application;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Persistence;
@@ -22,9 +22,12 @@ namespace WebAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration,IWebHostEnvironment env)
         {
             Configuration = configuration;
+            this._env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -35,7 +38,7 @@ namespace WebAPI
             //services.AddControllers().AddJsonOptions(x =>
             //         x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
-            services.AgregaCoreDeAplicacion();
+            services.AgregaCoreDeAplicacion(_env);
             services.AgregaInfraestructuraDeShared(Configuration);
             services.AgregaInfraestructuraDePersistencia(Configuration);
 

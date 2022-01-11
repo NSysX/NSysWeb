@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.CorreosElectronicos.Commands.InsertarCorreosElectronicosCommand
 {
@@ -29,8 +24,8 @@ namespace Application.Features.CorreosElectronicos.Commands.InsertarCorreosElect
 
             RuleFor(d => d.TipoCorreo)
                 .NotNull().WithMessage("{PropertyName} : No debe ser NULL")
-                .NotEmpty().WithMessage("{PropertyName} : No debe estar Vacia")
-                .Length(3, 50).WithMessage("{PropertyName} : Debe tener entre {MinLength} y {MaxLength} Caracteres")
+               // .NotEmpty().WithMessage("{PropertyName} : No debe estar Vacia")
+               .MaximumLength(50).WithMessage("{PropertyName} : Debe tener Maximo {MaxLength} Caracteres")
                 .Matches(@"^[A-Za-z ]*$").WithMessage("{ PropertyName} : Contiene Caracteres Invalidos (Solo acepta Letras y espacions)");
         }
     }

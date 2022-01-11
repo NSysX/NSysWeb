@@ -1,15 +1,10 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.CorreosElectronicos.Commands.ActualizarCorreosElectronicosCommand
 {
-    public class ActualizarTipoCorreoValidator : AbstractValidator<ActualizarCorreoElectronicoCommand>
+    public class ActualizarCorreoElectronicoValidator : AbstractValidator<ActualizarCorreoElectronicoCommand>
     {
-        public ActualizarTipoCorreoValidator()
+        public ActualizarCorreoElectronicoValidator()
         {
             RuleFor(i => i.IdCorreoElectronico)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser Nulo")
@@ -29,8 +24,8 @@ namespace Application.Features.CorreosElectronicos.Commands.ActualizarCorreosEle
 
             RuleFor(d => d.TipoCorreo)
                 .NotNull().WithMessage("{PropertyName} : No debe ser NULL")
-                .NotEmpty().WithMessage("{PropertyName} : No debe estar Vacia")
-                .Length(3, 50).WithMessage("{PropertyName} : Debe tener entre {MinLength} y {MaxLength} Caracteres")
+                //.NotEmpty().WithMessage("{PropertyName} : No debe estar Vacia")
+                .MaximumLength(50).WithMessage("{PropertyName} : Debe tener maximo {MaxLength} Caracteres")
                 .Matches(@"^[A-Za-z ]*$").WithMessage("{ PropertyName} : Contiene Caracteres Invalidos (Solo acepta Letras y espacions)");
         }
     }

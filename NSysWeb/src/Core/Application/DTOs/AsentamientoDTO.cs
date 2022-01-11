@@ -13,6 +13,6 @@ namespace Application.DTOs
         public virtual AsentamientoTipoDTO AsentamientoTipo { get; set; }
         public int IdMunicipio { get; set; }
         public virtual MunicipioDTO Municipio { get; set; }
-        public virtual ICollection<DireccionDTO> Direcciones { get; set; }
+        //public virtual ICollection<DireccionDTO> Direcciones { get; set; }
     }
 }

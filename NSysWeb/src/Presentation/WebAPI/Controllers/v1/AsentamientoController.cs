@@ -4,6 +4,7 @@ using Application.Features.Asentamientos.Commands.InsertarAsentamientosCommand;
 using Application.Features.Asentamientos.Queries.AsentamientosXParametros;
 using Application.Features.Asentamientos.Queries.AsentamientoXId;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers.v1
@@ -11,9 +12,18 @@ namespace WebAPI.Controllers.v1
     [ApiVersion("1.0")]
     public class AsentamientoController : BaseApiController
     {
+        private readonly ILogger<AsentamientoController> _logger;
+
+        public AsentamientoController(ILogger<AsentamientoController> logger)
+        {
+            this._logger = logger;
+        }
+
         [HttpGet(Name = "AsentamientosXParametros")]
         public async Task<ActionResult> GetAsentamientosXParametros([FromQuery] AsentamientoParametros parametros)
         {
+            _logger.LogInformation("Entro -> Asentamiento X Parametros : {@parametros}", parametros);
+
             return Ok(await Mediator.Send(new AsentamientosXParametrosQuery
             {
                 NumeroDePagina = parametros.NumeroDePagina,

@@ -3,6 +3,7 @@ using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,17 +21,25 @@ namespace Application.Features.CorreosElectronicos.Commands.InsertarCorreosElect
     {
        // private readonly IRepositorioAsync<CorreoElectronico> _repositorioAsync;
         private readonly IRepositorioAsync<PersonaCorreoElectronico> _repositorioPersonaCorreoElectronico;
+        private readonly IRepositorioAsync<Persona> _repositorioAsyncPersona;
         private readonly IMapper _mapper;
 
         public InsertarCorreoElectronico_Manejador(IRepositorioAsync<PersonaCorreoElectronico> repositorioPersonaCorreoElectronico,
+            IRepositorioAsync<Persona> repositorioAsyncPersona,
             IMapper mapper)
         {
             this._repositorioPersonaCorreoElectronico = repositorioPersonaCorreoElectronico;
+            this._repositorioAsyncPersona = repositorioAsyncPersona;
             this._mapper = mapper;
         }
 
         public async Task<Respuesta<int>> Handle(InsertarCorreoElectronicoCommand request, CancellationToken cancellationToken)
         {
+            // verifico que exista la persona
+            var personaExiste = await _repositorioAsyncPersona.GetByIdAsync(request.IdPersona, cancellationToken);
+            if (personaExiste == null)
+                throw new KeyNotFoundException($"No existe la Persona Id = { request.IdPersona }");
+
             PersonaCorreoElectronico personaCorreoElectronico = new()
             {
                 IdPersona = request.IdPersona,

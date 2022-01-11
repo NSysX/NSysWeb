@@ -6,6 +6,6 @@
         public string Estatus { get; set; }
         public string Nombre { get; set; }
         public string Abreviatura { get; set; }
-        public int Longitud { get; set; }
+        public int LongitudMax { get; set; }
     }
 }

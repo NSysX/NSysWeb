@@ -11,6 +11,7 @@ namespace Application.Features.Direcciones.Commands.InsertarDireccionesCommand
 {
     public class InsertarDireccionCommand : IRequest<Respuesta<int>>
     {
+        public int IdPersona { get; set; }
         public int IdAsentamiento { get; set; }
         public string Estatus { get; set; }
         public string Calle { get; set; }
@@ -27,30 +28,45 @@ namespace Application.Features.Direcciones.Commands.InsertarDireccionesCommand
 
     public class InsertarDireccion_Manejador : IRequestHandler<InsertarDireccionCommand, Respuesta<int>>
     {
-        private readonly IRepositorioAsync<Direccion> _repositorioAsync;
+        private readonly IRepositorioAsync<PersonaDireccion> _repositorioAsyncPersonaDireccion;
+        private readonly IRepositorioAsync<Persona> _repositorioAsyncPersona;
         private readonly IRepositorioAsync<Asentamiento> _repositorioAsentamiento;
         private readonly IMapper _mapper;
 
-        public InsertarDireccion_Manejador(IRepositorioAsync<Direccion> repositorioAsync, 
+        public InsertarDireccion_Manejador(IRepositorioAsync<PersonaDireccion> repositorioAsyncPersonaDireccion,
+                                           IRepositorioAsync<Persona> repositorioAsyncPersona,
                                            IRepositorioAsync<Asentamiento> repositorioAsentamiento,
                                            IMapper mapper)
         {
-            this._repositorioAsync = repositorioAsync;
+            this._repositorioAsyncPersonaDireccion = repositorioAsyncPersonaDireccion;
+            this._repositorioAsyncPersona = repositorioAsyncPersona;
             this._repositorioAsentamiento = repositorioAsentamiento;
             this._mapper = mapper;
         }
 
         public async Task<Respuesta<int>> Handle(InsertarDireccionCommand request, CancellationToken cancellationToken)
         {
+            // Verificao que exista la Persona
+            var personaExiste = await _repositorioAsyncPersona.GetByIdAsync(request.IdPersona, cancellationToken);
+            if (personaExiste == null)
+                throw new KeyNotFoundException($"No Existe Persona con el Id = { request.IdPersona }");
+
             // Verifico que exista el asentamiento
             var asentamientoExiste = await _repositorioAsentamiento.GetByIdAsync(request.IdAsentamiento, cancellationToken);
             if (asentamientoExiste == null)
-                throw new KeyNotFoundException($"No se encontro el Asentamiento con el Id = { request.IdAsentamiento }");
+                throw new KeyNotFoundException($"No Existe Asentamiento con el Id = { request.IdAsentamiento }");
 
-            Direccion direccion = _mapper.Map<Direccion>(request);
-            var resultado = await _repositorioAsync.AddAsync(direccion, cancellationToken);
+            //
+            //creo el objeto PersonaDireccion
+            PersonaDireccion personaDireccion = new()
+            {
+                IdPersona = request.IdPersona,
+                Direccion = _mapper.Map<Direccion>(request)
+            };
 
-            return new Respuesta<int>(resultado.IdDireccion);
+            PersonaDireccion personaDirec = await _repositorioAsyncPersonaDireccion.AddAsync(personaDireccion, cancellationToken);
+
+            return new Respuesta<int>(personaDirec.IdDireccion);
         }
     }
 }

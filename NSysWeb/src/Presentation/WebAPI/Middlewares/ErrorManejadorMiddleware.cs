@@ -18,9 +18,7 @@ namespace WebAPI.Middlewares
     public class ErrorManejadorMiddleware
     {
         private readonly RequestDelegate _siguiente;
-
         private readonly IHostEnvironment environment;
-
         private readonly ILogger<ErrorManejadorMiddleware> logger;
 
         public ErrorManejadorMiddleware(RequestDelegate siguiente, IHostEnvironment environment, ILogger<ErrorManejadorMiddleware> logger)
@@ -61,7 +59,7 @@ namespace WebAPI.Middlewares
                     modeloRespuesta.Message = "Fallo la operación, por favor intentelo nuevamente";
                 }
 
-                this.logger.LogError(ex, ex.GetAllMessages());
+                this.logger.LogError("Error Middleware -> " + ex, ex.GetAllMessages());
 
                 await WriteError(respuesta, modeloRespuesta);
             }
@@ -152,7 +150,7 @@ namespace WebAPI.Middlewares
         private async Task WriteError(HttpResponse respuesta, Respuesta<string> modeloRespuesta)
         {
             var resultado = JsonSerializer.Serialize(modeloRespuesta);
-            this.logger.LogError("Se genero o un error con la siguiente información: {0}", resultado);
+            this.logger.LogError("Se genero o un error con la siguiente información: {@resultado}", resultado);
             await respuesta.WriteAsync(resultado);
         }
     }

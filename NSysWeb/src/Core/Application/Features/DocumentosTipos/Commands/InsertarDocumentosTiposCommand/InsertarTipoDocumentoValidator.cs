@@ -24,7 +24,7 @@ namespace Application.Features.DocumentosTipos.Commands.InsertarDocumentosTiposC
                 .Length(3, 10).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Letras")
                 .Matches(@"^[A-Z.]*$").WithMessage("'{PropertyName}' : Solo acepta letras y puntos");
 
-            RuleFor(l => l.Longitud)
+            RuleFor(l => l.LongitudMax)
                 .NotNull().WithMessage("'{PropertyName}' : No debe ser Nulo")
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
                 .Must(longitudValida).WithMessage("'{PropertyName}' : Longitud debe ser mayor a 0 y menor a 30");

@@ -21,6 +21,13 @@ namespace Application.Specifications.Personas
                 .Include(pc => pc.PersonaCorreosElectronicos)
                     .ThenInclude(ce => ce.CorreoElectronico)
                 .Include(pd => pd.PersonaDirecciones)
+                    .ThenInclude(d => d.Direccion)
+                    .ThenInclude(a => a.Asentamiento)
+                    // .ThenInclude(at => at.AsentamientoTipo)
+                    .ThenInclude(m => m.Municipio)
+                    .ThenInclude(e => e.Estado)
+                    .ThenInclude(p => p.Pais)
+                
                 .AsSplitQuery()
                 .OrderBy(ap => ap.ApellidoPaterno);
 

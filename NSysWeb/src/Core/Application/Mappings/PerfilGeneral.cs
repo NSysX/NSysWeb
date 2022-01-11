@@ -2,6 +2,7 @@
 using Application.Features.Asentamientos.Commands.InsertarAsentamientosCommand;
 using Application.Features.AsentamientosTipos.Commands.InsertarAsentamientosTipos;
 using Application.Features.CorreosElectronicos.Commands.InsertarCorreosElectronicosCommand;
+using Application.Features.Direcciones.Commands.ActualizarDireccionesCommand;
 using Application.Features.Direcciones.Commands.InsertarDireccionesCommand;
 using Application.Features.Documentos.Commands.InsertarDocumentosCommand;
 using Application.Features.DocumentosTipos.Commands.InsertarDocumentosTiposCommand;
@@ -24,12 +25,12 @@ namespace Application.Mappings
     {
         public PerfilGeneral()
         {
+            // vamos a ir agrupando todos los mapeos de comandos
             #region Asentamiento
             CreateMap<InsertarAsentamientoCommand, Asentamiento>();
             CreateMap<Asentamiento, AsentamientoDTO>();
             #endregion
 
-            // vamos a ir agrupando todos los mapeos de comandos
             #region EstadoCivil
             CreateMap<InsertarEstadoCivilCommand, EstadoCivil>();
             CreateMap<EstadoCivil, EstadoCivilDTO>().ReverseMap();
@@ -43,7 +44,11 @@ namespace Application.Mappings
             CreateMap<InsertarDireccionCommand, Direccion>()
                 .ForMember(dest => dest.CoordenadasGeo, opt => opt.MapFrom(src => 
                           geometryFactory.CreatePoint(new Coordinate(src.Longitud, src.Latitud))));
-                 
+
+            CreateMap<ActualizarDireccionCommand, Direccion>()
+                .ForMember(dest => dest.CoordenadasGeo, opt => opt.MapFrom(src =>
+                          geometryFactory.CreatePoint(new Coordinate(src.Longitud, src.Latitud))));
+
             CreateMap<Direccion, DireccionDTO>()
                 .ForMember(dest => dest.Longitud, opt => opt.MapFrom(src => src.CoordenadasGeo.X))
                 .ForMember(dest => dest.Latitud, opt => opt.MapFrom(src => src.CoordenadasGeo.Y));
@@ -66,6 +71,7 @@ namespace Application.Mappings
             CreateMap<PersonaDocumentoDTO, PersonaDocumento>().ReverseMap();
             CreateMap<PersonaTelefono, PersonaTelefonoDTO>().ReverseMap();
             CreateMap<PersonaCorreoElectronico, PersonaCorreoElectronicoDTO>().ReverseMap();
+            CreateMap<PersonaDireccion, PersonaDireccionDTO>().ReverseMap();
             CreateMap<Persona, PersonaDTO>();
             //CreateMap<DocumentoDTO, Documento>().ReverseMap();
             //.ForMember(dest => dest.EstadoCivil, opt => opt.MapFrom(src => src.IdEstadoCivilNavigation))

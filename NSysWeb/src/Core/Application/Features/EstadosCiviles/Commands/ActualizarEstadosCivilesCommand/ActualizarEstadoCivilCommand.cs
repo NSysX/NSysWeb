@@ -41,7 +41,7 @@ namespace Application.Features.EstadosCiviles.Commands.ActualizarEstadosCivilesC
             EstadoCivil existe_estadoCivil = await _repositorioAsync.GetByIdAsync(request.IdEstadoCivil, cancellationToken);
 
             if (existe_estadoCivil == null)
-                throw new KeyNotFoundException($"No existe el Registro con el Id = {request.IdEstadoCivil}");
+                throw new KeyNotFoundException($"No existe el Registro con el Id = { request.IdEstadoCivil }");
 
             existe_estadoCivil.Estatus = request.Estatus;
             existe_estadoCivil.Descripcion = request.Descripcion;

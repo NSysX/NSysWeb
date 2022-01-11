@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.DTOs
+﻿namespace Application.DTOs
 {
     public class PersonaDireccionDTO
     {
@@ -12,6 +6,6 @@ namespace Application.DTOs
         public int IdPersona { get; set; }
         public int IdDireccion { get; set; }
 
-        //public  MyProperty { get; set; }
+        public DireccionDTO Direccion { get; set; }
     }
 }

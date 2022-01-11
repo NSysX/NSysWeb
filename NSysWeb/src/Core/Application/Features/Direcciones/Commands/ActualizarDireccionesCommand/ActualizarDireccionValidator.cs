@@ -1,18 +1,19 @@
 ﻿using FluentValidation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Application.Features.Direcciones.Commands.InsertarDireccionesCommand
+namespace Application.Features.Direcciones.Commands.ActualizarDireccionesCommand
 {
-    public class InsertarDireccionValidator : AbstractValidator<InsertarDireccionCommand>
+    public class ActualizarDireccionValidator : AbstractValidator<ActualizarDireccionCommand>
     {
-        public InsertarDireccionValidator()
+        public ActualizarDireccionValidator()
         {
-            RuleFor(t => t.IdPersona)
-                .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO")
-                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
-
             RuleFor(t => t.IdAsentamiento)
-                .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO")
-                .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
+                   .NotNull().WithMessage("'{PropertyName}' : No debe ser NULO")
+                   .GreaterThan(0).WithMessage("'{PropertyName}' : Solo numeros Mayores a 0");
 
             RuleFor(e => e.Estatus)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe ser Vacio")
@@ -53,14 +54,10 @@ namespace Application.Features.Direcciones.Commands.InsertarDireccionesCommand
             RuleFor(l => l.Latitud)
                 .NotNull().WithMessage("'{PropertyName}' : No debe ser Nulo")
                 .Must(EstaEnRangoLatitud).WithMessage("'{PropertyName}' : El Valor Minimo = -90.0000000 y el Maximo = 90.0000000");
-                //.LessThan(-90.0000000).WithMessage("'{PropertyName}' : El Valor Minimo es {ComparisonValue}")
-                //.GreaterThan(90.0000000).WithMessage("'{PropertyName}' : El Valor Maximo es {ComparisonValue}");
 
             RuleFor(l => l.Longitud)
                 .NotNull().WithMessage("'{PropertyName}' : No debe ser Nulo")
                 .Must(EstaEnRangoLongitud).WithMessage("'{PropertyName}' : El Valor Minimo = -180.0000000 y el Maximo = 180.0000000");
-            //.LessThan(-180).WithMessage("'{PropertyName}' : El Valor Minimo es {ComparisonValue}")
-            //.GreaterThan(180).WithMessage("'{PropertyName}' : El Valor Maximo es {ComparisonValue}");
 
             RuleFor(e => e.Referencia)
                 .NotNull().WithMessage("'{PropertyName}' : No debe se NULO")

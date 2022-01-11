@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Application.Exceptions
 {
-    // Clase personalizada de exceciones 
+    // Clase personalizada de excepciones 
     // validaciones personalizadas todas deben de heredar de la clase exception
     public class ExcepcionDeValidacion : Exception
     {

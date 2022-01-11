@@ -63,7 +63,7 @@ namespace Persistence.Configuration
                 .IsUnicode(false)
                 .HasComment("Abreviatura del documento");
 
-            entity.Property(e => e.Longitud).HasComment("La longitud de caracteres permitido para la Cadena Unica");
+            entity.Property(e => e.LongitudMax).HasComment("La longitud de caracteres permitido para la Cadena Unica");
         }
     }
 }

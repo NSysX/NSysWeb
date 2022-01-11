@@ -1,7 +1,13 @@
 ﻿using Application.Behaviours;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using Serilog.Extensions.Logging;
+using System;
 using System.Reflection;
 
 namespace Application
@@ -10,7 +16,7 @@ namespace Application
     {
         // Agrupar las matriculas de los servicios
 
-        public static void AgregaCoreDeAplicacion(this IServiceCollection serviciosColeccion)
+        public static void AgregaCoreDeAplicacion(this IServiceCollection serviciosColeccion, IWebHostEnvironment webHostEnvironment)
         {
            // voy a matricular 3 servicios
            /* esto es lo que se hace en el startup.cs de la aplicacion 
@@ -46,8 +52,40 @@ namespace Application
             // ahora si me debe tomar en cuenta las reglas de validacion
             serviciosColeccion.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-            // Para poder registrarlos en startup.cs se hace una referencia de WebAPI --> Application
+            // Registramos Serilog 
+            var fechaString = DateTime.Now.ToShortDateString().Replace("/", "-");
+            serviciosColeccion.AddLogging(ConstructorDeLoggin =>
+            {
+                // 1 - Crear la Configuracion
+                var ConfiguracionLogger = new LoggerConfiguration()
+                    .MinimumLevel.Information() // Reeplazamos la primer linea del AppsettingJson para el log
+                    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning) // AppSettingJson.Microsoft = Warning
+                    .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
+                    .WriteTo.Console(  // este es para el sink de console ,con el sink de console y se puede configurar cada sink
+                      outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] -> {Message} - {Properties} - {NewLine}"
+                     // horas:min:seg   3 carac mayusculas
+                     )
+                    .WriteTo.File($".\\Logs\\{fechaString}_Logs.txt",
+                       outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] -> {Message} - {Properties} - {NewLine}"
+                    )
+                    .Enrich.WithProperty("Ambiente_Ejecucion",webHostEnvironment.EnvironmentName)
+                    .Enrich.WithProperty("NombreApp", webHostEnvironment.ApplicationName)
+                    .Enrich.WithMachineName()
+                    .Enrich.WithEnvironmentUserName()
+                    .Enrich.WithAssemblyName()
+                    .Enrich.WithAssemblyVersion();
 
+                // 2 - Creal el Logger
+                var logger = ConfiguracionLogger.CreateLogger();
+
+                // 3 - Inyectar el Servicios como singleton
+                ConstructorDeLoggin.Services.AddSingleton<ILoggerFactory>(
+                                // le decimos que use el serilog logger factory viene de serilog extensions
+                                // de parametros le decimos que logger tiene que usar (arriba) y no haga el dispose
+                    provider => new SerilogLoggerFactory(logger, dispose: false));
+            });
+            
+            // Para poder registrarlos en startup.cs se hace una referencia de WebAPI --> Application
         }
     }
 }

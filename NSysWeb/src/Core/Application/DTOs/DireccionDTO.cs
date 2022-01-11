@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.DTOs
+﻿namespace Application.DTOs
 {
     public class DireccionDTO
     {
@@ -21,5 +15,7 @@ namespace Application.DTOs
         public string Referencia { get; set; }
         public string Foto { get; set; }
         public bool EsFiscal { get; set; }
+
+        public AsentamientoDTO Asentamiento { get; set; }
     }
 }

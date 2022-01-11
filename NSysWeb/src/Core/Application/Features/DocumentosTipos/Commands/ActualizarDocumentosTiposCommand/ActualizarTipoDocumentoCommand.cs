@@ -15,7 +15,7 @@ namespace Application.Features.DocumentosTipos.Commands.ActualizarDocumentosTipo
         public string Estatus { get; set; }
         public string Nombre { get; set; }
         public string Abreviatura { get; set; }
-        public int Longitud { get; set; }
+        public int LongitudMax { get; set; }
     }
 
     public class ActualizarDocumentoTipoCommand_Manejador : IRequestHandler<ActualizarDocumentoTipoCommand, Respuesta<int>>
@@ -39,7 +39,7 @@ namespace Application.Features.DocumentosTipos.Commands.ActualizarDocumentosTipo
             documentoTipo.Estatus = request.Estatus.Trim();
             documentoTipo.Nombre = request.Nombre.Trim();
             documentoTipo.Abreviatura = request.Abreviatura.Trim();
-            documentoTipo.Longitud = request.Longitud;
+            documentoTipo.LongitudMax = request.LongitudMax;
 
             await _RepositorioAsync.UpdateAsync(documentoTipo);
             // puedes devolver todod el objeto borrado
