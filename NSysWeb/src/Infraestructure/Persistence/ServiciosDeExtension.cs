@@ -22,6 +22,15 @@ namespace Persistence
             #region Repositories
             services.AddTransient(typeof(IRepositorioAsync<>), typeof(MiRepositorioAsync<>));
             #endregion
+
+            // configuracion de REDIS
+            #region Caching
+            services.AddStackExchangeRedisCache(opt =>
+            {
+                // en que puerto esta corriendo redis
+                opt.Configuration = configuration.GetValue<string>("Caching:RedisConnection");
+            });
+            #endregion
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Application.Specifications.Asentamientos
                 .Include(at => at.AsentamientoTipo)
                 .Include(m => m.Municipio)
                      .ThenInclude(e => e.Estado)
+                     .ThenInclude(p => p.Pais)
                 .Include(d => d.Direcciones);      
         }
     }
