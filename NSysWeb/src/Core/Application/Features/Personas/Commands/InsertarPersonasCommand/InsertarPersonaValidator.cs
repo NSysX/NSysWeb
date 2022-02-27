@@ -58,5 +58,7 @@ namespace Application.Features.Personas.Commands.InsertarPersonasCommand
             RuleFor(n => n.Notas)
                 .NotNull().WithMessage("'{PropertyName}' : No puede ser NULL");
         }
+
+
     }
 }

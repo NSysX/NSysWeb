@@ -44,7 +44,7 @@ namespace Application.Features.Asentamientos.Queries.AsentamientosXParametros
             var cachingKey = $"listadoAsentamientos_{ request.NumeroDePagina }_{ request.RegistrosXPaginas }_{ request.Nombre }_{ request.CodigoPostal }";
 
             string serializedListadoAsentamientos;
-            List<Asentamiento> asentamientos = new List<Asentamiento>();
+            List<Asentamiento> asentamientos;
             var redisListadoAsentamientos = await _cacheDistribuida.GetAsync(cachingKey,cancellationToken);
             
             if (redisListadoAsentamientos != null) // Si lo encuentra en la Cache

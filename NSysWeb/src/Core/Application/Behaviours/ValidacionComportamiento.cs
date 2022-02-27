@@ -22,7 +22,7 @@ namespace Application.Behaviours
             _validador = validador;
         }
 
-        //es propia del system threading
+        // es propia del system threading
         // la implementaciond e la interfaz de IPipelinebehaviour
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {

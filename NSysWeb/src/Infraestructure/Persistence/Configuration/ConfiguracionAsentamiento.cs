@@ -65,13 +65,13 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.AsentamientoTipo)
                 .WithMany(p => p.Asentamientos)
                 .HasForeignKey(d => d.IdAsentamientoTipo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Asentamiento_AsentamientoTipo");
 
             entity.HasOne(m => m.Municipio)
                 .WithMany(a => a.Asentamientos)
                 .HasForeignKey(d => d.IdMunicipio)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Asentamiento_Municipio");
         }
     }

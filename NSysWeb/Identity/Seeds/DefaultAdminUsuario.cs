@@ -9,6 +9,6 @@ namespace Identity.Seeds
 {
     public static class DefaultAdminUsuario
     {
-         public static async SeedsAsyncUser(UserManager<>)
+         //public static async SeedsAsyncUser(UserManager<>)
     }
 }

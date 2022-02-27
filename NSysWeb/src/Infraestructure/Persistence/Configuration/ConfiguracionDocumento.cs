@@ -66,7 +66,7 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.DocumentoTipo)
                 .WithMany(p => p.Documentos)
                 .HasForeignKey(d => d.IdDocumentoTipo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Documento_DocumentoTipo");
         }
     }

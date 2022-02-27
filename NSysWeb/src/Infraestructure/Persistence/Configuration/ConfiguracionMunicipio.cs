@@ -22,7 +22,7 @@ namespace Persistence.Configuration
             entity.HasIndex(e => new { e.IdEstado, e.Clave }, "IX_NoDuplicadoIdEstadoClave")
                 .IsUnique();
 
-            entity.HasIndex(e => new { e.Nombre, e.IdEstado}, "IX_NoDuplicadoNombreEstado")
+            entity.HasIndex(e => new { e.Nombre, e.IdEstado }, "IX_NoDuplicadoNombreEstado")
                 .IsUnique();
 
             entity.Property(e => e.IdMunicipio).HasComment("id consecutivo de municipio");
@@ -79,7 +79,7 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.Estado)
                 .WithMany(p => p.Municipios)
                 .HasForeignKey(d => d.IdEstado)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Municipio_Estado");
         }
     }

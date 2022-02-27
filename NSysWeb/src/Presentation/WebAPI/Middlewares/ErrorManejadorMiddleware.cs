@@ -18,26 +18,27 @@ namespace WebAPI.Middlewares
     public class ErrorManejadorMiddleware
     {
         private readonly RequestDelegate _siguiente;
-        private readonly IHostEnvironment environment;
+        private readonly IHostEnvironment _environment;
         private readonly ILogger<ErrorManejadorMiddleware> logger;
 
-        public ErrorManejadorMiddleware(RequestDelegate siguiente, IHostEnvironment environment, ILogger<ErrorManejadorMiddleware> logger)
+        public ErrorManejadorMiddleware(RequestDelegate siguiente, 
+                                        IHostEnvironment environment,
+                                        ILogger<ErrorManejadorMiddleware> logger)
         {
             this._siguiente = siguiente;
-            this.environment = environment;
+            this._environment = environment;
             this.logger = logger;
         }
 
         public async Task Invoke(HttpContext contexto)
         {
             // la respuesta que trae ese contexto
-            var respuesta = contexto.Response;
+            HttpResponse respuesta = contexto.Response;
             // le decimos que la respuesta va a ser el JSON
             respuesta.ContentType = "application/json";
 
             // Le vamos a dar un modelo a ese response personalizado que hicimos previamente en wrappers
             // Succede es falso por que entro aqui
-
             Respuesta<string> modeloRespuesta = new();
 
             // string inner_Exception = error.InnerException.Message;
@@ -49,42 +50,39 @@ namespace WebAPI.Middlewares
             }
             catch (DbUpdateException ex)
             {
-                if (this.environment.IsDevelopment())
+                if (this._environment.IsDevelopment())
                 {
                     modeloRespuesta.Message = ex.Message;
-                    modeloRespuesta.Errors.Add(ex.GetAllMessages());
+                    modeloRespuesta.Errors.Add(ex.ObtenTodosLosMsjs());
                 }
                 else
                 {
                     modeloRespuesta.Message = "Fallo la operación, por favor intentelo nuevamente";
                 }
 
-                this.logger.LogError("Error Middleware -> " + ex, ex.GetAllMessages());
+                this.logger.LogError("Error Middleware -> " + ex, ex.ObtenTodosLosMsjs());
 
                 await WriteError(respuesta, modeloRespuesta);
             }
             catch (SqlException ex) // "Microsoft.Data.SqlClient"
             {
-                if (this.environment.IsDevelopment())
+                if (this._environment.IsDevelopment())
                 {
                     modeloRespuesta.Message = ex.Message;
-                    modeloRespuesta.Errors.Add(ex.GetAllMessages());
+                    modeloRespuesta.Errors.Add(ex.ObtenTodosLosMsjs());
                 }
                 else
                 {
                     modeloRespuesta.Message = "Fallo la operación, por favor intentelo nuevamente";
                 }
 
-                this.logger.LogError(ex, ex.GetAllMessages());
+                this.logger.LogError(ex, ex.ObtenTodosLosMsjs());
 
                 await WriteError(respuesta, modeloRespuesta);
             }
-            //catch (ExcepcionesDeAPI ex)
-            //{
-
-            //}
             catch (Exception error)
             {
+
                 modeloRespuesta.Message = error?.Message;
 
                 //switch (error.Source)
@@ -141,8 +139,7 @@ namespace WebAPI.Middlewares
                         break;
                 }
 
-                this.logger.LogError(error, error.GetAllMessages());
-
+                this.logger.LogError(error, error.ObtenTodosLosMsjs());
                 await WriteError(respuesta, modeloRespuesta);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Application.Specifications.Personas;
 using Application.Wrappers;
 using AutoMapper;
 using Domain.Entities;
@@ -31,7 +32,8 @@ namespace Application.Features.Personas.Queries.ObtenerXIdPersona
 
         public async Task<Respuesta<PersonaDTO>> Handle(ObtenerXIdPersonaQuery request, CancellationToken cancellationToken)
         {
-            Persona persona = await _repositorioAsync.GetByIdAsync(request.IdPersona, cancellationToken);
+            var personaSpec = new PersonaXIdSpec(request.IdPersona);
+            Persona persona = await _repositorioAsync.GetBySpecAsync(personaSpec, cancellationToken);
 
             if (persona == null)
                 throw new KeyNotFoundException($"No se encontro el Registro con el Id = { request.IdPersona }");

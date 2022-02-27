@@ -1,17 +1,18 @@
 ﻿using Ardalis.Specification;
 using Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Specifications.Personas
 {
-    public class ListarPersonasXParametrosSpec : Specification<Persona>
+    public class PersonaXIdSpec : Specification<Persona>, ISingleResultSpecification
     {
-        public ListarPersonasXParametrosSpec(int numeroDePagina, int registrosXPagina, string estatus, string apellidoPaterno, string apellidoMaterno, string nombres)
+        public PersonaXIdSpec(int id)
         {
-            Query.Skip((numeroDePagina - 1) * numeroDePagina)
-                .Take(registrosXPagina)
-                .Include(e => e.EstadoCivil)
+            Query.Include(e => e.EstadoCivil)
                 .Include(n => n.Nacionalidad)
                 .Include(d => d.PersonaDocumentos)
                     .ThenInclude(d => d.Documento)
@@ -31,19 +32,8 @@ namespace Application.Specifications.Personas
                         .ThenInclude(e => e.Estado)
                         .ThenInclude(p => p.Pais)
                 .AsSplitQuery()
+                .Where(i => i.IdPersona == id)
                 .OrderBy(ap => ap.ApellidoPaterno);
-
-            if (!String.IsNullOrEmpty(estatus))
-                Query.Where(s => s.Estatus == estatus);
-
-            if (!String.IsNullOrEmpty(apellidoPaterno))
-                Query.Search(ap => ap.ApellidoPaterno, "%" + apellidoPaterno + "%");
-
-            if (!String.IsNullOrEmpty(apellidoMaterno))
-                Query.Search(am => am.ApellidoMaterno, "%" + apellidoMaterno + "%");
-
-            if (!String.IsNullOrEmpty(nombres))
-                Query.Search(n => n.Nombres, "%" + nombres + "%");
         }
     }
 }

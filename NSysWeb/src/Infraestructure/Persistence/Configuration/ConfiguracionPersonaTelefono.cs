@@ -29,13 +29,13 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.Telefono) // en la entidad telefono tiene
                 .WithMany(p => p.PersonaTelefonos) // varios registros en personaTelefonos
                 .HasForeignKey(d => d.IdTelefono)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_PersonaTelefono_Telefono");
 
             entity.HasOne(d => d.Persona) // en la tabla persona
                 .WithMany(tp => tp.PersonaTelefonos) // tiene relacion en persona telefono 
                 .HasForeignKey(d => d.IdPersona)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_PersonaTelefono_Persona");
         }
     }

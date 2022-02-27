@@ -94,7 +94,7 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.Asentamiento)
                 .WithMany(p => p.Direcciones)
                 .HasForeignKey(d => d.IdAsentamiento)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Direccion_Asentamiento");
         }
     }

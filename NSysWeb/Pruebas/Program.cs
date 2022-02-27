@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Linq;
-using Microsoft.Owin.Security.DataHandler.Encoder;
+//using Microsoft.Owin.Security.DataHandler.Encoder;
 
 namespace Pruebas
 {
@@ -23,8 +23,8 @@ namespace Pruebas
 
             var key = new byte[64];
             RNGCryptoServiceProvider.Create().GetBytes(key);
-            var base64Secret1 = TextEncodings.Base64Url.Encode(key);
-            Console.WriteLine($"base64Secret1 = { base64Secret1 }");
+            //var base64Secret1 = TextEncodings.Base64Url.Encode(key);
+            //Console.WriteLine($"base64Secret1 = { base64Secret1 }");
 
             Console.WriteLine("");
             Console.ReadKey();

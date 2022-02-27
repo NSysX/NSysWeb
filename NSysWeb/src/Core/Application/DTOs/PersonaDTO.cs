@@ -5,6 +5,8 @@ namespace Application.DTOs
 {
     public class PersonaDTO
     {
+        //private uint edad;
+
         public int IdPersona { get; set; }
         public int IdNacionalidad { get; set; }
         public int IdEstadoCivil { get; set; }
@@ -13,6 +15,16 @@ namespace Application.DTOs
         public string ApellidoMaterno { get; set; }
         public string Nombres { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public uint Edad { get => (uint)new DateTime(DateTime.Now.Subtract(this.FechaNacimiento).Ticks).Year - 1; }
+            //get
+            //{
+            //    this.edad = (uint)new DateTime(DateTime.Now.Subtract(this.FechaNacimiento).Ticks).Year - 1;
+            //    return this.edad;
+            //}
+            //set
+            //{
+            //    this.edad = value;
+            //}
         public string Sexo { get; set; }
         public string Foto { get; set; }
         public string Notas { get; set; }

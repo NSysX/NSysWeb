@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace WebAPI.Extensiones
 {
-    public static class Exceptionextension
+    public static class ExceptionExtension
     {
         public static IEnumerable<TSource> FromHierarchy<TSource>(this TSource source, Func<TSource, TSource> nextItem, Func<TSource, bool> canContinue)
         {
@@ -14,16 +14,14 @@ namespace WebAPI.Extensiones
             }
         }
 
-        public static IEnumerable<TSource> FromHierarchy<TSource>(this TSource source, Func<TSource, TSource> nextItem)
-            where TSource : class
+        public static IEnumerable<TSource> FromHierarchy<TSource>(this TSource source, Func<TSource, TSource> nextItem) where TSource : class
         {
             return FromHierarchy(source, nextItem, s => s != null);
         }
 
-        public static string GetAllMessages(this Exception exception)
+        public static string ObtenTodosLosMsjs(this Exception exception)
         {
             var messages = exception.FromHierarchy(ex => ex.InnerException).Select(ex => ex.Message);
-
             return string.Join(Environment.NewLine, messages);
         }
     }

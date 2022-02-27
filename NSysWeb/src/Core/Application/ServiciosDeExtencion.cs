@@ -42,7 +42,7 @@ namespace Application
             //);
 
             // Fluent Validation la validacion va en application
-            serviciosColeccion.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            serviciosColeccion.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly() );
 
             // matriulamos el servicio MediaTr implementa el patron mediador
             serviciosColeccion.AddMediatR(Assembly.GetExecutingAssembly());

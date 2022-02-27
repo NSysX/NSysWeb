@@ -99,13 +99,13 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.EstadoCivil)
                 .WithMany(p => p.Personas)
                 .HasForeignKey(d => d.IdEstadoCivil)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Persona_EstadoCivil");
 
             entity.HasOne(d => d.Nacionalidad)
                 .WithMany(p => p.Personas)
                 .HasForeignKey(d => d.IdNacionalidad)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Persona_Nacionalidad");
         }
     }

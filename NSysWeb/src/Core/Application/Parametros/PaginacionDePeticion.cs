@@ -14,7 +14,7 @@
         public PaginacionDePeticion(int numeroDePagina, int registrosXPagina)
         {
             this.NumeroDePagina = numeroDePagina < 1 ? 1 : numeroDePagina;
-            this.RegistrosXPagina = registrosXPagina > 10 ? 10 : numeroDePagina;
+            this.RegistrosXPagina = registrosXPagina > 10 ? 10 : registrosXPagina;
         }
     }
 }

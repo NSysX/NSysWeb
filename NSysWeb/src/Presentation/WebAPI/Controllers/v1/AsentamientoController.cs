@@ -3,6 +3,7 @@ using Application.Features.Asentamientos.Commands.EliminarAsentamientosCommand;
 using Application.Features.Asentamientos.Commands.InsertarAsentamientosCommand;
 using Application.Features.Asentamientos.Queries.AsentamientosXParametros;
 using Application.Features.Asentamientos.Queries.AsentamientoXId;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace WebAPI.Controllers.v1
 {
     [ApiVersion("1.0")]
+    [Authorize(Roles = "NsysWebAdmin")]
     public class AsentamientoController : BaseApiController
     {
         private readonly ILogger<AsentamientoController> _logger;
@@ -36,6 +38,8 @@ namespace WebAPI.Controllers.v1
         [HttpGet("{id:int}", Name = "ObtenerAsentamientoXId")]
         public async Task<ActionResult> GetAsentamientoXId(int id)
         {
+            var user = User.Identity;
+
             return Ok(await Mediator.Send(new AsentamientoXIdQuery { IdAsentamiento = id }));
         }
 

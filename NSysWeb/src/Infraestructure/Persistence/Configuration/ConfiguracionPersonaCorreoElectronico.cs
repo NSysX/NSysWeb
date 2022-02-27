@@ -29,13 +29,13 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.CorreoElectronico)
                 .WithMany(c => c.PersonasCorreosElectronicos)
                 .HasForeignKey(d => d.IdCorreoElectronico)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_PersonaCorreoElectronico_CorreoElectronico");
 
             entity.HasOne(d => d.Persona)
                 .WithMany(c => c.PersonaCorreosElectronicos)
                 .HasForeignKey(d => d.IdPersona)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_PersonaCorreoElectronico_Persona");
         }
     }

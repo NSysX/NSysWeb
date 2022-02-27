@@ -17,6 +17,8 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WebAPI.Core.Swagger;
 using WebAPI.Extensiones;
+using IdentityServer4.AccessTokenValidation;
+using WebAPI.Middlewares;
 
 namespace WebAPI
 {
@@ -24,7 +26,7 @@ namespace WebAPI
     {
         private readonly IWebHostEnvironment _env;
 
-        public Startup(IConfiguration configuration,IWebHostEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             this._env = env;
@@ -43,14 +45,52 @@ namespace WebAPI
             services.AgregaInfraestructuraDePersistencia(Configuration);
 
             services.AddControllers();
-            
+
             services.RegistraVersionamientoAPIExtension();
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "https://localhost:44310";
+                    options.ApiName = "NSys.Person";
+                    options.EnableCaching = true;
+                    options.CacheDuration = TimeSpan.FromMinutes(15);
+                    options.RequireHttpsMetadata = false;
+                });
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "WebAPI",
+                    Version = "v1",
+                    Description = "Api que administra el core del sistema de datos personales."
+                });
                 //c.DocumentFilter<DocumentFilter>();
                 c.OrderActionsBy(x => x.HttpMethod);
+
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            // url de autorizacion
+                            AuthorizationUrl = new Uri("https://localhost:44310/connect/authorize"),
+                            // url obtenr access token
+                            TokenUrl = new Uri("https://localhost:44310/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                {
+                                    "NSys.Person", "Api que administra el core del sistema de datos personales."
+                                }
+                            }
+                        }
+                    }
+                });
+
+                c.OperationFilter<AuthorizeCheckOperationFilter>();
             });
         }
 
@@ -61,16 +101,29 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "NSys.Web Person");
+
+                    options.OAuthClientId("NSys.Web.Swagger.Client");
+                    options.OAuthAppName("NSys.Web.Person");
+                    options.OAuthUsePkce();
+                });
             }
+
+            app.UseMiddleware<EjemploDeMiddleware>();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseErrorHandlingMiddleware();
+            // app.UseErrorHandlingMiddleware();
+            app.UseMiddleware<ErrorManejadorMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

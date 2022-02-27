@@ -33,13 +33,13 @@ namespace Persistence.Configuration
             entity.HasOne(d => d.Direccion)
                 .WithMany(pd => pd.PersonaDirecciones)
                 .HasForeignKey(d => d.IdDireccion)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_PersonaDireccion_Direccion");
 
             entity.HasOne(d => d.Persona)
                 .WithMany(pd => pd.PersonaDirecciones)
                 .HasForeignKey(d => d.IdPersona)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_PersonaDireccion_Persona");
         }
     }

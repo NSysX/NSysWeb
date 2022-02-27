@@ -16,7 +16,7 @@ namespace Application.Features.Paises.Commands.InsertarPaisesCommand
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacia")
                 .NotNull().WithMessage("'{PropertyName}' : No debe se Nulo")
                 .Length(5, 50).WithMessage("'{PropertyName}' : Debe tener entre {MinLength} y {MaxLength} Caracteres longitud")
-                .Matches(@"^[A-Za-záéíóú. ]*$").WithMessage("'{PropertyName}' : Solo Caracteres Alfanumericos y espacios");
+                .Matches(@"^[A-Z ]*$").WithMessage("'{PropertyName}' : Solo Caracteres Mayusculas y Espacios");
 
             RuleFor(a => a.Abreviatura)
                 .NotEmpty().WithMessage("'{PropertyName}' : No debe estar vacio")
